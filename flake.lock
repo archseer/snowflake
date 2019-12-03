@@ -1,0 +1,92 @@
+{
+  "nodes": {
+    "futils": {
+      "locked": {
+        "lastModified": 1596290160,
+        "narHash": "sha256-QNXPeCiLKfLH6G6TtyuxZ14Zm+ZMxBaQ0Klccq+2RfM=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "0c686c77c4ac6f7add3262107685693ada8ae3b0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "home": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1591751635,
+        "narHash": "sha256-KgGtyFlkI/fsp+j8VEgJ/ynY9B91aX35Xp04HlDLRTo=",
+        "owner": "rycee",
+        "repo": "home-manager",
+        "rev": "b3fee796fcd5531693d9b84ece76ad6836bb1cfa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rycee",
+        "ref": "bqv-flakes",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "master": {
+      "locked": {
+        "lastModified": 1596337980,
+        "narHash": "sha256-LyE4haB7x2SBb1AyFJwqtGQitdaBFyK2ov4eH9Agono=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "111221b93ad46bb7119686f0a89a7bf1d3ad5bd7",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "master",
+        "type": "indirect"
+      }
+    },
+    "nixos": {
+      "locked": {
+        "lastModified": 1596329181,
+        "narHash": "sha256-q6NSFQnFbpey/RP2LFfYW9Vcpt6CYKO8Q//6TuNBuYM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7dc4385dc7b5b2c0dbfecd774cebbc87ac05c061",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "release-20.03",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1591748508,
+        "narHash": "sha256-GdYYaYsSBgYUhbDT1JJQ7vEgo8FWeW/AW7/qqJuCvRA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "1d8c4410687390f9b8f92dbe6ff39fd8fc2b17c6",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "root": {
+      "inputs": {
+        "futils": "futils",
+        "home": "home",
+        "master": "master",
+        "nixos": "nixos",
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
