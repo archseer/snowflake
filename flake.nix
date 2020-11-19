@@ -5,8 +5,8 @@
 
   inputs =
     {
-      nixos.url = "nixpkgs/release-20.09";
-      nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+      nixos.url = "nixpkgs/nixos-unstable";
+      nixpkgs.url = "nixpkgs/nixpkgs-unstable";
 
       home.url = "github:rycee/home-manager";
       home.inputs.nixpkgs.follows = "nixpkgs";
@@ -20,7 +20,7 @@
       futils.url = "github:numtide/flake-utils";
     };
 
-  outputs = inputs@{ self, home, nixpkgs, futils }:
+  outputs = inputs@{ self, home, nixos, nixpkgs, hardware, wayland, futils }:
     let
       inherit (builtins) attrNames attrValues readDir;
       inherit (nixos) lib;
