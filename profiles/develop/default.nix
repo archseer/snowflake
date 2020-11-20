@@ -26,7 +26,7 @@
     fzf
   ];
 
-  documentation.dev.enable = true;
+  # documentation.dev.enable = true;
 
   # Already opens ports for us
   # programs.mosh.enable = true;

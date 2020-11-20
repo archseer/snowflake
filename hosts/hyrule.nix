@@ -8,10 +8,10 @@ in
     "${hardware}/common/cpu/intel"
     "${hardware}/common/pc/laptop"
     "${hardware}/common/pc/ssd"
+    ../profiles/laptop
     # ../profiles/graphical/games
-    # ../profiles/graphical
-    # ../profiles/misc
-    # ../profiles/misc/disable-mitigations.nix
+    ../profiles/graphical
+    ../profiles/misc/disable-mitigations.nix
     # ../profiles/postgres
     # ../profiles/ssh
     ../users/speed

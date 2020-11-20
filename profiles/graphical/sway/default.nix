@@ -9,6 +9,8 @@ in
 
   sound.enable = true;
 
+  # programs.mako.enable = true;
+
   programs.sway = {
     enable = true;
 
@@ -24,15 +26,19 @@ in
 
     extraPackages = with pkgs;
       options.programs.sway.extraPackages.default ++ [
-        dmenu
-        networkmanager_dmenu
+        rofi-wayland
+        libinput-gestures
         qt5.qtwayland
         alacritty
+        libnotify
+        mako
         volnoti
         wl-clipboard
         (waybar.override { pulseSupport = pulseaudio.enable; })
         grim
         slurp
+        # ydotool-git
+        # xwayland
       ];
   };
 
@@ -45,7 +51,7 @@ in
         set $mixer "${pkgs.alsaUtils}/bin/amixer -q set Master"
 
         # set background
-        output * bg ${pkgs.adapta-backgrounds}/share/backgrounds/adapta/tri-fadeno.jpg fill
+        # output * bg tri-fadeno.jpg fill
 
         ${readFile ./config}
       '';
@@ -57,15 +63,15 @@ in
     set -g @override_copy_command 'wl-copy'
   '';
 
-  services.redshift = {
+  services.gammastep = {
     enable = true;
     temperature.night = 3200;
   };
 
-  location = {
-    latitude = 38.833881;
-    longitude = -104.821365;
-  };
+  # location = {
+  #   latitude = 38.833881;
+  #   longitude = -104.821365;
+  # };
 
   systemd.user.targets.sway-session = {
     enable = true;

@@ -119,7 +119,28 @@
         "home": "home",
         "nixos": "nixos",
         "nixpkgs": "nixpkgs",
+        "sops-nix": "sops-nix",
         "wayland": "wayland"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1605730233,
+        "narHash": "sha256-gd1eJuP08/pTPxkjJq/rFzhz+PBaWJBXk4lXiUe+wls=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "b0d764fccdd35588ebda2907911099198f73c89a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
       }
     },
     "wayland": {

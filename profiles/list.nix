@@ -3,6 +3,7 @@
   ./db/postgres
   ./develop
   ./develop/kakoune
+  ./develop/neovim
   ./develop/python
   ./develop/tmux
   ./develop/zsh
@@ -19,5 +20,4 @@
   ./network/stubby.nix
   ./network/torrent.nix
   ./ssh
-  ./virt
 ]

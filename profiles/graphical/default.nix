@@ -4,9 +4,8 @@ in
 {
   imports = [ ./sway ../develop ../network ./im ];
 
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport = true;
   hardware.pulseaudio.enable = true;
+  nixpkgs.config.pulseaudio = true;
 
   boot = {
     # use the latest upstream kernel
@@ -50,6 +49,8 @@ in
     # };
 
     systemPackages = with pkgs; [
+      evince
+      imv
       # adapta-gtk-theme
       # cursor
       # dzen2
@@ -65,10 +66,10 @@ in
       # manpages
       # papirus-icon-theme
       # pulsemixer
+      pavucontrol
+      firefox-wayland
       # qt5.qtgraphicaleffects
-      # sddm-chili
       # stdmanpages
-      # xsel
       # zathura
     ];
   };

@@ -1,12 +1,9 @@
 { lib, ... }: {
-  networking.networkmanager = {
+  networking.wireless.iwd.enable = true;
+  services.connman = {
     enable = true;
-    wifi.backend = "iwd";
-    dns = lib.mkForce "none";
-    extraConfig = ''
-      [main]
-      systemd-resolved=false
-    '';
+    connman.wifi.backend = "iwd";
+    # nm used dns force none /systemd-resolved=false
   };
 
   networking.nameservers =
