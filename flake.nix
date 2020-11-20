@@ -17,13 +17,13 @@
       wayland.url = "github:colemickens/nixpkgs-wayland";
       wayland.inputs.nixpkgs.follows = "nixpkgs";
 
-      inputs.sops-nix.url = github:Mic92/sops-nix;
-      inputs.sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+      sops-nix.url = "github:Mic92/sops-nix";
+      sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
       futils.url = "github:numtide/flake-utils";
     };
 
-  outputs = inputs@{ self, home, nixos, nixpkgs, hardware, wayland, futils }:
+  outputs = inputs@{ self, home, nixos, nixpkgs, hardware, wayland, sops-nix, futils }:
     let
       inherit (builtins) attrNames attrValues readDir;
       inherit (nixos) lib;
