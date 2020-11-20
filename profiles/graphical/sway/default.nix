@@ -5,7 +5,7 @@ let
   inherit (config.hardware) pulseaudio;
 in
 {
-  imports = [ ../qutebrowser ];
+  imports = [ ];
 
   sound.enable = true;
 

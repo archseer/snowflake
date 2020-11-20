@@ -1,3 +1,4 @@
+# The core profile is automatically applied to all hosts.
 { config, lib, pkgs, ... }:
 let inherit (lib) fileContents;
 
@@ -20,11 +21,12 @@ in
       dosfstools
       fd
       git
-      gotop
-      gptfdisk
+      # gotop
+      htop
+      # gptfdisk
       iputils
       jq
-      moreutils
+      # moreutils
       nmap
       ripgrep
       utillinux
@@ -90,37 +92,17 @@ in
 
   };
 
-  fonts = {
-    fonts = with pkgs; [ powerline-fonts dejavu_fonts ];
-
-    fontconfig.defaultFonts = {
-
-      monospace = [ "DejaVu Sans Mono for Powerline" ];
-
-      sansSerif = [ "DejaVu Sans" ];
-
-    };
-  };
-
   nix = {
-
+    buildCores = 0;
     autoOptimiseStore = true;
-
     gc.automatic = true;
-
     optimise.automatic = true;
-
     useSandbox = true;
-
     allowedUsers = [ "@wheel" ];
-
     trustedUsers = [ "root" "@wheel" ];
-
     extraOptions = ''
       experimental-features = nix-command flakes ca-references
-      min-free = 536870912
     '';
-
   };
 
   programs.bash = {
@@ -133,15 +115,11 @@ in
   };
 
   security = {
-
     hideProcessInformation = true;
-
     protectKernelImage = true;
-
   };
 
   services.earlyoom.enable = true;
 
   users.mutableUsers = false;
-
 }

@@ -9,14 +9,12 @@ in
   hardware.pulseaudio.enable = true;
 
   boot = {
-
     # use the latest upstream kernel
     kernelPackages = pkgs.linuxPackages_latest;
 
     tmpOnTmpfs = true;
 
     kernel.sysctl."kernel.sysrq" = 1;
-
   };
 
   environment = {
@@ -74,4 +72,34 @@ in
       # zathura
     ];
   };
+
+  fonts = {
+    fonts = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      inter
+      fira-code fira-code-symbols fira-mono fira-sans
+      libertine
+      roboto
+      proggyfonts
+    ];
+    fontconfig.defaultFonts = {
+      serif = ["Linux Libertine"];
+      sansSerif = ["Inter"];
+      monospace = [ "Fira Code" ];
+    };
+    # Bind Inter to Helvetica
+    fontconfig.localConf = ''
+      <fontconfig>
+        <match>
+          <test name="family"><string>Helvetica</string></test>
+          <edit name="family" mode="assign" binding="strong">
+            <string>Inter</string>
+          </edit>
+        </match>
+      </fontconfig>
+    '';
+  };
+
 }

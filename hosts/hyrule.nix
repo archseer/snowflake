@@ -64,7 +64,7 @@ in
   services.connman.enable = true;
   services.connman.wifi.backend = "iwd";
 
-  nix.maxJobs = lib.mkDefault 8;
+  # nix.maxJobs = lib.mkDefault 8;
   # nix.systemFeatures = [ "gccarch-haswell" ];
 
   security.mitigations.acceptRisk = true;
