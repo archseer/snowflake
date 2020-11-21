@@ -10,8 +10,8 @@
 , ...
 }:
 let
-  inherit (utils) recImport;
-  inherit (builtins) attrValues removeAttrs;
+  inherit (lib) nameValuePair mapAttrs filterAttrs;
+  inherit (builtins) attrValues removeAttrs readDir;
   inherit (pkgset) osPkgs pkgs;
 
   config = hostName:
@@ -60,7 +60,7 @@ let
               map overlay override;
           };
 
-          local = import "${toString ./.}/${hostName}/default.nix";
+          local = import "${toString ./.}/${hostName}";
 
           # Everything in `./modules/list.nix`.
           flakeModules =
@@ -71,10 +71,12 @@ let
 
     };
 
-  hosts = mapFilterAttrs
-    (n: v: v == "directory")
+  hosts = 
+    mapAttrs
     (n: _: config n)
-    (readDir ./.);
+    (filterAttrs
+      (n: v: v == "directory")
+      (readDir ./.));
   # hosts = recImport {
   #   dir = ./.;
   #   _import = config;

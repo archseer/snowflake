@@ -4,10 +4,9 @@ final: prev: {
   neovim-unwrapped = prev.callPackage ./applications/neovim.nix {
     neovim-unwrapped = prev.neovim-unwrapped;
   };
-  linuxPackagesFor = kernel: prev.lib.makeExtensible (self: with self; {
-    surface-aggregator = prev.callPackage ./misc/drivers/surface-aggregator {
-      inherit kernel;
-      # withDriver = true;
-    };
-  });
+  # add the surface-aggregator kernel module to all kernel definitions
+  linuxPackagesFor = kernel:
+    (prev.linuxPackagesFor kernel).extend (final': prev': {
+      surface-aggregator = final'.callPackage ./misc/drivers/surface-aggregator {};
+    });
 }

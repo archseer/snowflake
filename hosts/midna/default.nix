@@ -4,8 +4,8 @@
   imports = [
     ./hardware-configuration.nix
     ./networking.nix
-    ../profiles/ssh
-    ../users/speed
+    ../../profiles/ssh
+    ../../users/speed
   ];
 
   boot.cleanTmpDir = true;

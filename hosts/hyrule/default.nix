@@ -8,14 +8,14 @@ in
     "${hardware}/common/cpu/intel"
     "${hardware}/common/pc/laptop"
     "${hardware}/common/pc/ssd"
-    ../profiles/laptop
-    ../profiles/network # sets up wireless
-    # ../profiles/graphical/games
-    ../profiles/graphical
-    ../profiles/misc/disable-mitigations.nix
-    # ../profiles/postgres
-    # ../profiles/ssh
-    ../users/speed
+    ../../profiles/laptop
+    ../../profiles/network # sets up wireless
+    # ../../profiles/graphical/games
+    ../../profiles/graphical
+    ../../profiles/misc/disable-mitigations.nix
+    # ../../profiles/postgres
+    # ../../profiles/ssh
+    ../../users/speed
   ];
 
   # nvme0n1p1 = efi
