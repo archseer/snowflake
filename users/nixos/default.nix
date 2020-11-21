@@ -3,6 +3,9 @@
 
   home-manager.users.nixos = {
     imports = [ ../profiles/git ../profiles/direnv ];
+
+    # required so home doesn't import <nixpkgs>
+    home.stateVersion = "20.09";
   };
 
   users.users.nixos = {

@@ -24,6 +24,9 @@ in
     # imports = [ ../profiles/git ../profiles/alacritty ../profiles/direnv ];
 
     home = {
+      # required so home doesn't import <nixpkgs>
+      stateVersion = "20.09";
+
       packages = mkForce [ ];
 
       file = {
