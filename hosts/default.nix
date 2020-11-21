@@ -60,7 +60,7 @@ let
               map overlay override;
           };
 
-          local = import "${toString ./.}/${hostName}.nix";
+          local = import "${toString ./.}/${hostName}/default.nix";
 
           # Everything in `./modules/list.nix`.
           flakeModules =
@@ -71,9 +71,13 @@ let
 
     };
 
-  hosts = recImport {
-    dir = ./.;
-    _import = config;
-  };
+  hosts = mapFilterAttrs
+    (n: v: v == "directory")
+    (n: _: config n)
+    (readDir ./.);
+  # hosts = recImport {
+  #   dir = ./.;
+  #   _import = config;
+  # };
 in
 hosts

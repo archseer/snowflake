@@ -1,25 +1,64 @@
-{ pkgs, ... }: {
-  # Override vim with neovim
-  programs.neovim.enable = true;
+{ config, pkgs, ... }:
 
-  # environment.systemPackages = with pkgs; [
-  #   cquery
-  #   kak-lsp
-  #   kakoune-config
-  #   kakoune-unwrapped
-  #   nixpkgs-fmt
-  #   python3Packages.python-language-server
-  #   rustup
-  #   nix-linter
-  #   dhall
-  # ];
+{
+  config = {
+    home-manager.users.speed = { pkgs, ... }: {
+      programs.neovim = {
+        enable = true;
+        viAlias = true;
+        vimAlias = true;
 
-  # nixpkgs.overlays = [
-  #   (final: prev: {
-  #     # wrapper to specify config dir
-  #     kakoune-config = prev.writeShellScriptBin "k" ''
-  #       XDG_CONFIG_HOME=/etc/xdg exec ${final.kakoune}/bin/kak "$@"
-  #     '';
-  #   })
-  # ];
+        # TODO: how can I inherit `system` here?
+        plugins = with pkgs.vimPlugins; [
+          # Themes
+          # TODO: colibri.vim
+
+          auto-pairs # TODO: needs to load before rust-vim
+
+          # Languages
+          vim-elixir
+          vim-nix
+          rust-vim
+          vim-polyglot
+
+          # neovim 0.5
+          nvim-lspconfig
+          completion-nvim        
+          # TODO: completion-buffers
+          # nvim-treesitter        # neovim 0.5
+          # completion-treesitter  # neovim 0.5
+          #lsp-status-nvim        # neovim 0.5
+          diagnostic-nvim # TODO: deprecated
+
+          # Code manipulation
+          splitjoin-vim
+          vim-easy-align
+
+          vim-repeat
+          vim-abolish
+          vim-commentary
+          # -endwise
+          vim-unimpaired
+          vim-highlightedyank
+          vim-peekaboo
+
+          # tentative:
+          vim-sandwich
+          vim-matchup
+          emmet-vim
+          vim-test
+          # aerojump-nvim
+
+          vim-dirvish
+          fzf-vim
+          fzfWrapper
+        ];
+
+        # TODO: why are only some things 'packadd'ed below?
+
+        extraConfig = ''
+        '';
+      };
+    };
+  };
 }

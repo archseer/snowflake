@@ -9,6 +9,7 @@ in
     "${hardware}/common/pc/laptop"
     "${hardware}/common/pc/ssd"
     ../profiles/laptop
+    ../profiles/network # sets up wireless
     # ../profiles/graphical/games
     ../profiles/graphical
     ../profiles/misc/disable-mitigations.nix
@@ -27,6 +28,8 @@ in
     # editor = false;
   };
 
+  # Load surface_aggregator / surface_hid at stage 1 so we can use the keyboard
+  # during LUKS.
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" 
@@ -37,6 +40,8 @@ in
   boot.extraModulePackages = [ pkgs.linuxPackages.surface-aggregator ];
 
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # Setup root as encrypted LUKS volume
 
   boot.initrd.luks.devices.cryptroot = "/dev/nvme0n1p4";
 
@@ -50,6 +55,8 @@ in
     fsType = "vfat";
   };
 
+  # 8GB swapfile for hibernation
+
   swapDevices = [{device = "/swapfile"; size = 8388604;}];
 
   hardware.enableRedistributableFirmware = true;
@@ -59,10 +66,6 @@ in
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.wlp0s20f3.useDHCP = true;
-
-  networking.wireless.iwd.enable = true;
-  services.connman.enable = true;
-  services.connman.wifi.backend = "iwd";
 
   # nix.maxJobs = lib.mkDefault 8;
   # nix.systemFeatures = [ "gccarch-haswell" ];
