@@ -77,12 +77,12 @@ setopt EXTENDED_GLOB        # Use extended globbing syntax.
 # Load and execute the prompt theming system.
 autoload -Uz promptinit && promptinit f
 
-# function +vi-git_status {
-#   # Check for untracked files or updated submodules since vcs_info does not.
-#   if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
-#     hook_com[unstaged]='*'
-#   fi
-# }
+function +vi-git_status {
+  # Check for untracked files or updated submodules since vcs_info does not.
+  if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
+    hook_com[unstaged]='*'
+  fi
+}
 
 function prompt_hyrule_precmd {
   vcs_info
