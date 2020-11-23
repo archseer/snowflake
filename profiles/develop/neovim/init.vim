@@ -17,6 +17,7 @@ set undofile
 
 " -- Colors / Theme ---------------------------------------------------------
 set background=dark
+set termguicolors
 colors colibri
 
 "  -- UI --------------------------------------------------------------------
