@@ -10,7 +10,7 @@
 
   environment.sessionVariables = {
     PAGER = "less";
-    LESS = "-iFJMRWX -z-4 -x4";
+    # LESS = "-iFJMRWX -z-4 -x4";
     EDITOR = "nvim";
     VISUAL = "nvim";
   };

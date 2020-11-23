@@ -2,11 +2,11 @@
   "nodes": {
     "cachix": {
       "locked": {
-        "lastModified": 1604368813,
-        "narHash": "sha256-UOLaURSO448k+4bGJlaSMYeo2F5F6CuFo9VoYDkhmsk=",
+        "lastModified": 1605721780,
+        "narHash": "sha256-MhaNS4HGHcOCwW+HadSxustHTzD1LWznh584eYBvJ5Q=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d105075a1fd870b1d1617a6008cb38b443e65433",
+        "rev": "58f9c4c7d3a42c912362ca68577162e38ea8edfb",
         "type": "github"
       },
       "original": {
@@ -18,17 +18,33 @@
     },
     "cmpkgs": {
       "locked": {
-        "lastModified": 1604628793,
-        "narHash": "sha256-UcWa6b/KxpVAodtVeoOFlDTNM0aQNz45ANnYP20HaCA=",
+        "lastModified": 1605917226,
+        "narHash": "sha256-nNeptY9cM7pZBJFVbenyckk2EbjByvgp7OS57ZM7boE=",
         "owner": "colemickens",
         "repo": "nixpkgs",
-        "rev": "efe53b2b7b2620d2241ff0a7ed0c28db4deaaec3",
+        "rev": "379cad343fa42df76d1c762541f0df850deb38d6",
         "type": "github"
       },
       "original": {
         "owner": "colemickens",
         "ref": "cmpkgs",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "colibri-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1560608549,
+        "narHash": "sha256-wLmXyoVdOIsOcpshGFvDiEou++j42p2w2zYy9ZDidqo=",
+        "owner": "archseer",
+        "repo": "colibri.vim",
+        "rev": "ad82132e0cbbdfa194d722f15c2df8f0d04b5b71",
+        "type": "github"
+      },
+      "original": {
+        "owner": "archseer",
+        "repo": "colibri.vim",
         "type": "github"
       }
     },
@@ -112,15 +128,38 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-wayland": {
+      "inputs": {
+        "cachix": "cachix",
+        "cmpkgs": "cmpkgs",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1605950277,
+        "narHash": "sha256-VKLZcDOIUbviX9tcmq3ixS7rAJQhCL7POEQX6310q20=",
+        "owner": "colemickens",
+        "repo": "nixpkgs-wayland",
+        "rev": "2c9f01598a4665d76f11a969ca60c0493e54ce7c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "colemickens",
+        "repo": "nixpkgs-wayland",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
+        "colibri-vim": "colibri-vim",
         "futils": "futils",
         "hardware": "hardware",
         "home": "home",
         "nixos": "nixos",
         "nixpkgs": "nixpkgs",
-        "sops-nix": "sops-nix",
-        "wayland": "wayland"
+        "nixpkgs-wayland": "nixpkgs-wayland",
+        "sops-nix": "sops-nix"
       }
     },
     "sops-nix": {
@@ -140,28 +179,6 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
-        "type": "github"
-      }
-    },
-    "wayland": {
-      "inputs": {
-        "cachix": "cachix",
-        "cmpkgs": "cmpkgs",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1605755356,
-        "narHash": "sha256-K9CWIFCytRXmB28muj3FswXzXnyQjmGmWExzfUM4YdE=",
-        "owner": "colemickens",
-        "repo": "nixpkgs-wayland",
-        "rev": "be8e3804202ffa5f8295d98d6b9115245c680e2c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "colemickens",
-        "repo": "nixpkgs-wayland",
         "type": "github"
       }
     }

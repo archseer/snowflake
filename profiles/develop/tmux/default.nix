@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
-let
-  inherit (builtins) readFile concatStringsSep;
+# let
+  # inherit (builtins) readFile concatStringsSep;
   # inherit (lib) removePrefix;
 
   # pluginConf = plugins:
@@ -16,7 +16,7 @@ let
   #   yank
   #   vim-tmux-navigator
   # ];
-in
+# in
 {
   # environment.shellAliases = { tx = "tmux new-session -A -s $USER"; };
 
@@ -47,7 +47,7 @@ in
     keyMode = "vi";
 
     extraConfig = ''
-      ${readFile ./tmux.conf}
+      ${builtins.readFile ./tmux.conf}
     '';
     # ${pluginConf plugins}
   };
