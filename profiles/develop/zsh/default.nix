@@ -1,9 +1,6 @@
 { lib, pkgs, ... }:
 let
-  inherit (builtins) concatStringsSep;
-
   inherit (lib) fileContents;
-
 in
 {
   users.defaultUserShell = pkgs.zsh;
@@ -19,9 +16,18 @@ in
       df = "df -h";
       du = "du -h";
 
-      ls = "exa";
-      l = "ls -lhg --git";
+      g="${pkgs.git}/bin/git";
 
+      e="v $(fzf)";
+
+      l="exa -lahgF --group-directories-first";
+      # --time-style=long-iso
+      ll="exa -F";
+
+      # j stands for jump
+      j="fasd_cd -d";
+
+      open ="${pkgs.xdg-open}/bin/xdg-open";
       ps = "${pkgs.procs}/bin/procs";
     };
 
@@ -32,7 +38,6 @@ in
       fasd
       fd
       fzf
-      # gitAndTools.hub
       gzip
       lrzip
       p7zip
@@ -41,7 +46,6 @@ in
       unrar
       unzip
       xz
-      # zsh-completions
     ];
   };
 

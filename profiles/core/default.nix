@@ -21,13 +21,12 @@ in
       dosfstools
       fd
       git
-      # gotop
       htop
-      # gptfdisk
       iputils
       jq
       # moreutils
       nmap
+      sd
       ripgrep
       utillinux
       whois
@@ -41,25 +40,7 @@ in
     '';
 
     shellAliases =
-      let ifSudo = lib.mkIf config.security.sudo.enable;
-      in
       {
-        # quick cd
-        ".." = "cd ..";
-        "..." = "cd ../..";
-        "...." = "cd ../../..";
-        "....." = "cd ../../../..";
-
-        # git
-        g = "git";
-
-        # grep
-        grep = "rg";
-        gi = "grep -i";
-
-        # internet ip
-        myip = "dig +short myip.opendns.com @208.67.222.222 2>&1";
-
         # nix
         n = "nix";
         np = "n profile";
@@ -68,26 +49,7 @@ in
         ns = "n search --no-update-lock-file";
         nf = "n flake";
         srch = "ns nixpkgs";
-        nrb = ifSudo "sudo nixos-rebuild";
-
-        # sudo
-        s = ifSudo "sudo -E ";
-        si = ifSudo "sudo -i";
-        se = ifSudo "sudoedit";
-
-        # top
-        top = "gotop";
-
-        # systemd
-        ctl = "systemctl";
-        stl = ifSudo "s systemctl";
-        utl = "systemctl --user";
-        ut = "systemctl --user start";
-        un = "systemctl --user stop";
-        up = ifSudo "s systemctl start";
-        dn = ifSudo "s systemctl stop";
-        jtl = "journalctl";
-
+        nrb = "sudo nixos-rebuild";
       };
 
   };

@@ -71,6 +71,8 @@ in
       # qt5.qtgraphicaleffects
       # stdmanpages
       # zathura
+
+      # TODO: mpv
     ];
   };
 
