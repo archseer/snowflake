@@ -20,6 +20,10 @@ in
 
   environment.systemPackages = with pkgs; [ cachix ];
 
+  # TODO: move to core
+  home-manager.useGlobalPkgs = true; # is this equivalent to stateVersion 20.09?
+  home-manager.useUserPackages = true;
+
   home-manager.users.speed = {
     # imports = [ ../profiles/git ../profiles/alacritty ../profiles/direnv ];
 
@@ -27,10 +31,11 @@ in
       # required so home doesn't import <nixpkgs>
       stateVersion = "20.09";
 
-      packages = mkForce [ ];
 
-      file = {
-      };
+      # packages = mkForce [ ];
+
+      # file = {
+      # };
     };
 
     # programs.mpv = {
