@@ -10,7 +10,8 @@ in
 
   environment = {
     sessionVariables = {
-      };
+      ZSH_CACHE   = "$XDG_CACHE_HOME/zsh";
+    };
 
     shellAliases = {
       cat = "${pkgs.bat}/bin/bat";
@@ -29,6 +30,8 @@ in
       bzip2
       exa
       fasd
+      fd
+      fzf
       # gitAndTools.hub
       gzip
       lrzip
@@ -42,23 +45,25 @@ in
     ];
   };
 
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-    ohMyZsh = {
+  home-manager.users.speed = {
+    programs.zsh = {
       enable = true;
-      plugins = ["git" "rust" "cargo" "docker" "gitignore" "systemd" "vi-mode" "fasd" ];
-      customPkgs = with pkgs;[
-        spaceship-prompt
-        nix-zsh-completions
-      ];
-      theme = "spaceship";
+      enableCompletion = true;
+      # I init completion myself, because enableGlobalCompInit initializes it
+      # too soon, which means commands initialized later in my config won't get
+      # completion, and running compinit twice is slow.
+      enableGlobalCompInit = false;
+      promptInit = "";
+
+      dotDir = ".config/zsh";
+
+      interactiveShellInit = ''
+        eval "$(direnv hook zsh)"
+      '';
+
+      initExtra = builtins.readFile ./config/.zshrc;
     };
-    interactiveShellInit = ''
-      SPACESHIP_DOCKER_SHOW=false
-      eval "$(direnv hook zsh)"
-    '';
+
+    xdg.configFile."zsh/config" = { source = ./config; recursive = true; };
   };
 }
