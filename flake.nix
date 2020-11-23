@@ -14,16 +14,19 @@
       hardware.url = "github:NixOS/nixos-hardware";
 
       # Wayland overlay
-      wayland.url = "github:colemickens/nixpkgs-wayland";
-      wayland.inputs.nixpkgs.follows = "nixpkgs";
+      nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
+      nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
 
       sops-nix.url = "github:Mic92/sops-nix";
       sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
+      colibri-vim.url = "github:archseer/colibri.vim";
+      colibri-vim.flake = false;
+
       futils.url = "github:numtide/flake-utils";
     };
 
-  outputs = inputs@{ self, home, nixos, nixpkgs, hardware, wayland, sops-nix, futils }:
+  outputs = inputs@{ self, home, nixos, nixpkgs, hardware, nixpkgs-wayland, sops-nix, colibri-vim, futils }:
     let
       inherit (builtins) attrNames attrValues readDir;
       inherit (nixos) lib;

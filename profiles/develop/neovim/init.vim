@@ -17,13 +17,7 @@ set undofile
 
 " -- Colors / Theme ---------------------------------------------------------
 set background=dark
-
-if has('termguicolors')
-  set termguicolors
-  colors colibri
-else
-  colors base16-paraiso
-endif
+colors colibri
 
 "  -- UI --------------------------------------------------------------------
 set title
@@ -487,5 +481,3 @@ augroup END
 iabbrev jsut    just
 iabbrev teh     the
 iabbrev recieve receive
-iabbrev ipnut   input
-iabbrev copmany company

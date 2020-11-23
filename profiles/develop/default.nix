@@ -1,6 +1,10 @@
 { pkgs, ... }: {
   # ./kakoune
-  imports = [ ./zsh ./neovim ./tmux ];
+  imports = [ ./zsh ];
+
+  home-manager.users.speed = {
+    imports = [ ./neovim ./tmux  ];
+  };
 
   environment.shellAliases = { v = "$EDITOR"; };
 

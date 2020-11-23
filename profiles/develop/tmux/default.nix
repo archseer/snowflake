@@ -18,39 +18,37 @@ let
   # ];
 in
 {
-  environment.shellAliases = { tx = "tmux new-session -A -s $USER"; };
+  # environment.shellAliases = { tx = "tmux new-session -A -s $USER"; };
 
-  home-manager.users.speed = { pkgs, ... }: {
-    programs.tmux = {
-      enable = true;
-      # sensible defaults
-      sensibleOnTop = true;
+  programs.tmux = {
+    enable = true;
+    # sensible defaults
+    sensibleOnTop = true;
 
-      # set by tmux-sensible
-      # escapeTime = 0;
-      # historyLimit = 10000;
-      # terminal = "tmux-256color";
-      # aggressiveResize = true;
-      # focus-events
+    # set by tmux-sensible
+    # escapeTime = 0;
+    # historyLimit = 10000;
+    # terminal = "tmux-256color";
+    # aggressiveResize = true;
+    # focus-events
 
-      # TODO: doesn't work because it tries binding C-`
-      # shortcut = "`";
+    # TODO: doesn't work because it tries binding C-`
+    # shortcut = "`";
 
-      # start window and pane numbers at 1
-      baseIndex = 1;
+    # start window and pane numbers at 1
+    baseIndex = 1;
 
-      clock24 = true;
+    clock24 = true;
 
-      customPaneNavigationAndResize = false; # use own mappings
-      disableConfirmationPrompt = true;
+    customPaneNavigationAndResize = false; # use own mappings
+    disableConfirmationPrompt = true;
 
-      # Use vi style keys
-      keyMode = "vi";
+    # Use vi style keys
+    keyMode = "vi";
 
-      extraConfig = ''
-        ${readFile ./tmux.conf}
-      '';
-      # ${pluginConf plugins}
-    };
+    extraConfig = ''
+      ${readFile ./tmux.conf}
+    '';
+    # ${pluginConf plugins}
   };
 }

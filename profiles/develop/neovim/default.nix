@@ -1,61 +1,62 @@
-{ config, pkgs, ... }:
+{ pkgs, colibri-vim, ... }:
 
 {
-  config = {
-    home-manager.users.speed = { pkgs, ... }: {
-      programs.neovim = {
-        enable = true;
-        viAlias = true;
-        vimAlias = true;
+    # install colibri
+    xdg.configFile."nvim/colors/colibri.vim".source = "${colibri-vim}/colors/colibri.vim";
 
-        # TODO: how can I inherit `system` here?
-        plugins = with pkgs.vimPlugins; [
-          # Themes
-          # TODO: colibri.vim
+    programs.neovim = {
+      enable = true;
+      viAlias = true;
+      vimAlias = true;
 
-          auto-pairs # TODO: needs to load before rust-vim
+      # could use configure = { start = [], opt = [] }
+      
+      # TODO: how can I inherit `system` here?
+      plugins = with pkgs.vimPlugins; [
+        # Themes
+        # TODO: colibri.vim
 
-          # Languages
-          vim-elixir
-          vim-nix
-          rust-vim
-          vim-polyglot
+        auto-pairs # TODO: needs to load before rust-vim
 
-          # neovim 0.5
-          nvim-lspconfig
-          completion-nvim        
-          # TODO: completion-buffers
-          # nvim-treesitter        # neovim 0.5
-          # completion-treesitter  # neovim 0.5
-          #lsp-status-nvim        # neovim 0.5
-          diagnostic-nvim # TODO: deprecated
+        # Languages
+        vim-elixir
+        vim-nix
+        rust-vim
+        vim-polyglot
 
-          # Code manipulation
-          splitjoin-vim
-          vim-easy-align
+        # neovim 0.5
+        nvim-lspconfig
+        completion-nvim        
+        # TODO: completion-buffers
+        # nvim-treesitter        # neovim 0.5
+        # completion-treesitter  # neovim 0.5
+        #lsp-status-nvim        # neovim 0.5
+        diagnostic-nvim # TODO: deprecated
 
-          vim-repeat
-          vim-abolish
-          vim-commentary
-          # -endwise
-          vim-unimpaired
-          vim-highlightedyank
-          vim-peekaboo
+        # Code manipulation
+        splitjoin-vim
+        vim-easy-align
 
-          # tentative:
-          vim-sandwich
-          vim-matchup
-          emmet-vim
-          vim-test
-          # aerojump-nvim
+        vim-repeat
+        vim-abolish
+        vim-commentary
+        # -endwise
+        vim-unimpaired
+        vim-highlightedyank
+        vim-peekaboo
 
-          vim-dirvish
-          fzf-vim
-          fzfWrapper
-        ];
+        # tentative:
+        vim-sandwich
+        vim-matchup
+        emmet-vim
+        vim-test
+        # aerojump-nvim
 
-        extraConfig = builtins.readFile ./init.vim;
-      };
+        vim-dirvish
+        fzf-vim
+        fzfWrapper
+      ];
+
+      extraConfig = builtins.readFile ./init.vim;
     };
-  };
 }
