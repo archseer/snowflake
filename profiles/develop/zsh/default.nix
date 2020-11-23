@@ -48,20 +48,19 @@ in
   home-manager.users.speed = {
     programs.zsh = {
       enable = true;
-      enableCompletion = true;
-      # I init completion myself, because enableGlobalCompInit initializes it
+      # I init completion myself, because enableCompletion initializes it
       # too soon, which means commands initialized later in my config won't get
       # completion, and running compinit twice is slow.
-      enableGlobalCompInit = false;
-      promptInit = "";
+      enableCompletion = false;
+      # promptInit = "";
 
       dotDir = ".config/zsh";
 
-      interactiveShellInit = ''
-        eval "$(direnv hook zsh)"
-      '';
+      # interactiveShellInit = ''
+      #   eval "$(direnv hook zsh)"
+      # '';
 
-      initExtra = builtins.readFile ./config/.zshrc;
+      initExtra = builtins.readFile ./.zshrc;
     };
 
     xdg.configFile."zsh/config" = { source = ./config; recursive = true; };
