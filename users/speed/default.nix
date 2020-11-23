@@ -25,7 +25,11 @@ in
   home-manager.useUserPackages = true;
 
   home-manager.users.speed = {
-    # imports = [ ../profiles/git ../profiles/alacritty ../profiles/direnv ];
+    imports = [
+      ../profiles/git
+      # ../profiles/alacritty
+      # ../profiles/direnv
+    ];
 
     home = {
       # required so home doesn't import <nixpkgs>
