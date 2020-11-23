@@ -53,9 +53,10 @@ in
       userName = name;
       userEmail = "blaz@mxxn.io";
       # signing = {
-      #   key = "TODO";
+      #   key = "E31F4464";
       #   signByDefault = true;
       # };
+      # TODO: sendemail config
     };
 
     programs.ssh = {
