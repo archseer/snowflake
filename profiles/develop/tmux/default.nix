@@ -41,7 +41,7 @@
     clock24 = true;
 
     customPaneNavigationAndResize = false; # use own mappings
-    disableConfirmationPrompt = true;
+    # disableConfirmationPrompt = true;
 
     # Use vi style keys
     keyMode = "vi";

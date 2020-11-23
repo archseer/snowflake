@@ -3,9 +3,9 @@
   ./db/postgres
   ./develop
   ./develop/kakoune
-  ./develop/neovim
+  # ./develop/neovim
   ./develop/python
-  ./develop/tmux
+  # ./develop/tmux
   ./develop/zsh
   ./graphical
   ./graphical/games

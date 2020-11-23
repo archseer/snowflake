@@ -10,7 +10,7 @@
 
   environment.sessionVariables = {
     PAGER = "less";
-    # LESS = "-iFJMRWX -z-4 -x4";
+    LESS = "-iFJMRWX -z-4 -x4";
     EDITOR = "nvim";
     VISUAL = "nvim";
   };
@@ -30,7 +30,7 @@
     fzf
   ];
 
-  # documentation.dev.enable = true;
+  documentation.dev.enable = true;
 
   # Already opens ports for us
   # programs.mosh.enable = true;
