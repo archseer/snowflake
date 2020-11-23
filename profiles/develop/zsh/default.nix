@@ -48,6 +48,7 @@ in
   home-manager.users.speed = {
     programs.zsh = {
       enable = true;
+      enableAutosuggestions = true;
       # I init completion myself, because enableCompletion initializes it
       # too soon, which means commands initialized later in my config won't get
       # completion, and running compinit twice is slow.
@@ -61,6 +62,24 @@ in
       # '';
 
       initExtra = builtins.readFile ./.zshrc;
+
+      plugins = with pkgs; [
+        # {
+        #   name = "zsh-history-substring-search";
+        #   src = zsh-history-substring-search;
+        #   file = "share/zsh/site-functions/zsh-history-substring-search.plugin.zsh"
+        # }
+        {
+          name = "zsh-completions";
+          src = pkgs.zsh-completions;
+          file = "share/zsh/site-functions/zsh-completions.plugin.zsh";
+        }
+        {
+          name = "fast-syntax-highlighting";
+          src =  pkgs.zsh-fast-syntax-highlighting;
+          file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";
+        }
+      ];
     };
 
     xdg.configFile."zsh/config" = { source = ./config; recursive = true; };
