@@ -14,7 +14,7 @@
       # TODO: how can I inherit `system` here?
       plugins = with pkgs.vimPlugins; [
         # Themes
-        # TODO: colibri.vim
+        pkgs.colibri-vim
 
         auto-pairs # TODO: needs to load before rust-vim
 
