@@ -1,11 +1,33 @@
-{ pkgs, ... }:
+{ pkgs, nixpkgs-wayland, ... }:
 let inherit (builtins) readFile;
 in
 {
   imports = [ ./sway ../develop ../network ./im ];
 
-  hardware.pulseaudio.enable = true;
-  nixpkgs.config.pulseaudio = true;
+  nixpkgs.overlays =  [
+    nixpkgs-wayland.overlay
+  ];
+
+  # Enable sound.
+
+  sound.enable = true;
+
+  # hardware.pulseaudio.enable = true;
+  # nixpkgs.config.pulseaudio = true;
+
+  # pipewire
+  # Not strictly required but pipewire will use rtkit if it is present
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    # Compatibility shims, adjust according to your needs
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # jack.enable = true;
+    # socketActivation ?
+  };
+  hardware.pulseaudio.enable = false;
 
   boot = {
     # use the latest upstream kernel

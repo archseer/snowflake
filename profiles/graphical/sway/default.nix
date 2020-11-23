@@ -7,7 +7,7 @@ in
 {
   imports = [ ];
 
-  sound.enable = true;
+  # xdg.portal stuff?
 
   # programs.mako.enable = true;
 
@@ -34,7 +34,8 @@ in
         mako
         volnoti
         wl-clipboard
-        (waybar.override { pulseSupport = pulseaudio.enable; })
+        waybar
+        # (waybar.override { pulseSupport = pulseaudio.enable; })
         grim
         slurp
         # ydotool-git

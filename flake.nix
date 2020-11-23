@@ -1,8 +1,6 @@
 {
   description = "A highly structured configuration database.";
 
-  # TODO: setup nixpkgs-wayland as overlay
-
   inputs =
     {
       nixos.url = "nixpkgs/nixos-unstable";
