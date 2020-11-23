@@ -1,8 +1,8 @@
-{ pkgs, colibri-vim, ... }:
+{ pkgs, ... }:
 
 {
     # install colibri
-    xdg.configFile."nvim/colors/colibri.vim".source = "${colibri-vim}/colors/colibri.vim";
+    # xdg.configFile."nvim/colors/colibri.vim".source = "${colibri-vim}/colors/colibri.vim";
 
     programs.neovim = {
       enable = true;

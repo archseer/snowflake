@@ -20,13 +20,10 @@
       sops-nix.url = "github:Mic92/sops-nix";
       sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-      colibri-vim.url = "github:archseer/colibri.vim";
-      colibri-vim.flake = false;
-
       futils.url = "github:numtide/flake-utils";
     };
 
-  outputs = inputs@{ self, home, nixos, nixpkgs, hardware, nixpkgs-wayland, sops-nix, colibri-vim, futils }:
+  outputs = inputs@{ self, home, nixos, nixpkgs, hardware, nixpkgs-wayland, sops-nix, futils }:
     let
       inherit (builtins) attrNames attrValues readDir;
       inherit (nixos) lib;
