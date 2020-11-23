@@ -22,6 +22,9 @@
         # excludesfile = "" XDG .gitignore
         # pager = diff-so-fancy | less --tabs=4 -RFX
       };
+      credential = {
+        helper = "cache --timeout=3600";
+      };
       diff = {
         # enames = "copies";
         mnemonicprefix = true;
