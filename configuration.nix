@@ -6,12 +6,12 @@ let
   inherit (builtins) attrNames readDir;
 
   hostname = lib.fileContents /etc/hostname;
-  host = "/etc/nixos/hosts/${hostname}.nix";
+  host = "/etc/nixos/hosts/${hostname}/default.nix";
   config =
     if (builtins.pathExists host) then
       [ host ]
     else
-      [ /etc/nixos/hosts/NixOS.nix ];
+      [ /etc/nixos/hosts/NixOS ];
 in
 {
   imports = (import ./modules/list.nix) ++ [
