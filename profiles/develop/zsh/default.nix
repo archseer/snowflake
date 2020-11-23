@@ -10,27 +10,6 @@ in
       ZSH_CACHE   = "$XDG_CACHE_HOME/zsh";
     };
 
-    shellAliases = {
-      cat = "${pkgs.bat}/bin/bat";
-
-      df = "df -h";
-      du = "du -h";
-
-      g="${pkgs.git}/bin/git";
-
-      e="v $(fzf)";
-
-      l="exa -lahgF --group-directories-first";
-      # --time-style=long-iso
-      ll="exa -F";
-
-      # j stands for jump
-      j="fasd_cd -d";
-
-      open ="${pkgs.xdg-open}/bin/xdg-open";
-      ps = "${pkgs.procs}/bin/procs";
-    };
-
     systemPackages = with pkgs; [
       bat
       bzip2
@@ -46,6 +25,7 @@ in
       unrar
       unzip
       xz
+      xdg_utils
     ];
   };
 
@@ -66,6 +46,31 @@ in
       # '';
 
       initExtra = builtins.readFile ./.zshrc;
+
+      shellAliases = {
+        v = "$EDITOR";
+        c = "cargo";
+
+        cat = "${pkgs.bat}/bin/bat";
+
+        df = "df -h";
+        du = "du -h";
+
+        g="${pkgs.git}/bin/git";
+
+        e="v $(fzf)";
+
+        l="exa -lahgF --group-directories-first";
+        # --time-style=long-iso
+        ll="exa -F";
+
+        # j stands for jump
+        j="fasd_cd -d";
+
+        open ="${pkgs.xdg_utils}/bin/xdg-open";
+        ps = "${pkgs.procs}/bin/procs";
+      };
+
 
       plugins = with pkgs; [
         # {

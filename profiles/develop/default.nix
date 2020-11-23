@@ -7,11 +7,6 @@
   };
 
   environment = {
-    shellAliases = {
-      v = "$EDITOR";
-      c = "cargo";
-    };
-
     sessionVariables = {
       PAGER = "less";
       LESS = "-iFJMRWX -z-4 -x4";
