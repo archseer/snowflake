@@ -54,10 +54,7 @@
           fzfWrapper
         ];
 
-        # TODO: why are only some things 'packadd'ed below?
-
-        extraConfig = ''
-        '';
+        extraConfig = builtins.readFile ./init.vim;
       };
     };
   };
