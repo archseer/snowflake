@@ -5,6 +5,7 @@
     delta = {
       enable = true;
       options = {
+        syntax-theme = "OneHalfDark";
         features = "side-by-side line-numbers decorations";
         whitespace-error-style = "22 reverse";
         decorations = {
