@@ -88,9 +88,7 @@ function prompt_hyrule_precmd {
   vcs_info
 }
 
-# setopt LOCAL_OPTIONS
-# unsetopt XTRACE KSH_ARRAYS
-prompt_opts=(cr percent sp subst)
+setopt prompt_subst
 
 # Load required functions.
 autoload -Uz add-zsh-hook
