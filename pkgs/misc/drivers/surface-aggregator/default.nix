@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, kernel }:
 let
-  version = "414658f8c247e94e5d3f3201dd188e46e078affa";
-  sha256 = "1wlvaxx38g3v60qd7w6qy04mymwy86fa0np3m337vd8f3y01lp14";
+  version = "c933907b663c992183b67c4dbe78c19391d8677e";
+  sha256 = "07cp0blmqd2a4cyqgfjacvbrm4m1j5s05hwp9n6516i2aqq8m7r1";
 in
 stdenv.mkDerivation {
   name = "surface-aggregator-module-${version}-${kernel.version}";
@@ -19,17 +19,13 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  buildFlags = [
+  makeFlags = [
     "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    "INSTALL_MOD_PATH=$(out)"
   ];
 
-  installPhase = ''
-    install -m 755   -d $out/lib/modules/${kernel.modDirVersion}
-    cp src/**/*.ko $out/lib/modules/${kernel.modDirVersion}/
-  '';
-
   meta = with stdenv.lib; {
-    maintainers = [ "Blaz Hrastnik" ];
+    maintainers = [ { name = "Blaž Hrastnik"; email = "blaz@mxxn.io"; } ];
     license = [ licenses.gpl2Plus ];
     platforms = [ "x86_64-linux" ];
     broken = versionOlder kernel.version "5.4";
