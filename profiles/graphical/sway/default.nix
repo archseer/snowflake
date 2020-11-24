@@ -2,7 +2,7 @@
 let
   inherit (builtins) readFile;
 
-  inherit (config.hardware) pulseaudio;
+  # inherit (config.hardware) pulseaudio;
 in
 {
   imports = [ ];
