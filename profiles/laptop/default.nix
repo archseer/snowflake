@@ -7,7 +7,13 @@
     usbutils
   ];
 
-  services.thermald.enable = lib.mkDefault true;
+  services.upower.enable = lib.mkDefault true;
+
+  services.thermald = {
+    enable = lib.mkDefault true;
+    # adaptive works a lot better on newer CPUs
+    # adaptive = true;
+  };
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = false;

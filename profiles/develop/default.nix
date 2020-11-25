@@ -17,6 +17,7 @@
     };
 
     systemPackages = with pkgs; [
+      gnumake
       clang
       lld
       file

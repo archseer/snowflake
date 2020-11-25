@@ -15,13 +15,20 @@ set $browser $$BROWSER
 
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
-set $menu dmenu_path | dmenu -b | xargs swaymsg exec --
+# set $menu dmenu_path | dmenu -b | xargs swaymsg exec --
+set $menu 'rofi -terminal alacritty -show drun -theme sidestyle -show-icons -icon-theme Paper'
 
 # network manager
 set $net_menu networkmanager_dmenu -b
 
 # don't show window titles only show single pixel as border
-default_border pixel
+default_floating_border pixel 0
+default_border pixel 3
+
+gaps outer 5
+gaps inner 10
+
+font pango: Inter:style=Regular 10
 
 set $φ 38 ppt
 set $Φ 62 ppt
@@ -29,23 +36,53 @@ set $Φ 62 ppt
 # reusable regexes
 set $media "mpv|retroarch"
 
+set $bg #281733
+set $fg #eff1f5
+set $br #a4a0e8
+set $ia #232425
+
+
+# class                 border  backgr. text    indicator child_border
+client.focused          $br     $br     $bg     $bg       $br
+client.focused_inactive $bg     $bg     $fg     $bg       $bg
+client.unfocused        $bg     $bg     $fg     $bg       $bg
+client.urgent           $br     $br     $fg     $bg       $br
+client.placeholder      $br     $br     $fg     $bg       $br
+client.background $bg
+
 ### Autostart configuration
 # launch browser and tmux session in $terminal on launch
 
-for_window [app_id="Alacritty"] resize set width $φ
-for_window [app_id="org.qutebrowser.qutebrowser"] resize set width $Φ
-for_window [app_id="org.qutebrowser.qutebrowser"] move left
+# for_window [app_id="Alacritty"] resize set width $φ
 
 exec $term -e tmux new-session -A -s$$USER \; split-window -v -p 38
 
+### Output configuration
+#
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+# output * bg ~/Pictures/wallpapers/swatch.png fill
+# output * bg ~/Pictures/wallpapers/blurred_fast.jpg fill
+# output * bg ~/Pictures/wallpapers/solarclipse2.jpg fill
+# output * bg ~/Pictures/wallpapers/out.jpg fill
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+# output eDP-1 scale 1
+output eDP-1 scale 1.498
+# output DP-1 scale 1.498
+output DP-1 mode  2560x1440@59.951Hz
+
 ### idle configuration
 
-exec swayidle -w \
-  timeout 300 'loginctl lock-session' \
-  timeout 300 'swaymsg "output * dpms off"' \
-  resume 'swaymsg "output * dpms on"' \
-  lock 'swaylock -e -f -c 000000' \
-  before-sleep 'loginctl lock-session'
+# exec swayidle -w \
+#   timeout 300 'loginctl lock-session' \
+#   timeout 300 'swaymsg "output * dpms off"' \
+#   resume 'swaymsg "output * dpms on"' \
+#   lock 'swaylock -e -f -c 000000' \
+#   before-sleep 'loginctl lock-session'
 
 for_window [class=".*"] inhibit_idle fullscreen
 for_window [app_id=".*"] inhibit_idle fullscreen
@@ -54,13 +91,31 @@ for_window [app_id=".*"] inhibit_idle fullscreen
 #
 # Example configuration:
 #
-  input "2:7:SynPS/2_Synaptics_TouchPad" {
-      dwt disable
-      tap enabled
-      natural_scroll enabled
-      middle_emulation enabled
-      pointer_accel 1
-  }
+input "1118:2479:Microsoft_Surface_045E:09AF_Touchpad" {
+    dwt enabled # disable while typing
+    tap enabled
+    # drag enabled
+    natural_scroll enabled
+    scroll_factor 0.75
+    middle_emulation enabled
+    accel_profile adaptive
+    pointer_accel 0.33
+}
+
+input "1118:2478:Microsoft_Surface_045E:09AE_Keyboard" {
+    xkb_layout us
+    xkb_variant norman
+    xkb_options ctrl:nocaps,compose:ralt
+}
+
+# rebind JP keys to planck equivalents
+
+# muhenkan
+bindcode 102 exec ydotool key tab
+# henkan
+bindcode 100 exec ydotool key backspace
+# katakana-hiragana
+bindcode 101 exec ydotool key enter
 
 # hide mouse cursor after one second
   seat seat0 {
@@ -86,14 +141,17 @@ for_window [app_id=".*"] inhibit_idle fullscreen
     # Start your launcher
     bindsym $mod+d exec $menu
 
+    # Start password manager
+    bindsym $mod+p exec bwmenu
+
     # start network manager
     bindsym $mod+n exec $net_menu
 
+    # Open a file manager
+    bindsym $mod+z exec alacritty -e nnn
+
     # lock screen
     bindsym $mod+Ctrl+l exec loginctl lock-session
-
-    # go fullscreen
-    bindsym $mod+f fullscreen
 
     # display volume level when pushed
     bindsym XF86AudioRaiseVolume exec $volume; $mixer 2%+ unmute
@@ -112,6 +170,8 @@ for_window [app_id=".*"] inhibit_idle fullscreen
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec 'swaymsg exit'
+    # TODO: swaynag
+    # bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 #
 # Moving around:
 #
@@ -140,12 +200,12 @@ for_window [app_id=".*"] inhibit_idle fullscreen
 # Workspaces:
 #
     # Switch to workspace
-    bindsym $mod+1 workspace 1:main
+    bindsym $mod+1 workspace 1
     bindsym $mod+2 workspace 2
     bindsym $mod+3 workspace 3
     bindsym $mod+4 workspace 4
     bindsym $mod+5 workspace 5
-    bindsym $mod+6 workspace 6:media
+    bindsym $mod+6 workspace 6
     bindsym $mod+7 workspace 7
     bindsym $mod+8 workspace 8
     bindsym $mod+9 workspace 9
@@ -163,9 +223,9 @@ for_window [app_id=".*"] inhibit_idle fullscreen
     bindsym $mod+Shift+0 move container to workspace 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
-    assign [app_id=$media] workspace 6:media
-    for_window [app_id=$media] fullscreen enable
-    for_window [app_id=$media] focus
+    # assign [app_id=$media] workspace 6:media
+    # for_window [app_id=$media] fullscreen enable
+    # for_window [app_id=$media] focus
 #
 # Layout stuff:
 #
@@ -180,11 +240,20 @@ for_window [app_id=".*"] inhibit_idle fullscreen
     bindsym $mod+w layout tabbed
     bindsym $mod+e layout toggle split
 
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
     # Toggle the current focus between tiling and floating mode
-    bindsym $mod+t floating toggle
+    bindsym $mod+Shift+space floating toggle
 
     # Swap focus between the tiling area and the floating area
-    bindsym $mod+Shift+t focus mode_toggle
+    bindsym $mod+space focus mode_toggle
+
+    # # Toggle the current focus between tiling and floating mode
+    # bindsym $mod+t floating toggle
+
+    # # Swap focus between the tiling area and the floating area
+    # bindsym $mod+Shift+t focus mode_toggle
 
     # resize window to φ ratio of screen or ½
     bindsym $mod+Shift+space exec swaymsg resize set width $φ
@@ -237,5 +306,48 @@ bindsym $mod+r mode "resize"
 bar {
   swaybar_command waybar
 }
+
+## Take screenshots
+## ----------------------------------------------------------------------------
+
+#set $screenselect slurp
+#set $screenshot grim
+#set $screenshotout $HOME/Pictures/screenshots/$(date "+%Y-%m-%d-%H%M%S_shot.png")
+
+#bindsym Print exec $screenshot $screenshotout
+#bindsym $mod+Print exec $screenshot -g "$($screenselect)" $screenshotout
+
+## Sleep key
+#bindsym XF86Sleep exec --no-startup-id systemctl suspend
+
+## Screen brightness
+#bindsym XF86MonBrightnessUp exec light -T 1.3
+#bindsym XF86MonBrightnessDown exec light -T 0.72
+
+## Toggle Redshift
+#bindsym $mod+Home exec --no-startup-id pkill -USR1 redshift
+
+## Pulse Audio controls
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
+#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% #decrease sound volume
+#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
+
+## Media player controls
+#bindsym XF86AudioPlay exec playerctl play-pause
+#bindsym XF86AudioPause exec playerctl pause
+#bindsym XF86AudioNext exec playerctl next
+#bindsym XF86AudioPrev exec playerctl previous
+
+##
+## Notifications
+##
+#exec mako
+#exec libinput-gestures-setup start
+#exec ydotoold&
+#exec evscript -f ~/.config/evscape/config.dyon -d /dev/input/by-path/platform-MSHW0114:00-event-kbd
+#exec redshift -l 35.7:139.7
+# Turn screen off on inactivity
+# exec swayidle timeout 300 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
+# exec fcitx5 -r
 
 exec "systemctl --user import-environment; systemctl --user start sway-session.target"

@@ -64,10 +64,10 @@ in
     set -g @override_copy_command 'wl-copy'
   '';
 
-  services.gammastep = {
-    enable = true;
-    temperature.night = 3200;
-  };
+  # services.gammastep = {
+  #   enable = true;
+  #   temperature.night = 3200;
+  # };
 
   # location = {
   #   latitude = 38.833881;

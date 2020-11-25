@@ -1,11 +1,11 @@
-{ pkgs, nixpkgs-wayland, ... }:
+{ pkgs, ... }:
 let inherit (builtins) readFile;
 in
 {
   imports = [ ./sway ../develop ../network ./im ];
 
   nixpkgs.overlays =  [
-    nixpkgs-wayland.overlay
+    #nixpkgs-wayland.overlay
   ];
 
   # Enable sound.
@@ -31,7 +31,7 @@ in
 
   boot = {
     # use the latest upstream kernel
-    kernelPackages = pkgs.linuxPackages_latest;
+    # kernelPackages = pkgs.linuxPackages_latest;
 
     tmpOnTmpfs = true;
 
@@ -104,10 +104,11 @@ in
       noto-fonts-cjk
       noto-fonts-emoji
       inter
-      fira-code fira-code-symbols fira-mono fira-sans
+      fira-code fira-code-symbols fira-mono fira
       libertine
       roboto
       proggyfonts
+      font-awesome # waybar icons: TODO: move to there
     ];
     fontconfig.defaultFonts = {
       serif = ["Linux Libertine"];

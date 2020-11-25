@@ -1,13 +1,12 @@
-{ hardware, nixos, pkgs, ... }:
+{ hardware, lib, pkgs, ... }:
 let
-  inherit (nixos) lib;
   inherit (builtins) readFile;
 in
 {
-  imports = [
-    "${hardware}/common/cpu/intel"
-    "${hardware}/common/pc/laptop"
-    "${hardware}/common/pc/ssd"
+  require = [
+    # hardware.nixosModules.common-cpu-intel
+    # hardware.nixosModules.common-pc-laptop
+    # hardware.nixosModules.common-pc-ssd
     ../../profiles/laptop
     ../../profiles/network # sets up wireless
     # ../../profiles/graphical/games
@@ -16,6 +15,7 @@ in
     # ../../profiles/postgres
     # ../../profiles/ssh
     ../../users/speed
+    ../../users/root
   ];
 
   # nvme0n1p1 = efi
@@ -30,34 +30,61 @@ in
 
   # Load surface_aggregator / surface_hid at stage 1 so we can use the keyboard
   # during LUKS.
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" 
-    "surface_aggregator" "surface_aggregator_registry" "surface_hid"
-    "intel_lpss" "intel_lpss_pci"
-    "8250_dw"
+
+  # use the latest upstream kernel
+  boot.kernelPackages = pkgs.linuxPackages_5_9;
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "uas" ];
+  # boot.initrd.kernelModules = [
+    # "intel_lpss" "intel_lpss_pci"
+    # "8250_dw"
+    # "surface_aggregator" "surface_aggregator_registry" "surface_hid"
+  # ];
+  boot.blacklistedKernelModules = [
+    "surface_aggregator"
+    "surface_aggregator_registry"
+    "surface_aggregator_cdev"
+    "surface_acpi_notify"
+    "surface_battery"
+    "surface_dtx"
+    "surface_hid"
+    "surface_hotplug"
+    "surface_perfmode"
   ];
-  boot.extraModulePackages = [ pkgs.linuxPackages.surface-aggregator ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ pkgs.linuxPackages_5_9.surface-aggregator ];
+  boot.kernelPatches = [{
+    name = "surface";
+    patch = null;
+    extraConfig = ''
+      SERIAL_DEV_BUS y
+      SERIAL_DEV_CTRL_TTYPORT y
+      PINCTRL_ICELAKE y
+      INTEL_IDMA64 m
+      MFD_INTEL_LPSS m
+      MFD_INTEL_LPSS_ACPI m
+      MFD_INTEL_LPSS_PCI m
+      '';
+    }];
 
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Setup root as encrypted LUKS volume
 
-  boot.initrd.luks.devices.cryptroot = "/dev/nvme0n1p4";
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/f0173313-719c-4e09-a766-e74d96d35ee8";
+      fsType = "ext4";
+    };
 
-  fileSystems."/" = {
-    device = "/dev/mapper/cryptroot";
-    fsType = "ext4";
-  };
+  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/253b225b-eb1a-4f16-8e17-18b9c33e7ce8";
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/B361-1241";
-    fsType = "vfat";
-  };
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/92D3-1812";
+      fsType = "vfat";
+    };
 
   # 8GB swapfile for hibernation
 
-  swapDevices = [{device = "/swapfile"; size = 8388604;}];
+  swapDevices = [{device = "/swapfile"; size = 8192;}];
 
   hardware.enableRedistributableFirmware = true;
 
@@ -65,7 +92,8 @@ in
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.wlp0s20f3.useDHCP = true;
+  # networking.interfaces.wlp0s20f3.useDHCP = true;
+  # networking.interfaces.wlan0.useDHCP = true;
 
   # nix.maxJobs = lib.mkDefault 8;
   # nix.systemFeatures = [ "gccarch-haswell" ];
