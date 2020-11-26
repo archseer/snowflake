@@ -63,6 +63,12 @@ in
       MFD_INTEL_LPSS m
       MFD_INTEL_LPSS_ACPI m
       MFD_INTEL_LPSS_PCI m
+      SERIAL_8250_DW m
+      SERIAL_8250_DMA y
+      SERIAL_8250_LPSS y
+      X86_INTEL_LPSS y
+      SERIAL_8250_DETECT_IRQ n
+      SERIAL_8250_DEPRECATED_OPTIONS n
       '';
     }];
 

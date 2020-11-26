@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, kernel }:
 let
-  version = "c933907b663c992183b67c4dbe78c19391d8677e";
-  sha256 = "0gjh0kqk81aiby14xd119rkpc43mxh532v8ihb53gsrl3plkn9p8";
+  version = "acdf1ca329015041ecef1c76e61735008bc128da";
+  sha256 = "07xdw2c4j0z2xrq5hwdfdghcziy2dl3kp7lbmprwygb99vw4q7dg";
 
 in
 stdenv.mkDerivation {
