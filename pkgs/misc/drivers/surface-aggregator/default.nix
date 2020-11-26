@@ -1,8 +1,9 @@
 { stdenv, fetchFromGitHub, kernel }:
 let
-  version = "acdf1ca329015041ecef1c76e61735008bc128da";
-  sha256 = "07xdw2c4j0z2xrq5hwdfdghcziy2dl3kp7lbmprwygb99vw4q7dg";
-
+  version = "c33c8b7e8101a49b268158205342441eb0bd8c10";
+  sha256 = "1vj3hsfydasybzcql362bkbwib81hvbisqznxa585x287d8nj284";
+  # version = "bfab2be7d39ea51031d13215a373c9b8dcdab757";
+  # sha256 = "1cr19mv9px98l8i263adgb2y1y75kgmlx88fbiw3knyy2bbrgbhf ";
 in
 stdenv.mkDerivation {
   name = "surface-aggregator-module-${version}-${kernel.version}";

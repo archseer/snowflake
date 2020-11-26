@@ -32,7 +32,8 @@ in
   # during LUKS.
 
   # use the latest upstream kernel
-  boot.kernelPackages = pkgs.linuxPackages_5_9;
+  # boot.kernelPackages = pkgs.linuxPackages_5_9;
+  boot.kernelPackages = pkgs.linuxPackages_surface;
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "uas" ];
   # boot.initrd.kernelModules = [
     # "intel_lpss" "intel_lpss_pci"
@@ -51,7 +52,10 @@ in
     "surface_perfmode"
   ];
   boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ pkgs.linuxPackages_5_9.surface-aggregator ];
+  # boot.extraModulePackages = [ pkgs.linuxPackages_5_9.surface-aggregator ];
+  boot.extraModulePackages = [
+    pkgs.linuxPackages_surface.surface-aggregator
+  ];
   boot.kernelPatches = [{
     name = "surface";
     patch = null;
