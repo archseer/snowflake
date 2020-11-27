@@ -12,7 +12,7 @@ in
   }).overrideAttrs(o: {
     nativeBuildInputs = o.nativeBuildInputs ++ [
       prev.zlib
-      # prev.python3 # scripts/bpf_helpers_doc.py
+      prev.zstd # for zstd compression
     ];
     prePatch = o.prePatch + ''
       sed -i scripts/bpf_helpers_doc.py  -e "s|/usr/bin/env python3|${prev.buildPackages.python3}/bin/python3|"
