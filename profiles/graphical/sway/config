@@ -30,8 +30,8 @@ gaps inner 10
 
 font pango: Inter:style=Regular 10
 
-set $φ 38 ppt
-set $Φ 62 ppt
+# set $φ 38 ppt
+# set $Φ 62 ppt
 
 # reusable regexes
 set $media "mpv|retroarch"
@@ -256,9 +256,9 @@ bindcode 101 exec ydotool key enter
     # bindsym $mod+Shift+t focus mode_toggle
 
     # resize window to φ ratio of screen or ½
-    bindsym $mod+Shift+space exec swaymsg resize set width $φ
-    bindsym $mod+space exec swaymsg resize set width $Φ
-    bindsym $mod+Ctrl+space exec swaymsg resize set width 50
+    # bindsym $mod+Shift+space exec swaymsg resize set width $φ
+    # bindsym $mod+space exec swaymsg resize set width $Φ
+    # bindsym $mod+Ctrl+space exec swaymsg resize set width 50
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
@@ -303,9 +303,9 @@ bindsym $mod+r mode "resize"
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-  swaybar_command waybar
-}
+# bar {
+#   swaybar_command waybar
+# }
 
 ## Take screenshots
 ## ----------------------------------------------------------------------------

@@ -1,0 +1,135 @@
+* {
+	text-color:        #ffffff;
+	background-color:  rgba(59, 34, 76, 0.3);
+	
+	fc-color: #a8b298;
+	bg-color: #3c4140;
+	bg-color:  rgba(40, 23, 51, 0.95);
+
+	fc-color-trans: #69888564;
+	fc-color-trans: #ebeafa30;
+	fc-color-trans: #452859;
+	bg-color-trans: #3c4140F0;
+
+	font: "Inter 11";
+}
+
+/* ================================================= */
+/* Main container                                    */
+/* ================================================= */
+#window {
+	/* fullscreen:    true; */
+	location:      center;
+	anchor:        center;
+	border:        0px 0px 0px 0px;
+	transparency:  "real";
+
+	orientation:  horizontal;
+	children:     [mainbox];
+    	spacing: 0;
+        margin: 32px 0 0 0;
+  	border: 0px;
+	border-color: #a4a0e8;
+}
+
+/* First container */
+#mainbox {
+	expand:            false;
+	background-color:  @bg-color;
+	/* spacing:           1em; */
+  	padding:           0px;
+}
+
+/* Dummy container */
+#dummy {
+	expand: true;
+  	background-color: rgba(0, 0, 0, 0.5);
+}
+/* ================================================= */
+
+/* ================================================= */
+/* Sidebar and its elements                          */
+/* ================================================= */
+#sidebar {
+	border:  0px 0px 0px 0px;
+}
+
+#button {
+	font:       "Inter 11";
+	padding:    0.7em;
+}
+
+#button selected {
+	font:              "Inter 11";
+	background-color:  @fc-color-trans;
+}
+/* ================================================= */
+
+/* ================================================= */
+/*  Input bar                                        */
+/* ================================================= */
+#inputbar {
+	padding:       1.25em 1.5em 1.25em 1.5em;
+	spacing:		   0.2em;
+        /*background-color: rgba(69, 40, 89, 1);*/
+}
+
+#prompt {
+	font: "Inter SemiBold 11";
+        background-color: rgba(0, 0, 0, 0);
+}
+
+#entry {
+	font: "Inter 11";
+	width: 24em;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0);
+}
+/* ================================================= */
+
+
+/* ================================================= */
+/* List view					     */
+/* ================================================= */
+#listview {
+	spacing: 0px;
+}
+
+#element {
+	font:     "Inter 11";
+	padding:  0.625em 1.5em 0.625em 1.5em;
+}
+
+#element selected normal {
+	background-color: @fc-color-trans;
+}
+
+#element normal active {
+	background-color: @fc-color-trans;
+}
+
+#element normal urgent {
+	background-color: Orange;
+}
+
+#element alternate normal {
+}
+
+#element alternate active {
+	text-color: @focus-col;
+}
+
+#element alternate urgent {
+	background-color: OrangeRed;
+}
+
+#element selected active {
+	background-color:  @fc-color-trans;
+}
+
+#element selected urgent {
+	background-color:  DarkOrange;
+}
+
+element-icon { size: 2ch;}
+element-icon { size: 24; margin: 0 0.5em 0 0; }

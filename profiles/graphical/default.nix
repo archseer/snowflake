@@ -86,7 +86,7 @@ in
       # librsvg
       # libsForQt5.qtstyleplugins
       # manpages
-      # papirus-icon-theme
+      paper-icon-theme
       # pulsemixer
       pavucontrol
       firefox-wayland
