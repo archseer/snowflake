@@ -4,39 +4,50 @@
     settings = {
       env.TERM = "xterm-256color";
       window.decorations = "full";
-      font.size = 9.0;
-      cursor.style = "Beam";
+      font.normal.family = "ProggyCleanTT";
+      font.bold.family = "ProggyCleanTT";
+      font.bold.style = "Bold";
+      font.italic.family = "ProggyCleanTT";
+      font.size = 14.0;
+      font.offset = { x = 0; y = 4; };
 
       # snazzy theme
       colors = {
         # Default colors
         primary = {
-          background = "0x282a36";
-          foreground = "0xeff0eb";
+          text = "0xebeafa";
+          background= "0x3b224c";
+          dim_foreground = "0x9a9a9a";
+          bright_foreground = "0xffffff";
+        };
+
+        selection = {
+          text = "#eaeaea";
+          background = "#404040";
         };
 
         # Normal colors
         normal = {
-          black = "0x282a36";
-          red = "0xff5c57";
-          green = "0x5af78e";
-          yellow = "0xf3f99d";
-          blue = "0x57c7ff";
-          magenta = "0xff6ac1";
-          cyan = "0x9aedfe";
-          white = "0xf1f1f0";
+          black =   "#3b224c";
+          red =     "#f47868";
+          green =   "#9ff28f";
+          yellow =  "#efba5d";
+          blue =    "#a4a0e8";
+          magenta = "#dbbfef";
+          cyan =    "#6acdca";
+          white =   "#ebeafa";
         };
 
         # Bright colors
         bright = {
-          black = "0x686868";
-          red = "0xff5c57";
-          green = "0x5af78e";
-          yellow = "0xf3f99d";
-          blue = "0x57c7ff";
-          magenta = "0xff6ac1";
-          cyan = "0x9aedfe";
-          white = "0xf1f1f0";
+          black =  "#697c81";
+          red =    "#ff3334";
+          green =  "#9ec400";
+          yellow = "#e7c547";
+          blue =   "#7aa6da";
+          magenta = "#b77ee0";
+          cyan =   "#54ced6";
+          white =  "#ffffff";
         };
       };
     };

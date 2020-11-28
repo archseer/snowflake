@@ -4,7 +4,7 @@ let
 
   left = "h";
   down = "j";
-  uk = "k";
+  up = "k";
   right = "l";
 
   font = "Inter:style=Regular 10";
@@ -33,12 +33,12 @@ in
 
   # xdg.portal stuff?
 
-  # rofi menu style
-  xdg.configFile."rofi/sidestyle.rasi".source = ./sidestyle.rasi;
-
   # programs.mako.enable = true;
   home-manager.users.speed = { pkgs, ... }: {
     imports = [ ./waybar ];
+
+    # rofi menu style
+    xdg.configFile."rofi/sidestyle.rasi".source = ./sidestyle.rasi;
 
     home.sessionVariables = {
       MOZ_ENABLE_WAYLAND = "1";
@@ -86,7 +86,21 @@ in
       # '';
       xwayland = true;
       extraConfig = ''
-        seat seat0 xcursor_theme "capitaine-cursors"
+          set $bg #281733
+          set $fg #eff1f5
+          set $br #a4a0e8
+          set $ia #232425
+
+
+          # class                 border  backgr. text    indicator child_border
+          client.focused          $br     $br     $bg     $bg       $br
+          client.focused_inactive $bg     $bg     $fg     $bg       $bg
+          client.unfocused        $bg     $bg     $fg     $bg       $bg
+          client.urgent           $br     $br     $fg     $bg       $br
+          client.placeholder      $br     $br     $fg     $bg       $br
+          client.background $bg
+
+           # seat seat0 xcursor_theme "capitaine-cursors"
       '';
       config = rec {
         modifier = "Mod4";
@@ -125,24 +139,6 @@ in
           inner = 10;
         };
 
-        extraConfig = ''
-          set $bg #281733
-          set $fg #eff1f5
-          set $br #a4a0e8
-          set $ia #232425
-
-
-          # class                 border  backgr. text    indicator child_border
-          client.focused          $br     $br     $bg     $bg       $br
-          client.focused_inactive $bg     $bg     $fg     $bg       $bg
-          client.unfocused        $bg     $bg     $fg     $bg       $bg
-          client.urgent           $br     $br     $fg     $bg       $br
-          client.placeholder      $br     $br     $fg     $bg       $br
-          client.background $bg
-
-           # seat seat0 xcursor_theme "capitaine-cursors"
-        '';
-
         startup = [
         ];
 
@@ -180,12 +176,7 @@ in
           };
         };
 
-        #bars = [{
-        #  #fonts = [ barfont ];
-        #  #position = "top";
-        #  command = statusCommand;
-        #  #inherit statusCommand;
-        #}];
+        bars = [];
 
         keycodebindings = {
           # rebind JP keys to planck equivalents
@@ -219,11 +210,11 @@ in
           # Open a file manager
           # bindsym $mod+z exec alacritty -e nnn
 
-          "${modifier}+Shift+l" = "${swaylockcmd}"; # TODO:? loginctl log-session
+          # "${modifier}+Shift+l" = "${swaylockcmd}"; # TODO:? loginctl log-session
 
-          "${modifier}+Escape" = "exec ${nwggrid}";
-          "${modifier}+F1" = "exec ${passShowCmd}";
-          "${modifier}+F2" = "exec ${passTotpCmd}";
+          # "${modifier}+Escape" = "exec ${nwggrid}";
+          # "${modifier}+F1" = "exec ${passShowCmd}";
+          # "${modifier}+F2" = "exec ${passTotpCmd}";
 
           "Ctrl+q" = "exec echo"; # the most ridiculous firefox bug ever
 

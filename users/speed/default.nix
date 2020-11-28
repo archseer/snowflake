@@ -27,7 +27,7 @@ in
   home-manager.users.speed = {
     imports = [
       ../profiles/git
-      # ../profiles/alacritty
+      ../profiles/alacritty
       # ../profiles/direnv
     ];
 

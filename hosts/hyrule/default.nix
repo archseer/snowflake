@@ -34,23 +34,23 @@ in
   # use the latest upstream kernel
   # boot.kernelPackages = pkgs.linuxPackages_5_9;
   boot.kernelPackages = pkgs.linuxPackages_surface;
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "uas" ];
-  # boot.initrd.kernelModules = [
-    # "intel_lpss" "intel_lpss_pci"
-    # "8250_dw"
-    # "surface_aggregator" "surface_aggregator_registry" "surface_hid"
-  # ];
-  boot.blacklistedKernelModules = [
-    "surface_aggregator"
-    "surface_aggregator_registry"
-    "surface_aggregator_cdev"
-    "surface_acpi_notify"
-    "surface_battery"
-    "surface_dtx"
-    "surface_hid"
-    "surface_hotplug"
-    "surface_perfmode"
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "uas"
+  # required for keyboard support at init
+    "intel_lpss" "intel_lpss_pci"
+    "8250_dw"
+    "surface_aggregator" "surface_aggregator_registry" "surface_hid"
   ];
+  # boot.blacklistedKernelModules = [
+  #   "surface_aggregator"
+  #   "surface_aggregator_registry"
+  #   "surface_aggregator_cdev"
+  #   "surface_acpi_notify"
+  #   "surface_battery"
+  #   "surface_dtx"
+  #   "surface_hid"
+  #   "surface_hotplug"
+  #   "surface_perfmode"
+  # ];
   boot.kernelModules = [ "kvm-intel" ];
   # boot.extraModulePackages = [ pkgs.linuxPackages_5_9.surface-aggregator ];
   boot.extraModulePackages = [
@@ -75,6 +75,8 @@ in
       SERIAL_8250_DEPRECATED_OPTIONS n
       '';
     }];
+
+    boot.kernelParams = [ "reboot=pci" ];
 
   boot.loader.efi.canTouchEfiVariables = true;
 

@@ -48,11 +48,11 @@
 
   # power management features
   services.tlp.enable = true;
-  services.tlp.extraConfig = ''
-    CPU_SCALING_GOVERNOR_ON_AC=performance
-    CPU_SCALING_GOVERNOR_ON_BAT=powersave
-    CPU_HWP_ON_AC=performance
-  '';
+  # services.tlp.extraConfig = ''
+  #   CPU_SCALING_GOVERNOR_ON_AC=performance
+  #   CPU_SCALING_GOVERNOR_ON_BAT=powersave
+  #   CPU_HWP_ON_AC=performance
+  # '';
   services.logind.lidSwitch = "suspend";
 
   nixpkgs.overlays =
