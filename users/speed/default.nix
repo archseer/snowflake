@@ -96,6 +96,7 @@ in
     hashedPassword = "$6$KlMOHNWhChBEqYE$N8oRMBlpnCSl/r4fzqyhWaFCAWs.IhM7q9bjAw5ZT.aDDEE8X5p0vO06cYoHEp/whyneKXsan9QmD6RZSJXl0.";
     openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINhYkvu/rVDYYlcM8Rq8HP3KPY2AX3mCvmyZ+/L1/yuh speed@hyrule.local"];
     # shell = pkgs.zsh;
-    extraGroups = [ "wheel" "input" "docker" ]; # audio ?
+    # video is needed to control the backlight
+    extraGroups = [ "wheel" "input" "docker" "video"]; # audio ?
   };
 }

@@ -10,7 +10,7 @@
   services.upower.enable = lib.mkDefault true;
 
   services.thermald = {
-    enable = lib.mkDefault true;
+    enable = true;
     # adaptive works a lot better on newer CPUs
     # adaptive = true;
   };
@@ -18,24 +18,8 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = false;
 
-  # to enable brightness keys 'keys' value may need updating per device
+  # to enable brightness keys
   programs.light.enable = true;
-  # TODO: bind these via sway
-  # services.actkbd = {
-  #   enable = true;
-  #   bindings = [
-  #     {
-  #       keys = [ 225 ];
-  #       events = [ "key" ];
-  #       command = "/run/current-system/sw/bin/light -A 5";
-  #     }
-  #     {
-  #       keys = [ 224 ];
-  #       events = [ "key" ];
-  #       command = "/run/current-system/sw/bin/light -U 5";
-  #     }
-  #   ];
-  # };
 
   sound.mediaKeys = lib.mkIf (!config.hardware.pulseaudio.enable) {
     enable = true;

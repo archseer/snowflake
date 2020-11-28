@@ -335,13 +335,14 @@ in
           #bindsym XF86Sleep exec --no-startup-id systemctl suspend
 
           ## Screen brightness
-          #bindsym XF86MonBrightnessUp exec light -T 1.3
-          #bindsym XF86MonBrightnessDown exec light -T 0.72
+          "XF86MonBrightnessUp" = "exec ${pkgs.light}/bin/light -T 1.3";
+          "XF86MonBrightnessDown" = "exec ${pkgs.light}/bin/light -T 0.72";
 
           ## Toggle Redshift
           #bindsym $mod+Home exec --no-startup-id pkill -USR1 redshift
 
           ## Pulse Audio controls
+          # TODO: apparently already working
           #bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
           #bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% #decrease sound volume
           #bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound

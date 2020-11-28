@@ -4,9 +4,7 @@ let
 in
 {
   require = [
-    hardware.nixosModules.common-cpu-intel
-    hardware.nixosModules.common-pc-laptop
-    hardware.nixosModules.common-pc-ssd
+    ./hardware.nix
     ../../profiles/laptop
     ../../profiles/network # sets up wireless
     # ../../profiles/graphical/games
@@ -28,34 +26,9 @@ in
     # editor = false;
   };
 
-  # Load surface_aggregator / surface_hid at stage 1 so we can use the keyboard
-  # during LUKS.
-
   # use the latest upstream kernel
   # boot.kernelPackages = pkgs.linuxPackages_5_9;
   boot.kernelPackages = pkgs.linuxPackages_surface;
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "uas"
-  # required for keyboard support at init
-    "intel_lpss" "intel_lpss_pci"
-    "8250_dw"
-    "surface_aggregator" "surface_aggregator_registry" "surface_hid"
-  ];
-  # boot.blacklistedKernelModules = [
-  #   "surface_aggregator"
-  #   "surface_aggregator_registry"
-  #   "surface_aggregator_cdev"
-  #   "surface_acpi_notify"
-  #   "surface_battery"
-  #   "surface_dtx"
-  #   "surface_hid"
-  #   "surface_hotplug"
-  #   "surface_perfmode"
-  # ];
-  boot.kernelModules = [ "kvm-intel" ];
-  # boot.extraModulePackages = [ pkgs.linuxPackages_5_9.surface-aggregator ];
-  boot.extraModulePackages = [
-    pkgs.linuxPackages_surface.surface-aggregator
-  ];
   boot.kernelPatches = [{
     name = "surface";
     patch = null;
@@ -75,8 +48,6 @@ in
       SERIAL_8250_DEPRECATED_OPTIONS n
       '';
     }];
-
-  boot.kernelParams = [ "reboot=pci" ];
 
   boot.loader.efi.canTouchEfiVariables = true;
 
