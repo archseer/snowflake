@@ -76,7 +76,7 @@ in
       '';
     }];
 
-    boot.kernelParams = [ "reboot=pci" ];
+  boot.kernelParams = [ "reboot=pci" ];
 
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -113,6 +113,7 @@ in
   security.mitigations.acceptRisk = true;
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+
   # high-resolution display
   hardware.video.hidpi.enable = lib.mkDefault true;
 

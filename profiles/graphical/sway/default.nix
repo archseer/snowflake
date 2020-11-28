@@ -32,6 +32,10 @@ in
   programs.sway.extraPackages = []; # block rxvt
 
   # xdg.portal stuff?
+  
+  environment.systemPackages = with pkgs; [
+    capitaine-cursors
+  ];
 
   # programs.mako.enable = true;
   home-manager.users.speed = { pkgs, ... }: {
@@ -100,7 +104,7 @@ in
           client.placeholder      $br     $br     $fg     $bg       $br
           client.background $bg
 
-           # seat seat0 xcursor_theme "capitaine-cursors"
+           seat seat0 xcursor_theme "capitaine-cursors"
       '';
       config = rec {
         modifier = "Mod4";
@@ -200,10 +204,10 @@ in
           "${modifier}+Shift+q" = "kill";
 
           # Start your launcher
-          "${modifier}+d" = menu;
+          "${modifier}+d" = "exec ${menu}";
 
           # Start password manager
-          # "${modifier}+p" = bwmenu;
+          # "${modifier}+p" = "exec bwmenu";
 
           # Start network manager
 

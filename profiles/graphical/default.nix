@@ -38,37 +38,22 @@ in
     kernel.sysctl."kernel.sysrq" = 1;
   };
 
+  home-manager.users.speed = { pkgs, ... }: {
+    gtk = {
+      enable = true;
+      theme = {
+        package = pkgs.pop-gtk-theme;
+        name = "Pop";
+      };
+      iconTheme = {
+        package = pkgs.paper-icon-theme;
+        name = "Paper";
+      };
+      # TODO: gtk-cursor-theme-name..
+    };
+  };
+
   environment = {
-
-    # etc = {
-    #   "xdg/gtk-3.0/settings.ini" = {
-    #     text = ''
-    #       [Settings]
-    #       gtk-icon-theme-name=Papirus
-    #       gtk-theme-name=Adapta
-    #       gtk-cursor-theme-name=Adwaita
-    #     '';
-    #     mode = "444";
-    #   };
-    # };
-
-    # sessionVariables = {
-    #   # Theme settings
-    #   QT_QPA_PLATFORMTHEME = "gtk2";
-
-    #   GTK2_RC_FILES =
-    #     let
-    #       gtk = ''
-    #         gtk-icon-theme-name="Papirus"
-    #         gtk-cursor-theme-name="Adwaita"
-    #       '';
-    #     in
-    #     [
-    #       ("${pkgs.writeText "iconrc" "${gtk}"}")
-    #       "${pkgs.adapta-gtk-theme}/share/themes/Adapta/gtk-2.0/gtkrc"
-    #       "${pkgs.gnome3.gnome-themes-extra}/share/themes/Adwaita/gtk-2.0/gtkrc"
-    #     ];
-    # };
 
     systemPackages = with pkgs; [
       evince
@@ -86,6 +71,7 @@ in
       # librsvg
       # libsForQt5.qtstyleplugins
       # manpages
+      pop-gtk-theme
       paper-icon-theme
       # pulsemixer
       pavucontrol

@@ -5,6 +5,7 @@
 pkgs:
 with pkgs;
 [
+  alacritty
   starship
   element-desktop
   discord
