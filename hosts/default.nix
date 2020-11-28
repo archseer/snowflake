@@ -18,6 +18,9 @@ let
     lib.nixosSystem {
       inherit system;
 
+      # pass through to modules
+      specialArgs = { inherit hardware; };
+
       modules =
         let
           inherit (home.nixosModules) home-manager;

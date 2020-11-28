@@ -4,9 +4,9 @@ let
 in
 {
   require = [
-    # hardware.nixosModules.common-cpu-intel
-    # hardware.nixosModules.common-pc-laptop
-    # hardware.nixosModules.common-pc-ssd
+    hardware.nixosModules.common-cpu-intel
+    hardware.nixosModules.common-pc-laptop
+    hardware.nixosModules.common-pc-ssd
     ../../profiles/laptop
     ../../profiles/network # sets up wireless
     # ../../profiles/graphical/games
