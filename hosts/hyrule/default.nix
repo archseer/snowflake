@@ -29,6 +29,9 @@ in
   # use the latest upstream kernel
   # boot.kernelPackages = pkgs.linuxPackages_5_9;
   boot.kernelPackages = pkgs.linuxPackages_surface;
+  boot.extraModulePackages = [
+    pkgs.linuxPackages_surface.surface-aggregator
+  ];
   boot.kernelPatches = [{
     name = "surface";
     patch = null;
