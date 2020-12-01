@@ -11,6 +11,10 @@
 
       hardware.url = "github:NixOS/nixos-hardware";
 
+      # nixos-fedora: fedora kernel packaged for nixos
+      nixos-fedora.url = "github:archseer/nixos-fedora";
+      nixos-fedora.inputs.nixpkgs.follows = "nixpkgs";
+
       # Wayland overlay
       nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
       nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
@@ -21,7 +25,7 @@
       futils.url = "github:numtide/flake-utils";
     };
 
-  outputs = inputs@{ self, home, nixos, nixpkgs, hardware, nixpkgs-wayland, sops-nix, futils }:
+  outputs = inputs@{ self, home, nixos, nixpkgs, hardware, nixos-fedora, nixpkgs-wayland, sops-nix, futils }:
     let
       inherit (builtins) attrNames attrValues readDir;
       inherit (nixos) lib;

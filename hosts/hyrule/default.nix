@@ -1,4 +1,4 @@
-{ hardware, lib, pkgs, ... }:
+{ hardware, nixos-fedora, lib, pkgs, ... }:
 let
   inherit (builtins) readFile;
 in
@@ -28,29 +28,31 @@ in
 
   # use the latest upstream kernel
   # boot.kernelPackages = pkgs.linuxPackages_5_9;
-  boot.kernelPackages = pkgs.linuxPackages_surface;
+  # boot.kernelPackages = pkgs.linuxPackages_surface;
+  boot.kernelPackages = nixos-fedora.packages.x86_64-linux;
   boot.extraModulePackages = [
-    pkgs.linuxPackages_surface.surface-aggregator
+    # pkgs.linuxPackages_surface.surface-aggregator
+    (pkgs.linuxPackagesFor nixos-fedora.packages.x86_64-linux.kernel).surface-aggregator
   ];
-  boot.kernelPatches = [{
-    name = "surface";
-    patch = null;
-    extraConfig = ''
-      SERIAL_DEV_BUS y
-      SERIAL_DEV_CTRL_TTYPORT y
-      PINCTRL_ICELAKE y
-      INTEL_IDMA64 m
-      MFD_INTEL_LPSS m
-      MFD_INTEL_LPSS_ACPI m
-      MFD_INTEL_LPSS_PCI m
-      SERIAL_8250_DW m
-      SERIAL_8250_DMA y
-      SERIAL_8250_LPSS y
-      X86_INTEL_LPSS y
-      SERIAL_8250_DETECT_IRQ n
-      SERIAL_8250_DEPRECATED_OPTIONS n
-      '';
-    }];
+  # boot.kernelPatches = [{
+  #   name = "surface";
+  #   patch = null;
+  #   extraConfig = ''
+  #     SERIAL_DEV_BUS y
+  #     SERIAL_DEV_CTRL_TTYPORT y
+  #     PINCTRL_ICELAKE y
+  #     INTEL_IDMA64 m
+  #     MFD_INTEL_LPSS m
+  #     MFD_INTEL_LPSS_ACPI m
+  #     MFD_INTEL_LPSS_PCI m
+  #     SERIAL_8250_DW m
+  #     SERIAL_8250_DMA y
+  #     SERIAL_8250_LPSS y
+  #     X86_INTEL_LPSS y
+  #     SERIAL_8250_DETECT_IRQ n
+  #     SERIAL_8250_DEPRECATED_OPTIONS n
+  #     '';
+  #   }];
 
   boot.loader.efi.canTouchEfiVariables = true;
 

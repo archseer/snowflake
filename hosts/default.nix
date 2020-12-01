@@ -7,6 +7,7 @@
 , self
 , system
 , utils
+, nixos-fedora
 , ...
 }:
 let
@@ -19,7 +20,7 @@ let
       inherit system;
 
       # pass through to modules
-      specialArgs = { inherit hardware; };
+      specialArgs = { inherit hardware nixos-fedora; };
 
       modules =
         let
