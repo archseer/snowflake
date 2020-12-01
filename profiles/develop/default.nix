@@ -31,6 +31,9 @@
       wget
       picocom
       rsync
+
+      rustup
+      rust-analyzer
     ];
 
      # TODO: mutt / aerc
