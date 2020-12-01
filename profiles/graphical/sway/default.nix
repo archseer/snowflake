@@ -161,7 +161,7 @@ in
           "${in_keyboard}" = {
             xkb_layout = "us";
             xkb_variant = "norman";
-            xkb_options = "ctrl:nocaps,compose:ralt";
+            xkb_options = "compose:ralt";
           };
         };
 
@@ -387,22 +387,18 @@ in
     };
   };
 
-  environment.etc = {
-    "sway/config".text =
-      let volnoti = import ../misc/volnoti.nix { inherit pkgs; };
-      in
-      ''
-        set $volume ${volnoti}
-        set $mixer "${pkgs.alsaUtils}/bin/amixer -q set Master"
+  # environment.etc = {
+  #   "sway/config".text =
+  #     let volnoti = import ../misc/volnoti.nix { inherit pkgs; };
+  #     in
+  #     ''
+  #       set $volume ${volnoti}
+  #       set $mixer "${pkgs.alsaUtils}/bin/amixer -q set Master"
 
-        # set background
-        # output * bg tri-fadeno.jpg fill
-
-        ${readFile ./config}
-      '';
-
-    "xdg/waybar".source = ./waybar;
-  };
+  #       # set background
+  #       # output * bg tri-fadeno.jpg fill
+  #     '';
+  # };
 
   programs.tmux.extraConfig = lib.mkBefore ''
     set -g @override_copy_command 'wl-copy'

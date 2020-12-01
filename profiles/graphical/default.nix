@@ -86,6 +86,7 @@ in
 
   fonts = {
     fonts = with pkgs; [
+      font-awesome # waybar icons: TODO: move to there
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
@@ -94,7 +95,6 @@ in
       libertine
       roboto
       proggyfonts
-      font-awesome # waybar icons: TODO: move to there
     ];
     fontconfig.defaultFonts = {
       serif = ["Linux Libertine"];

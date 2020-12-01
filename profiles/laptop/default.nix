@@ -7,6 +7,9 @@
     usbutils
   ];
 
+  # remap caps to escape/ctrl on built-in keyboard.
+  services.interception-tools.enable = true;
+
   services.upower.enable = lib.mkDefault true;
 
   services.thermald = {
