@@ -1,8 +1,10 @@
-{ stdenv, buildPackages, fetchurl, linuxManualConfig, pkgs }:
+{ stdenv, buildPackages, fetchurl, linuxManualConfig, pkgs
+, kernelPatches
+, ... }:
 (linuxManualConfig {
   inherit (pkgs.linux_latest) stdenv version src;
   configfile = ./kernel.config;
-  kernelPatches = [];
+  kernelPatches = []; # TODO: pass through kernelPatches
   allowImportFromDerivation = true;
 })
 .overrideAttrs(o: { # patch the derivation to fix some issues
