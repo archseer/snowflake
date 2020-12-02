@@ -39,7 +39,7 @@ in
 
   # programs.mako.enable = true;
   home-manager.users.speed = { pkgs, ... }: {
-    imports = [ ./waybar ];
+    imports = [ ./waybar ./wlsunset ];
 
     # rofi menu style
     xdg.configFile."rofi/sidestyle.rasi".source = ./sidestyle.rasi;
