@@ -16,23 +16,6 @@
         "type": "github"
       }
     },
-    "fedora": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1606240526,
-        "narHash": "sha256-OWtJi9en1/k4m0Hyd4yLUu78dWU+m9APkBPzBU5wpNg=",
-        "ref": "f33",
-        "rev": "756f140b4d309d227306608c8a63bc25bef99532",
-        "revCount": 5624,
-        "type": "git",
-        "url": "https://src.fedoraproject.org/rpms/kernel.git"
-      },
-      "original": {
-        "ref": "f33",
-        "type": "git",
-        "url": "https://src.fedoraproject.org/rpms/kernel.git"
-      }
-    },
     "futils": {
       "locked": {
         "lastModified": 1605370193,
@@ -98,27 +81,6 @@
         "type": "indirect"
       }
     },
-    "nixos-fedora": {
-      "inputs": {
-        "fedora": "fedora",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1606810544,
-        "narHash": "sha256-ZNU1JzpL8Hl4vlvvIKjhalFhnPF07rxH0DVLpsHpOXs=",
-        "owner": "archseer",
-        "repo": "nixos-fedora",
-        "rev": "aa909d8f26cc4a70a082f3f2a50b35d1a188ac5b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "archseer",
-        "repo": "nixos-fedora",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1606710629,
@@ -162,7 +124,6 @@
         "hardware": "hardware",
         "home": "home",
         "nixos": "nixos",
-        "nixos-fedora": "nixos-fedora",
         "nixpkgs": "nixpkgs",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "sops-nix": "sops-nix"
