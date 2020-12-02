@@ -27,11 +27,11 @@ stdenv.mkDerivation {
   ];
 
   meta = with stdenv.lib; {
-    maintainers = [ { name = "Blaž Hrastnik"; email = "blaz@mxxn.io"; } ];
+    homepage = "https://github.com/linux-surface/surface-aggregator-module";
+    description = "Linux ACPI and Platform Drivers for Surface Devices using the Surface Aggregator Module over Surface Serial Hub";
     license = [ licenses.gpl2Plus ];
+    maintainers = [ { name = "Blaž Hrastnik"; email = "blaz@mxxn.io"; } ];
     platforms = [ "x86_64-linux" ];
     broken = versionOlder kernel.version "5.4";
-    description = "Linux ACPI and Platform Drivers for Surface Devices using the Surface Aggregator Module over Surface Serial Hub";
-    homepage = "https://github.com/linux-surface/surface-aggregator-module";
   };
 }

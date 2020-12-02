@@ -35,7 +35,7 @@
 
       utils = import ./lib/utils.nix { inherit lib; };
 
-      systems = defaultSystems ++ [ "armv7l-linux" ];
+      systems = defaultSystems ++ [ ];
 
       pkgImport = pkgs: system:
         import pkgs {
@@ -95,6 +95,8 @@
             recursiveUpdate
               (recursiveUpdate cachixAttrs modulesAttrs)
               profilesAttrs;
+
+          packages.x86_64-linux.kernel = (pkgset "x86_64-linux").pkgs.callPackage ./hosts/hyrule/kernel.nix {};
 
           overlay = import ./pkgs;
 
