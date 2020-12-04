@@ -11,7 +11,7 @@ let
   terminal = "${pkgs.alacritty}/bin/alacritty";
   browser = "${pkgs.firefox-wayland}/bin/firefox";
 
-  menu = "${pkgs.rofi}/bin/rofi -terminal ${terminal} -show drun -theme sidestyle -show-icons -icon-theme Paper";
+  menu = "${pkgs.rofi-wayland}/bin/rofi -terminal ${terminal} -show drun -theme sidestyle -show-icons -icon-theme Paper";
 
   # inherit (config.hardware) pulseaudio;
   in_touchpad = "1118:2479:Microsoft_Surface_045E:09AF_Touchpad";
@@ -27,9 +27,6 @@ let
 in
 {
   imports = [ ];
-
-  programs.sway.enable = true; # needed for swaylock/pam stuff
-  programs.sway.extraPackages = []; # block rxvt
 
   # xdg.portal stuff?
   
@@ -388,6 +385,10 @@ in
     };
   };
 
+  programs.tmux.extraConfig = lib.mkBefore ''
+    set -g @override_copy_command 'wl-copy'
+  '';
+
   # environment.etc = {
   #   "sway/config".text =
   #     let volnoti = import ../misc/volnoti.nix { inherit pkgs; };
@@ -399,20 +400,6 @@ in
   #       # set background
   #       # output * bg tri-fadeno.jpg fill
   #     '';
-  # };
-
-  programs.tmux.extraConfig = lib.mkBefore ''
-    set -g @override_copy_command 'wl-copy'
-  '';
-
-  # services.gammastep = {
-  #   enable = true;
-  #   temperature.night = 3200;
-  # };
-
-  # location = {
-  #   latitude = 38.833881;
-  #   longitude = -104.821365;
   # };
 
   # systemd.user.services.volnoti = {
