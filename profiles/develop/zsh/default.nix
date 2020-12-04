@@ -7,7 +7,6 @@ in
 
   environment = {
     sessionVariables = {
-      ZSH_CACHE   = "$XDG_CACHE_HOME/zsh";
     };
 
     systemPackages = with pkgs; [
