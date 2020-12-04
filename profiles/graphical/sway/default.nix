@@ -60,8 +60,13 @@ in
     };
 
     home.packages = with pkgs;
-      options.programs.sway.extraPackages.default ++ [
+      [
+        swaylock
+        swayidle
+        xwayland
+
         rofi-wayland
+        #
         libinput-gestures
         qt5.qtwayland
         alacritty
@@ -74,7 +79,6 @@ in
         grim
         slurp
         # ydotool-git
-        # xwayland
         
         pulseaudio # just for pactl, wish there was pulseaudio-util
       ];
@@ -110,7 +114,7 @@ in
       '';
       config = rec {
         modifier = "Mod4";
-        inherit terminal;
+        inherit terminal menu;
         inherit left up right down;
         fonts = [ font ];
 
