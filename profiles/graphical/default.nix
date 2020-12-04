@@ -31,6 +31,8 @@ in
     # socketActivation ?
   };
 
+  hardware.opengl.enable = true;
+
   boot = {
     # use the latest upstream kernel
     # kernelPackages = pkgs.linuxPackages_latest;

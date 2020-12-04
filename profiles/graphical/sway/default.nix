@@ -34,6 +34,9 @@ in
     capitaine-cursors
   ];
 
+  # Apparently required for GTK3 settings on sway
+  programs.dconf.enable = true;
+
   # programs.mako.enable = true;
   home-manager.users.speed = { pkgs, ... }: {
     imports = [ ./waybar ./wlsunset ];
