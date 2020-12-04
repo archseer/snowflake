@@ -77,7 +77,7 @@ in
   };
 
   security = {
-    hideProcessInformation = true;
+    hideProcessInformation = false; # this doesn't work with systemd + cgroupsv2
     protectKernelImage = true;
   };
 
