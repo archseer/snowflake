@@ -24,10 +24,10 @@
   # to enable brightness keys
   programs.light.enable = true;
 
-  sound.mediaKeys = lib.mkIf (!config.hardware.pulseaudio.enable) {
-    enable = true;
-    volumeStep = "1dB";
-  };
+  # sound.mediaKeys = lib.mkIf (!config.hardware.pulseaudio.enable) {
+  #   enable = true;
+  #   volumeStep = "1dB";
+  # };
 
   # better timesync for unstable internet connections
   services.chrony.enable = true;

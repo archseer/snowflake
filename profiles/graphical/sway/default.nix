@@ -75,6 +75,8 @@ in
         slurp
         # ydotool-git
         # xwayland
+        
+        pulseaudio # just for pactl, wish there was pulseaudio-util
       ];
 
     wayland.windowManager.sway = {
@@ -342,10 +344,9 @@ in
           #bindsym $mod+Home exec --no-startup-id pkill -USR1 redshift
 
           ## Pulse Audio controls
-          # TODO: apparently already working
-          #bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
-          #bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% #decrease sound volume
-          #bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
+          "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%"; #increase sound volume
+          "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%"; #decrease sound volume
+          "XF86AudioMute" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle"; # mute sound
 
           ## Media player controls
           #bindsym XF86AudioPlay exec playerctl play-pause

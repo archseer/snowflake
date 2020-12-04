@@ -10,10 +10,13 @@ in
 
   # Enable sound.
 
-  sound.enable = true;
+  # Disable ALSA
+  sound.enable = false;
+  # Disable pulseaudio
+  hardware.pulseaudio.enable = false;
 
-  # hardware.pulseaudio.enable = true;
-  # nixpkgs.config.pulseaudio = true;
+  # build programs with pulseaudio support, pipewire will handle them
+  nixpkgs.config.pulseaudio = true;
 
   # pipewire
   # Not strictly required but pipewire will use rtkit if it is present
@@ -27,7 +30,6 @@ in
     # jack.enable = true;
     # socketActivation ?
   };
-  hardware.pulseaudio.enable = false;
 
   boot = {
     # use the latest upstream kernel

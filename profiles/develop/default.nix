@@ -32,6 +32,9 @@
       picocom
       rsync
 
+      nix-du
+      graphviz
+
       rustup
       rust-analyzer
     ];
