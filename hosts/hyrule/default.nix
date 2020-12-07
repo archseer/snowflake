@@ -64,8 +64,6 @@ in
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  # networking.interfaces.wlp0s20f3.useDHCP = true;
-  # networking.interfaces.wlan0.useDHCP = true;
 
   # nix.maxJobs = lib.mkDefault 8;
   # nix.systemFeatures = [ "gccarch-haswell" ];
