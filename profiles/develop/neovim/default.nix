@@ -42,7 +42,6 @@
         vim-commentary
         # -endwise
         vim-unimpaired
-        vim-highlightedyank
         vim-peekaboo
 
         # tentative:

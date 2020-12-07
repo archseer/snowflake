@@ -486,6 +486,8 @@ augroup align_windows
   au VimResized * wincmd =
 augroup END
 
+au TextYankPost * silent! lua require'highlight'.on_yank("IncSearch", 500, vim.v.event)
+
 " -- Abbreviations ----------------------------------------------------------
 iabbrev jsut    just
 iabbrev teh     the
