@@ -58,6 +58,11 @@ in
 
   swapDevices = [{device = "/swapfile"; size = 8192;}];
 
+  # Resume from encrypted volume's /swapfile
+  boot.resumeDevice = "/dev/mapper/cryptroot";
+  # filefrag -v /swapfile | awk '{ if($1=="0:"){print $4} }'
+  boot.kernelParams = [ "resume_offset=114857984" ];
+
   hardware.enableRedistributableFirmware = true;
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
