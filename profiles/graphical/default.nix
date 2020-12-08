@@ -2,7 +2,7 @@
 let inherit (builtins) readFile;
 in
 {
-  imports = [ ./sway ../develop ../network ./im ];
+  imports = [ ./sway ../develop ../network ./im ./misc/mpv.nix ];
 
   nixpkgs.overlays =  [
     #nixpkgs-wayland.overlay
