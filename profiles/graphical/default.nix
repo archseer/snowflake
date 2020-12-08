@@ -10,26 +10,35 @@ in
 
   # Enable sound.
 
-  # Disable ALSA
-  sound.enable = false;
-  # Disable pulseaudio
-  hardware.pulseaudio.enable = false;
-
-  # build programs with pulseaudio support, pipewire will handle them
+  # TEMP: back to pulseaudio
+  hardware.pulseaudio.enable = true;
   nixpkgs.config.pulseaudio = true;
 
-  # pipewire
-  # Not strictly required but pipewire will use rtkit if it is present
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    # Compatibility shims, adjust according to your needs
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # jack.enable = true;
-    # socketActivation ?
-  };
+  # # Disable ALSA
+  # sound.enable = false;
+  # # Disable pulseaudio
+  # hardware.pulseaudio.enable = pkgs.lib.mkForce false;
+
+  # # build programs with pulseaudio support, pipewire will handle them
+  # nixpkgs.config.pulseaudio = true;
+
+  # # pipewire
+  # # Not strictly required but pipewire will use rtkit if it is present
+  # security.rtkit.enable = true;
+  # services.pipewire = {
+  #   enable = true;
+  #   # Compatibility shims, adjust according to your needs
+  #   alsa.enable = true;
+  #   alsa.support32Bit = true;
+  #   pulse.enable = true;
+  #   # jack.enable = true;
+  #   # socketActivation ?
+  # };
+
+  # xdg.portal.enable = true;
+  # xdg.portal.gtkUsePortal = true;
+  # xdg.portal.extraPortals = with pkgs;
+  #   [ xdg-desktop-portal-wlr xdg-desktop-portal-gtk ];
 
   hardware.opengl.enable = true;
 
