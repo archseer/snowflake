@@ -26,9 +26,9 @@
                   "7" = "7";
                   "8" = "8";
                   "9" = "9";
-                  "urgent" = "";
-                  "focused" = "";
-                  "default" = "";
+                  # "urgent" = "";
+                  # "focused" = "";
+                  # "default" = "";
               };
               # "persistant_workspaces": {
               #     "1": ["eDP-1"],
