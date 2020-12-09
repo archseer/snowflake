@@ -13,6 +13,7 @@ in
     # ../../profiles/graphical/games
     ../../profiles/graphical
     ../../profiles/misc/disable-mitigations.nix
+    ../../profiles/misc/yubikey.nix
     # ../../profiles/postgres
     # ../../profiles/ssh
     ../../users/speed
