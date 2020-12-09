@@ -10,7 +10,7 @@
         height = 30; 
         modules-left = ["sway/mode" "pulseaudio"];
         modules-center = ["sway/workspaces"];
-        modules-right = ["tray" "idle_inhibitor" "network" "temperature" "battery" "clock"];
+        modules-right = ["tray" "idle_inhibitor" "cpu" "memory" "network" "temperature" "battery" "clock"];
         modules = {
           "sway/workspaces" = {
               disable-scroll = true;
@@ -55,13 +55,13 @@
               tooltip-format = "{:%Y-%m-%d | %H:%M}";
               format-alt = "{:%a, %d %b %Y}";
           };
-          # cpu = {
-          #     format = "{usage}% ";
-          #     tooltip = false;
-          # };
-          # memory = {
-          #     format = "{}% ";
-          # };
+          cpu = {
+              format = "{usage}% ";
+              tooltip = false;
+          };
+          memory = {
+              format = "{}% ";
+          };
           temperature = {
               thermal-zone = 5;
               # "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",

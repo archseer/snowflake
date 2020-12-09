@@ -119,7 +119,7 @@ in
       font-awesome # waybar icons: TODO: move to there
       noto-fonts
       noto-fonts-cjk
-      noto-fonts-emoji
+      twemoji-color-font
       inter
       fira-code fira-code-symbols fira-mono fira
       libertine

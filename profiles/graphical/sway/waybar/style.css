@@ -103,13 +103,13 @@ window#waybar {
 
 #cpu {
     background: transparent;
-    border-bottom: 3px solid @color5;
+    /* border-bottom: 3px solid @color5; */
     color: white;
 }
 
 #memory {
     background: transparent;
-    border-bottom: 3px solid @color7;
+    /* border-bottom: 3px solid @color7; */
     color: white;
 }
 
