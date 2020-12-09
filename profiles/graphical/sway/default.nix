@@ -81,6 +81,7 @@ in
         # ydotool-git
         
         pulseaudio # just for pactl, wish there was pulseaudio-util
+        playerctl
       ];
 
     wayland.windowManager.sway = {
@@ -246,16 +247,16 @@ in
           # Moving around
 
           # Move your focus around
-          "${modifier}+Left" = "focus left";
-          "${modifier}+Down" = "focus down";
-          "${modifier}+Up" = "focus up";
-          "${modifier}+Right" = "focus right";
+          "${modifier}+${left}" = "focus left";
+          "${modifier}+${down}" = "focus down";
+          "${modifier}+${up}" = "focus up";
+          "${modifier}+${right}" = "focus right";
 
           # Move the focused window with the same, but add Shift
-          "${modifier}+Shift+Left" = "move left";
-          "${modifier}+Shift+Down" = "move down";
-          "${modifier}+Shift+Up" = "move up";
-          "${modifier}+Shift+Right" = "move right";
+          "${modifier}+Shift+${left}" = "move left";
+          "${modifier}+Shift+${down}" = "move down";
+          "${modifier}+Shift+${up}" = "move up";
+          "${modifier}+Shift+${right}" = "move right";
 
           # Workspaces
 
