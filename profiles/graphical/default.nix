@@ -2,7 +2,7 @@
 let inherit (builtins) readFile;
 in
 {
-  imports = [ ./sway ../develop ../network ./im ./misc/mpv.nix ];
+  imports = [ ./sway ../develop ../network ./im ];
 
   nixpkgs.overlays =  [
     #nixpkgs-wayland.overlay
@@ -52,6 +52,8 @@ in
   };
 
   home-manager.users.speed = { pkgs, ... }: {
+    imports = [ ./misc/mpv ];
+
     gtk = {
       enable = true;
       theme = {
