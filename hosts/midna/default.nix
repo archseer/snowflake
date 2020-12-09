@@ -6,6 +6,7 @@
     ./networking.nix
     ../../profiles/ssh
     ../../users/speed
+    ../../users/root
   ];
 
   boot.cleanTmpDir = true;

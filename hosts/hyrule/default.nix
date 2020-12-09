@@ -3,7 +3,7 @@ let
   inherit (builtins) readFile;
 
   kernel = pkgs.callPackage ./kernel.nix {};
-  linuxPackages = pkgs.linuxPackagesFor kernel;
+  linuxPackages = (pkgs.linuxPackagesFor kernel);
 in
 {
   require = [
@@ -15,7 +15,6 @@ in
     ../../profiles/misc/disable-mitigations.nix
     ../../profiles/misc/yubikey.nix
     # ../../profiles/postgres
-    # ../../profiles/ssh
     ../../users/speed
     ../../users/root
   ];
@@ -32,12 +31,10 @@ in
 
   # use the latest upstream kernel
   # boot.kernelPackages = pkgs.linuxPackages_5_9;
-  # boot.kernelPackages = pkgs.linuxPackages_surface;
+  # use the custom kernel config
   boot.kernelPackages = linuxPackages;
-  boot.extraModulePackages = [
-    # pkgs.linuxPackages_surface.surface-aggregator
-    linuxPackages.surface-aggregator
-  ];
+
+  boot.extraModulePackages = [ linuxPackages.surface-aggregator ];
 
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -66,11 +63,6 @@ in
 
   hardware.enableRedistributableFirmware = true;
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = false;
-
   # nix.maxJobs = lib.mkDefault 8;
   # nix.systemFeatures = [ "gccarch-haswell" ];
 
@@ -82,7 +74,7 @@ in
   hardware.video.hidpi.enable = lib.mkDefault true;
 
   # Track list of enabled modules for localmodconfig generation.
-  services.modprobed-db.enable = true;
+  environment.systemPackages = [ pkgs.modprobed-db ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

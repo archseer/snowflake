@@ -9,9 +9,7 @@ in
 
   imports = [ ../../profiles/develop  ];
 
-  users.users.root.hashedPassword = lib.mkForce "$6$F5AAi9NA8wWXXW$eY/MXfj2bkPDdxJRaNvCdadmol0zW5E2VrWdnatgnHEakDqPfJ/Mt61iOznD.rsO8hGde01zU2113xgVfk3F2/";
-
-  # users.users.speed.packages = with pkgs; [ pandoc ];
+  # users.users.speed.packages = with pkgs; [ ];
 
   programs.gnupg.agent = {
     enable = true;
@@ -20,10 +18,6 @@ in
 
   environment.systemPackages = with pkgs; [ cachix ];
 
-  # TODO: move to core
-  home-manager.useGlobalPkgs = true; # is this equivalent to stateVersion 20.09?
-  home-manager.useUserPackages = true;
-
   home-manager.users.speed = {
     imports = [
       ../profiles/git
@@ -31,27 +25,8 @@ in
       # ../profiles/direnv
     ];
 
-    home = {
-      # required so home doesn't import <nixpkgs>
-      stateVersion = "20.09";
-
-
-      # packages = mkForce [ ];
-
-      # file = {
-      # };
-    };
-
-    # programs.mpv = {
-    #   enable = true;
-    #   config = {
-    #     ytdl-format = "bestvideo[height<=?1080]+bestaudio/best";
-    #     hwdec = "auto";
-    #     vo = "gpu";
-    #   };
-    # };
-
-    # programs.mako.enable = true;
+    # required so home doesn't import <nixpkgs>
+    home.stateVersion = "20.09";
 
     programs.git = {
       userName = name;

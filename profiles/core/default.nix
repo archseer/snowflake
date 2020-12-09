@@ -67,6 +67,10 @@ in
     '';
   };
 
+  # Need to configure home-manager to work with flakes
+  home-manager.useGlobalPkgs = true; # is this equivalent to stateVersion 20.09?
+  home-manager.useUserPackages = true;
+
   programs.bash = {
     promptInit = ''
       eval "$(${pkgs.starship}/bin/starship init bash)"

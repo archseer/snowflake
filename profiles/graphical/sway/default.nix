@@ -37,6 +37,10 @@ in
   # Apparently required for GTK3 settings on sway
   programs.dconf.enable = true;
 
+  programs.tmux.extraConfig = lib.mkBefore ''
+    set -g @override_copy_command 'wl-copy'
+  '';
+
   # programs.mako.enable = true;
   home-manager.users.speed = { pkgs, ... }: {
     imports = [ ./waybar ./wlsunset ];
@@ -392,35 +396,4 @@ in
       };
     };
   };
-
-  programs.tmux.extraConfig = lib.mkBefore ''
-    set -g @override_copy_command 'wl-copy'
-  '';
-
-  # environment.etc = {
-  #   "sway/config".text =
-  #     let volnoti = import ../misc/volnoti.nix { inherit pkgs; };
-  #     in
-  #     ''
-  #       set $volume ${volnoti}
-  #       set $mixer "${pkgs.alsaUtils}/bin/amixer -q set Master"
-
-  #       # set background
-  #       # output * bg tri-fadeno.jpg fill
-  #     '';
-  # };
-
-  # systemd.user.services.volnoti = {
-  #   enable = true;
-  #   description = "volnoti volume notification";
-  #   documentation = [ "volnoti --help" ];
-  #   wantedBy = [ "sway-session.target" ];
-
-  #   script = "${pkgs.volnoti}/bin/volnoti -n";
-
-  #   serviceConfig = {
-  #     Restart = "always";
-  #     RestartSec = 3;
-  #   };
-  # };
 }
