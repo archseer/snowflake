@@ -41,12 +41,36 @@ in
     set -g @override_copy_command 'wl-copy'
   '';
 
-  # programs.mako.enable = true;
   home-manager.users.speed = { pkgs, ... }: {
     imports = [ ./waybar ./wlsunset ];
 
     # rofi menu style
     xdg.configFile."rofi/sidestyle.rasi".source = ./sidestyle.rasi;
+
+    # Starts automatically via dbus
+    programs.mako = {
+      enable = true;
+      font = "Inter UI, Font Awesome 10";
+      padding = "15,20";
+      # backgroundColor = "#3b224cF0";
+      backgroundColor = "#281733F0";
+      textColor="#ebeafa";
+      borderSize = 2;
+      borderColor = "#a4a0e8";
+      defaultTimeout = 5000;
+      markup = true;
+      format = "<b>%s</b>\n\n%b";
+
+      # TODO:
+      # [hidden]
+      # format=(and %h more)
+      # text-color=#999999
+
+      # [urgency=high]
+      # text-color=#F22C86
+      # border-color=#F22C86
+      # border-size=4
+    };
 
     home.sessionVariables = {
       MOZ_ENABLE_WAYLAND = "1";
@@ -79,7 +103,6 @@ in
         volnoti
         wl-clipboard
         waybar
-        # (waybar.override { pulseSupport = pulseaudio.enable; })
         grim
         slurp
         # ydotool-git
@@ -90,15 +113,11 @@ in
 
     wayland.windowManager.sway = {
       enable = true;
-      systemdIntegration = true; # beta
+      systemdIntegration = true;
       wrapperFeatures = {
         base = true; # this is the default, but be explicit for now
         gtk = true;
       };
-      # extraSessionCommands = ''
-      #   export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
-      #   systemctl --user import-environment
-      # '';
       xwayland = true;
       extraConfig = ''
           set $bg #281733
