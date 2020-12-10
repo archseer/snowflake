@@ -36,6 +36,9 @@ in
 
   boot.extraModulePackages = [ linuxPackages.surface-aggregator ];
 
+  # use zstd compression instead of gzip for initramfs.
+  boot.initrd.compressor = "${lib.getBin pkgs.zstd}/bin/zstd";
+
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Setup root as encrypted LUKS volume
