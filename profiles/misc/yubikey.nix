@@ -10,8 +10,8 @@
 
     # create key: `pamu2fcfg`
     authFile = pkgs.writeText "u2f_keys" ''
-    speed:uKgq1fm0eveHC/3VssSUUnVQHoQ6MMaECcG/CqvIYpbUdFDHzN4b09EmLwZUyMRvzzJbeQdlaaXY3RxrSMDX+g==,hK9WQ468T5dj28mDYTLZG24SiZ0+YWrnGuGCAK+ulpzII1o3rjQnhBUUUOYX0OvSok3mDPbCIYkBROg3Bu6qqA==,es256,+presence
-    speed:y4HD+Q/e7se6Mr4JYfdwmShRSI+gt1i6xlsj5hdZeQ/xGaokz1gYpYBU2Hv8ss4NozYaUuOyc74CLmKFo6N3Ew==,qn7t9XbnzBWfpg/k9ndqeVh/EnXmRWUa9wArv7yy6QaePoR9oKiNS9gLbOPVcj2xcfk5/peyD8xGsDsiayhc4A==,es256,+presence
+    speed:BrgFsoVXT5i6cn9gU/qy9wS7uhFnR/5KceLJQFP3+SmQ+0g1chxXYzpWwzeDhyBBYMBpsyEmtRKgdOQrhGXhLA==,3OktBosHbWOwbJXWkG0g0k/Yymh6eSgVwHH8/jECWnnTNG5me26sU8hkCxdfS2BpPGJLasQxT2OHg8ql6MoeuA==,es256,+presence
+    speed:1BaBxWeS2ClIpyWlrEpTJylYeXNl9qNAvIeHaD28t5HFK5iRWOsy2VY+KW9WkMnr2yrM8dXp3U9cVJiG6XjqaQ==,VR6wUpt67GGZD6r7cQKcF3DqM/MLR5lXguMy3jaQkcB/YtLqaEIrzEThXZFco4TAIlodjlTDk98Sy3DiaeeD1w==,es256,+presence
     '';
   };
 }

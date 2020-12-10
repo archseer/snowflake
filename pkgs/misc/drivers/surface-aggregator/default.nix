@@ -1,8 +1,7 @@
-{ stdenv, fetchFromGitHub, kernel }:
+{ lib, stdenv, fetchFromGitHub, kernel }:
 let
   version = "cb2b9507acedd996ad4833ff84ec92123658148b";
   sha256 = "10r5j4k9w2zxbpkw0yq48c4yirjvqdknh1d3vp7gq75i8ki81hrr";
-
 in
 stdenv.mkDerivation {
   name = "surface-aggregator-module-${version}-${kernel.version}";
@@ -25,11 +24,11 @@ stdenv.mkDerivation {
     "INSTALL_MOD_PATH=$(out)"
   ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/linux-surface/surface-aggregator-module";
     description = "Linux ACPI and Platform Drivers for Surface Devices using the Surface Aggregator Module over Surface Serial Hub";
     license = [ licenses.gpl2Plus ];
-    maintainers = [ { name = "Blaž Hrastnik"; email = "blaz@mxxn.io"; } ];
+    maintainers = with maintainers; [ archseer ];
     platforms = [ "x86_64-linux" ];
     broken = versionOlder kernel.version "5.4";
   };
