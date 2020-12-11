@@ -100,7 +100,7 @@ in
         alacritty
         libnotify
         mako
-        volnoti
+        # volnoti
         wl-clipboard
         waybar
         grim

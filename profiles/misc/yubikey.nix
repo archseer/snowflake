@@ -1,11 +1,17 @@
 { pkgs, ... }:
 {
+  # https://zach.codes/ultimate-yubikey-setup-guide/
+  # https://github.com/drduh/YubiKey-Guide/
   environment.systemPackages = with pkgs; [
     # yubico-piv-tool
     yubikey-personalization
     yubikey-manager
     pinentry-curses # TODO move to general gpg
   ];
+
+  # ykman openpgp set-touch aut off
+  # ykman openpgp set-touch sig on
+  # ykman openpgp set-touch enc on
 
   # smart card mode (CCID) for gpg keys
   services.pcscd.enable = true;
