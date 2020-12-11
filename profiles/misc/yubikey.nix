@@ -3,7 +3,12 @@
   environment.systemPackages = with pkgs; [
     # yubico-piv-tool
     yubikey-personalization
+    yubikey-manager
+    pinentry-curses # TODO move to general gpg
   ];
+
+  # smart card mode (CCID) for gpg keys
+  services.pcscd.enable = true;
 
   security.pam.u2f = {
     enable = true;

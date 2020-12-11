@@ -31,10 +31,10 @@ in
     programs.git = {
       userName = name;
       userEmail = "blaz@mxxn.io";
-      # signing = {
-      #   key = "E31F4464";
+      signing = {
+        key = "0x1170C6F8B2A09BF8";
       #   signByDefault = true;
-      # };
+      };
       # TODO: sendemail config
     };
 
