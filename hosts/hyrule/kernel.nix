@@ -4,7 +4,10 @@
 (linuxManualConfig {
   inherit (pkgs.linux_latest) stdenv version src;
   configfile = ./kernel.config;
-  kernelPatches = []; # TODO: pass through kernelPatches
+  kernelPatches = [{
+    name = "iio";
+    patch = ./iio.patch;
+  }]; # TODO: pass through kernelPatches
   allowImportFromDerivation = true;
 })
 .overrideAttrs(o: { nativeBuildInputs = o.nativeBuildInputs ++ [ pkgs.zstd ]; }) # for zstd compression
