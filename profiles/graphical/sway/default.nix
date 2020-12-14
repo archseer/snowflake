@@ -178,6 +178,7 @@ in
 
         input = {
           "${in_touchpad}" = {
+            left_handed = "enabled"; # This is a thing, thank you
             # click_method = "clickfinger";
             # scroll_method = "two_finger";
             tap = "enabled";
