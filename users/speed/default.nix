@@ -11,11 +11,6 @@ in
 
   # users.users.speed.packages = with pkgs; [ ];
 
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
-
   environment.systemPackages = with pkgs; [ cachix ];
 
   home-manager.users.speed = {
@@ -24,6 +19,12 @@ in
       ../profiles/alacritty
       # ../profiles/direnv
     ];
+
+    services.gpg-agent = {
+      enable = true;
+      enableSshSupport = true;
+      pinentryFlavor = "curses";
+    };
 
     # required so home doesn't import <nixpkgs>
     home.stateVersion = "20.09";
