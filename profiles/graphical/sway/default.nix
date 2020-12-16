@@ -179,15 +179,14 @@ in
         input = {
           "${in_touchpad}" = {
             left_handed = "enabled"; # This is a thing, thank you
-            # click_method = "clickfinger";
-            # scroll_method = "two_finger";
+            click_method = "clickfinger";
             tap = "enabled";
             dwt = "enabled"; # disable while typing
+            scroll_method = "two_finger";
             natural_scroll = "enabled";
             scroll_factor = "0.75";
-            middle_emulation = "enabled";
             accel_profile = "adaptive";
-            pointer_accel = "0.33";
+            pointer_accel = "0.5";
           };
           "${in_keyboard}" = {
             xkb_layout = "us";
