@@ -59,7 +59,7 @@ in
       borderColor = "#a4a0e8";
       defaultTimeout = 5000;
       markup = true;
-      format = "<b>%s</b>\n\n%b";
+      format = "<b>%s</b>\\n\\n%b";
 
       # TODO:
       # [hidden]
