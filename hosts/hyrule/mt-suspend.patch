@@ -1,0 +1,63 @@
+From d51433497403413ba6d4bde80bfc9393a965f02c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Bla=C5=BE=20Hrastnik?= <blaz@mxxn.io>
+Date: Sat, 19 Dec 2020 12:49:50 +0900
+Subject: [PATCH] hid-multitouch: Set to high latency mode on suspend.
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Per Windows Precision Touchpad guidelines:
+
+> The latency mode feature report is sent by the host to a Windows
+> Precision Touchpad to indicate when high latency is desirable for
+> power savings and, conversely, when normal latency is desired for
+> operation.
+>
+> For USB-connected Windows Precision Touchpads, this enables the device
+> to disambiguate between being suspended for inactivity (runtime IDLE)
+> and being suspended because the system is entering S3 or Connected
+> Standby.
+
+Signed-off-by: Blaž Hrastnik <blaz@mxxn.io>
+---
+ drivers/hid/hid-multitouch.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
+index d670bcd57..28bac0f39 100644
+--- a/drivers/hid/hid-multitouch.c
++++ b/drivers/hid/hid-multitouch.c
+@@ -1746,6 +1746,13 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ }
+ 
+ #ifdef CONFIG_PM
++static int mt_suspend(struct hid_device *hdev, pm_message_t state)
++{
++	/* High latency is desirable for power savings during S3/S0ix */
++	mt_set_modes(hdev, HID_LATENCY_HIGH, true, true);
++	return 0;
++}
++
+ static int mt_reset_resume(struct hid_device *hdev)
+ {
+ 	mt_release_contacts(hdev);
+@@ -1761,6 +1768,8 @@ static int mt_resume(struct hid_device *hdev)
+ 
+ 	hid_hw_idle(hdev, 0, 0, HID_REQ_SET_IDLE);
+ 
++	mt_set_modes(hdev, HID_LATENCY_NORMAL, true, true);
++
+ 	return 0;
+ }
+ #endif
+@@ -2150,6 +2159,7 @@ static struct hid_driver mt_driver = {
+ 	.event = mt_event,
+ 	.report = mt_report,
+ #ifdef CONFIG_PM
++	.suspend = mt_suspend,
+ 	.reset_resume = mt_reset_resume,
+ 	.resume = mt_resume,
+ #endif
+-- 
+2.29.2
+
