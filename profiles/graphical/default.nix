@@ -25,19 +25,19 @@ in
   # # pipewire
   # # Not strictly required but pipewire will use rtkit if it is present
   # security.rtkit.enable = true;
-  # security.pam.loginLimits = [
-  #   { domain = "@users"; item = "memlock"; type = "soft"; value = "1048576"; }
-  #   { domain = "@users"; item = "memlock"; type = "hard"; value = "unlimited"; }
-  #   # Allow using RT (RR/FIFO) scheduling
-  #   { domain = "@users"; item = "rtprio";  type = "soft"; value = "46"; }
-  #   { domain = "@users"; item = "rtprio";  type = "hard"; value = "49"; }
-  #   # Get higher user process priority over background system services and allow
-  #   # higher normal scheduling priorities
-  #   { domain = "@users"; item = "priority"; type = "soft"; value = "-2"; }
-  #   { domain = "@users"; item = "nice"; type = "soft"; value = "-19"; }
-  #   { domain = "@users"; item = "nice"; type = "hard"; value = "-20"; }
-  #   { domain = "@messagebus"; item = "priority"; type = "soft"; value = "-10"; }
-  # ];
+  # # security.pam.loginLimits = [
+  # #   { domain = "@users"; item = "memlock"; type = "soft"; value = "1048576"; }
+  # #   { domain = "@users"; item = "memlock"; type = "hard"; value = "unlimited"; }
+  # #   # Allow using RT (RR/FIFO) scheduling
+  # #   { domain = "@users"; item = "rtprio";  type = "soft"; value = "46"; }
+  # #   { domain = "@users"; item = "rtprio";  type = "hard"; value = "49"; }
+  # #   # Get higher user process priority over background system services and allow
+  # #   # higher normal scheduling priorities
+  # #   { domain = "@users"; item = "priority"; type = "soft"; value = "-2"; }
+  # #   { domain = "@users"; item = "nice"; type = "soft"; value = "-19"; }
+  # #   { domain = "@users"; item = "nice"; type = "hard"; value = "-20"; }
+  # #   { domain = "@messagebus"; item = "priority"; type = "soft"; value = "-10"; }
+  # # ];
 
   # services.pipewire = {
   #   enable = true;
