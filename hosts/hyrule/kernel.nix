@@ -16,4 +16,4 @@
   ]; # TODO: pass through kernelPatches
   allowImportFromDerivation = true;
 })
-.overrideAttrs(o: { nativeBuildInputs = o.nativeBuildInputs ++ [ pkgs.zstd ]; }) # for zstd compression
+.overrideAttrs(o: { nativeBuildInputs = o.nativeBuildInputs ++ [ pkgs.zstd pkgs.zlib ]; }) # for zstd compression
