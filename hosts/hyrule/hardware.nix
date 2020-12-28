@@ -7,7 +7,7 @@
   ];
 
   # fix `reboot` command
-  boot.kernelParams = [ "reboot=pci" ];
+  # boot.kernelParams = [ "reboot=pci" ];
 
   # Load surface_aggregator / surface_hid at stage 1 so we can use the keyboard
   # during LUKS.
