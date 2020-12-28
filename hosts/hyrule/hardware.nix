@@ -6,8 +6,7 @@
     hardware.nixosModules.common-pc-ssd
   ];
 
-  # fix `reboot` command
-  # boot.kernelParams = [ "reboot=pci" ];
+  boot.kernelParams = [ "cryptomgr.notests" ];
 
   # Load surface_aggregator / surface_hid at stage 1 so we can use the keyboard
   # during LUKS.
