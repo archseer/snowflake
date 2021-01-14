@@ -77,5 +77,11 @@
       forceSSL = true;
       root = "/var/www/mxxn";
     };
+
+    virtualHosts."polyfox.io" = {
+      enableACME = true;
+      forceSSL = true;
+      root = "/var/www/fox";
+    };
   };
 }
