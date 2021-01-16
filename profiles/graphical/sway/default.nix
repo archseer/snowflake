@@ -17,7 +17,8 @@ let
   in_touchpad = "1118:2479:Microsoft_Surface_045E:09AF_Touchpad";
   in_keyboard = "1118:2478:Microsoft_Surface_045E:09AE_Keyboard";
   out_laptop = "eDP-1";
-  out_monitor = "DP-1";
+  # out_monitor = "DP-1";
+  out_monitor = "Goldstar Company Ltd LG HDR 4K 0x0000EEB5";
 
   # Theme colors
   # bg = "#281733";
@@ -203,9 +204,9 @@ in
             scale = "1.498";
           };
           "${out_monitor}" = {
-            mode = "2560x1440@59.951Hz";
+            mode = "3840x2160@60Hz";
             # subpixel = "rgb";
-            # scale = "1.0";
+            scale = "1.5";
             # adaptive_sync = "on";
           };
           "*" = {
