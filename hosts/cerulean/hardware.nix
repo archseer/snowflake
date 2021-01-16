@@ -10,7 +10,7 @@
   # Load surface_aggregator / surface_hid at stage 1 so we can use the keyboard
   # during LUKS.
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "uas" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
 
   boot.kernelModules = [ "kvm-amd" ];
 

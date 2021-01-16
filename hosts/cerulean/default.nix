@@ -29,10 +29,9 @@ in
   };
 
   # use the latest upstream kernel
-  # boot.kernelPackages = pkgs.linuxPackages_5_9;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   # use the custom kernel config
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelPackages = linuxPackages;
+  boot.kernelPackages = linuxPackages;
 
   # boot.extraModulePackages = [ ];
 
@@ -44,14 +43,14 @@ in
   # Setup root as encrypted LUKS volume
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/f0173313-719c-4e09-a766-e74d96d35ee8";
+    { device = "/dev/disk/by-uuid/3d953c33-2053-49c1-a4fc-064cdbd761c6";
       fsType = "ext4";
     };
 
-  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/253b225b-eb1a-4f16-8e17-18b9c33e7ce8";
+  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/663d4e43-9596-49e5-b555-101fbfc6cf18";
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/92D3-1812";
+    { device = "/dev/disk/by-uuid/6C9C-379F";
       fsType = "vfat";
     };
 
