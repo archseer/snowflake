@@ -22,14 +22,14 @@
   };
 
   # Wired: systemd-networkd
-  # networking.useNetworkd = true;
-  # systemd.network.networks."40-wired" = {
-  #   matchConfig = { Name = lib.mkForce "enp* eth*"; };
-  #   DHCP = "yes";
-  #   networkConfig = {
-  #     IPv6PrivacyExtensions = "yes";
-  #   };
-  # };
+  networking.useNetworkd = true;
+  systemd.network.networks."40-wired" = {
+    matchConfig = { Name = lib.mkForce "enp* eth*"; };
+    DHCP = "yes";
+    networkConfig = {
+      IPv6PrivacyExtensions = "yes";
+    };
+  };
 
   # TODO: Anonymize=yes ? Makes requests grow in size though
 
