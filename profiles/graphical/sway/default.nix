@@ -16,6 +16,7 @@ let
   # inherit (config.hardware) pulseaudio;
   in_touchpad = "1118:2479:Microsoft_Surface_045E:09AF_Touchpad";
   in_keyboard = "1118:2478:Microsoft_Surface_045E:09AE_Keyboard";
+  in_mouse = "1133:16518:Logitech_G703_LS";
   out_laptop = "eDP-1";
   # out_monitor = "DP-1";
   out_monitor = "Goldstar Company Ltd LG HDR 4K 0x0000EEB5";
@@ -196,6 +197,9 @@ in
             xkb_layout = "us";
             xkb_variant = "norman";
             xkb_options = "compose:ralt";
+          };
+          "${in_mouse}" = {
+            # pointer_accel = "-0.1";
           };
         };
 

@@ -76,7 +76,8 @@ in
   hardware.video.hidpi.enable = lib.mkDefault true;
 
   # Track list of enabled modules for localmodconfig generation.
-  environment.systemPackages = [ pkgs.modprobed-db pkgs.lm_sensors ];
+  environment.systemPackages = with pkgs; [ modprobed-db lm_sensors piper ];
+  services.ratbagd.enable = true; # ratbagd + piper = logitech mouse config
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
