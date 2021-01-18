@@ -75,6 +75,9 @@ in
   # high-resolution display
   hardware.video.hidpi.enable = lib.mkDefault true;
 
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = false;
+
   # Track list of enabled modules for localmodconfig generation.
   environment.systemPackages = with pkgs; [ modprobed-db lm_sensors piper ];
   services.ratbagd.enable = true; # ratbagd + piper = logitech mouse config
