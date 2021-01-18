@@ -108,8 +108,8 @@
           network = {
               # "interface": "wlp2*", # (Optional) To force the use of this interface
               format-wifi = "{signalStrength}% ";
-              format-ethernet = "{ifname}: {ipaddr}/{cidr} ";
-              format-linked = "{ifname} (No IP) ";
+              format-ethernet = "{ifname}: {ipaddr}/{cidr} ";
+              format-linked = "{ifname} (No IP) ";
               format-disconnected = "Disconnected ⚠";
               format-alt = "{essid} {signalStrength}%";
           };
