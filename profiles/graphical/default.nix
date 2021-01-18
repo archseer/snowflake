@@ -10,6 +10,9 @@ in
 
   # Enable sound.
 
+  # would require snd_pci_oss to be built into the kernel
+  sound.enableOSSEmulation = false;
+
   # TEMP: back to pulseaudio
   hardware.pulseaudio.enable = true;
   nixpkgs.config.pulseaudio = true;
