@@ -199,7 +199,10 @@ in
             xkb_options = "compose:ralt";
           };
           "${in_mouse}" = {
-            # pointer_accel = "-0.1";
+            accel_profile = "adaptive";
+            pointer_accel = "-0.2";
+            # accel_profile = "flat";
+            # pointer_accel = "0";
           };
         };
 
