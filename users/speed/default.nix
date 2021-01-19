@@ -17,7 +17,7 @@ in
     imports = [
       ../profiles/git
       ../profiles/alacritty
-      # ../profiles/direnv
+      ../profiles/direnv
     ];
 
     services.gpg-agent = {
