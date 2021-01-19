@@ -7,12 +7,11 @@
 
   boot.kernelParams = [ "cryptomgr.notests" ];
 
-  # Load surface_aggregator / surface_hid at stage 1 so we can use the keyboard
-  # during LUKS.
-
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
 
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-amd"
+    "nct6683" # fan speed, temperature and voltage sensors
+  ];
 
   # boot.kernel.sysctl = [
   #   "net.ipv4.tcp_congestion_control" = "bbr";
