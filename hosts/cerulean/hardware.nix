@@ -7,7 +7,7 @@
 
   boot.kernelParams = [ "cryptomgr.notests" ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = lib.mkForce [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
 
   boot.kernelModules = [ "kvm-amd"
     "nct6683" # fan speed, temperature and voltage sensors
