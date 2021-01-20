@@ -12,11 +12,8 @@
 
   services.upower.enable = lib.mkDefault true;
 
-  services.thermald = {
-    enable = true;
-    # adaptive works a lot better on newer CPUs
-    # adaptive = true;
-  };
+  # --adaptive by default
+  services.thermald.enable = true;
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = false;

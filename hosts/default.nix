@@ -3,16 +3,17 @@
 , hardware
 , nixos
 , nixpkgs
-, pkgset
+, osPkgs
 , self
 , system
+, unstablePkgs
 , utils
+, externModules
 , ...
 }:
 let
   inherit (lib) nameValuePair mapAttrs filterAttrs;
   inherit (builtins) attrValues removeAttrs readDir;
-  inherit (pkgset) osPkgs pkgs;
 
   config = hostName:
     lib.nixosSystem {
@@ -25,6 +26,13 @@ let
         let
           inherit (home.nixosModules) home-manager;
 
+          # modOverrides = { config, unstableModulesPath, ... }: {
+          #   disabledModules = unstableModules ++ addToDisabledModules;
+          #   imports = map
+          #     (path: "${unstableModulesPath}/${path}")
+          #     unstableModules;
+          # };
+
           core = self.nixosModules.profiles.core;
 
           global = {
@@ -35,32 +43,19 @@ let
                 "nixos=${nixos}"
                 "nixos-config=${path}/configuration.nix"
                 "nixpkgs-overlays=${path}/overlays"
+                "home-manager=${home}"
               ];
 
-            nixpkgs = { pkgs = osPkgs; };
+            nixpkgs.pkgs = osPkgs;
 
             nix.registry = {
-              nixos.flake = nixos;
-              nixflk.flake = self;
               nixpkgs.flake = nixpkgs;
+              snowflake.flake = self;
+              nixos.flake = nixos;
+              home-manager.flake = home;
             };
 
             system.configurationRevision = lib.mkIf (self ? rev) self.rev;
-          };
-
-          overrides = {
-            # use latest systemd
-            systemd.package = pkgs.systemd;
-
-            nixpkgs.overlays =
-              let
-                override = import ../pkgs/override.nix pkgs;
-
-                overlay = pkg: final: prev: {
-                  "${pkg.pname}" = pkg;
-                };
-              in
-              map overlay override;
           };
 
           local = import "${toString ./.}/${hostName}";
@@ -70,7 +65,10 @@ let
             attrValues (removeAttrs self.nixosModules [ "profiles" ]);
 
         in
-        flakeModules ++ [ core global local home-manager overrides ];
+        flakeModules ++ [
+          core global local home-manager
+          # modOverrides
+        ] ++ externModules;
 
     };
 

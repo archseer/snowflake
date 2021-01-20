@@ -2,15 +2,16 @@
   "nodes": {
     "futils": {
       "locked": {
-        "lastModified": 1609246779,
-        "narHash": "sha256-eq6ZXE/VWo3EMC65jmIT6H/rrUc9UWOWVujkzav025k=",
+        "lastModified": 1608663846,
+        "narHash": "sha256-YOAXeoNLW0IubQ6AZLGuSj5kAD5n4DYXLYReLtyds1A=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "08c7ad4a0844adc4a7f9f5bb3beae482e789afa4",
+        "rev": "a68df93a37cd5137ac22ffeb2d8a03acf253cc24",
         "type": "github"
       },
       "original": {
         "owner": "numtide",
+        "ref": "flatten-tree-system",
         "repo": "flake-utils",
         "type": "github"
       }

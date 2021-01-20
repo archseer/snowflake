@@ -18,101 +18,74 @@
       sops-nix.url = "github:Mic92/sops-nix";
       sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-      futils.url = "github:numtide/flake-utils";
+      futils.url = "github:numtide/flake-utils/flatten-tree-system";
     };
 
   outputs = inputs@{ self, home, nixos, nixpkgs, hardware, sops-nix, futils }:
     let
       inherit (builtins) attrNames attrValues readDir;
+      inherit (futils.lib) eachDefaultSystem flattenTreeSystem;
       inherit (nixos) lib;
-      inherit (lib) recursiveUpdate;
-      inherit (utils) pathsToImportedAttrs overlaysToPkgs;
-      inherit (futils.lib) eachSystem defaultSystems;
+      inherit (lib) recursiveUpdate filterAttrs mapAttrs;
+      inherit (utils) pathsToImportedAttrs overlayPaths modules genPackages pkgImport;
 
       utils = import ./lib/utils.nix { inherit lib; };
 
-      systems = defaultSystems ++ [ ];
+      externOverlays = [];
+      externModules = [];
 
-      pkgImport = pkgs: system:
-        import pkgs {
-          inherit system;
-          overlays = attrValues self.overlays;
-          config = { allowUnfree = true; };
-        };
-
-
-      pkgset = system: {
-        osPkgs = pkgImport nixos system;
-        pkgs = pkgImport nixpkgs system;
-      };
-
-      multiSystemOutputs = eachSystem systems (system:
+      pkgs' = unstable:
         let
-          pkgset' = pkgset system;
+          override = import ./pkgs/override.nix;
+          overlays = (attrValues self.overlays)
+            ++ externOverlays
+            ++ [ self.overlay (override unstable) ];
         in
-        with pkgset';
-        {
-          devShell = import ./shell.nix {
-            inherit pkgs;
-          };
+        pkgImport nixos overlays;
 
-          packages = overlaysToPkgs self.overlays osPkgs;
-        }
-      );
+      unstable' = pkgImport nixpkgs [ ];
+
+      osSystem = "x86_64-linux";
 
       outputs =
+        let
+          system = osSystem;
+          unstablePkgs = unstable' system;
+          osPkgs = pkgs' unstablePkgs system;
+        in
         {
           nixosConfigurations =
-            let
-              system = "x86_64-linux";
-              pkgset' = pkgset system;
-            in
             import ./hosts (recursiveUpdate inputs {
-              inherit lib system utils;
-              pkgset = pkgset';
-            }
-            );
-
-          nixosModules =
-            let
-              # binary cache
-              cachix = import ./cachix.nix;
-              cachixAttrs = { inherit cachix; };
-
-              # modules
-              moduleList = import ./modules/list.nix;
-              modulesAttrs = pathsToImportedAttrs moduleList;
-
-              # profiles
-              profilesList = import ./profiles/list.nix;
-              profilesAttrs = { profiles = pathsToImportedAttrs profilesList; };
-
-            in
-            recursiveUpdate
-              (recursiveUpdate cachixAttrs modulesAttrs)
-              profilesAttrs;
-
-          packages.x86_64-linux.kernel = (pkgset "x86_64-linux").pkgs.callPackage ./hosts/hyrule/kernel.nix {};
+              inherit lib osPkgs unstablePkgs utils externModules system;
+            });
 
           overlay = import ./pkgs;
 
-          overlays =
-            let
-              overlayDir = ./overlays;
-              fullPath = name: overlayDir + "/${name}";
-              overlayPaths = map fullPath (attrNames (readDir overlayDir));
-            in
-            pathsToImportedAttrs overlayPaths;
+          overlays = pathsToImportedAttrs overlayPaths;
 
-          defaultTemplate = self.templates.flk;
-
-          templates = {
-            flk = {
-              path = ./.;
-              description = "flk template";
-            };
-          };
+          nixosModules = modules;
         };
     in
-    recursiveUpdate multiSystemOutputs outputs;
+    recursiveUpdate
+      (eachDefaultSystem
+        (system:
+          let
+            unstablePkgs = unstable' system;
+            pkgs = pkgs' unstablePkgs system;
+
+            packages = flattenTreeSystem system
+              (genPackages {
+                inherit self pkgs;
+              });
+          in
+          {
+            inherit packages;
+
+            devShell = import ./shell.nix {
+              inherit pkgs;
+            };
+          }
+        )
+      )
+      outputs;
 }
