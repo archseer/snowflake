@@ -18,5 +18,5 @@
   #   "net.core.default_qdisc" = "fq_codel"; # cake is also an option
   # ];
 
-  # services.thermald.enable = lib.mkDefault true;
+  hardware.cpu.amd.updateMicrocode = true;
 }

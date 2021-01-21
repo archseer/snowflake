@@ -24,6 +24,8 @@ in
       htop
       iputils
       jq
+      manix
+      nix-index
       # moreutils
       nmap
       sd

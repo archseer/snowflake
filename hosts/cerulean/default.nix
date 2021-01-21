@@ -18,10 +18,8 @@ in
     ../../users/root
   ];
 
-  # nvme0n1p1 = efi
-  # nvme0n1p2 = vfat
-  # nvme0n1p3 = ntfs
-  # nvme0n1p4 = ext4
+  # nvme0n1p1 = efi / vfat
+  # nvme0n1p2 = ext4
 
   boot.loader.systemd-boot = {
     enable = true;
@@ -70,7 +68,7 @@ in
 
   security.mitigations.acceptRisk = true;
 
-  # powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  # powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 
   # high-resolution display
   hardware.video.hidpi.enable = lib.mkDefault true;
