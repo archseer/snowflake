@@ -1,8 +1,9 @@
-{ stdenv, buildPackages, fetchurl, linuxManualConfig, pkgs
+{ lib, stdenv, buildPackages, fetchurl, linuxManualConfig, pkgs
 , kernelPatches
 , ... }:
 (linuxManualConfig {
   inherit (pkgs.linux_latest) stdenv version src;
+  inherit lib;
   configfile = ./kernel.config;
   kernelPatches = [
     {

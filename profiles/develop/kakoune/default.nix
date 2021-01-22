@@ -1,16 +1,8 @@
 { pkgs, ... }: {
-  imports = [ ../python ];
-
   environment.systemPackages = with pkgs; [
-    cquery
     kak-lsp
     kakoune-config
     kakoune-unwrapped
-    nixpkgs-fmt
-    python3Packages.python-language-server
-    rustup
-    nix-linter
-    dhall
   ];
 
   environment.etc = {

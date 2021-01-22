@@ -61,7 +61,10 @@ in
   # # filefrag -v /swapfile | awk '{ if($1=="0:"){print $4} }'
   # boot.kernelParams = [ "resume_offset=114857984" ];
 
-  hardware.enableRedistributableFirmware = true;
+  hardware = {
+    enableRedistributableFirmware = true;
+    firmware = [ pkgs.wireless-regdb ];
+  };
 
   # nix.maxJobs = lib.mkDefault 8;
   # nix.systemFeatures = [ "gccarch-haswell" ];

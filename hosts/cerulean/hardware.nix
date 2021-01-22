@@ -19,4 +19,6 @@
   # ];
 
   hardware.cpu.amd.updateMicrocode = true;
+
+  services.fwupd.enable = true; 
 }

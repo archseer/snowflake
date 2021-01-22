@@ -1,6 +1,5 @@
 { pkgs, ... }: {
-  # ./kakoune
-  imports = [ ./zsh ];
+  imports = [ ./zsh ]; # ./kakoune
 
   home-manager.users.speed = {
     imports = [ ./neovim ./tmux  ];
@@ -36,7 +35,15 @@
       graphviz
 
       rustup
+
+      # language servers
       rust-analyzer
+      clang-tools
+
+      # nixpkgs-fmt
+      # nix-linter
+
+      # dhall dhall-lsp-server
     ];
 
      # TODO: mutt / aerc
