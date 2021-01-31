@@ -34,6 +34,9 @@
       nix-du
       graphviz
 
+
+      usbutils
+
       rustup
 
       # language servers

@@ -65,11 +65,11 @@
     },
     "hardware": {
       "locked": {
-        "lastModified": 1610430373,
-        "narHash": "sha256-2sTBiGl0z0B3VD2qMHIJtOGxOuftR0iiBSv30AhVWIw=",
+        "lastModified": 1611383797,
+        "narHash": "sha256-FIpG2f4+d9UsXCogBTswoPjD/aWZ3dvV5TZjqlL4gyM=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "874830945a65ad1134aff3a5aea0cdd2e1d914ab",
+        "rev": "a0d8383c422f85f37fccee5af74b1cb4b52287d9",
         "type": "github"
       },
       "original": {
@@ -85,16 +85,37 @@
         ]
       },
       "locked": {
-        "lastModified": 1611270612,
-        "narHash": "sha256-tLQWDaKnrRTbkqm1am5fJM/eYNJUt/Mpr+6F7h28wNw=",
+        "lastModified": 1611422785,
+        "narHash": "sha256-6XylW5uQ/Hr2BkmOFzLdBxE8qSQNtoWL60LcpCl3Qcw=",
         "owner": "rycee",
         "repo": "home-manager",
-        "rev": "2c0e3f61da903613cc316cb992c8c07d92e1d186",
+        "rev": "c137866bd7d2a9c2010b618252694f395453cf59",
         "type": "github"
       },
       "original": {
         "owner": "rycee",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "mobile-nixos": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1611566748,
+        "narHash": "sha256-VaXBjusocDkB/ww5jc0dJKy0qCAU3SWyU2uF/TrDUmw=",
+        "owner": "archseer",
+        "repo": "mobile-nixos",
+        "rev": "ab7e6bdc9d888b8574d7a6ffc05e214b63f0c695",
+        "type": "github"
+      },
+      "original": {
+        "owner": "archseer",
+        "ref": "flake",
+        "repo": "mobile-nixos",
         "type": "github"
       }
     },
@@ -110,11 +131,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1611218351,
-        "narHash": "sha256-4QHvDrLn5vCWyU68LqGtNq0XqMogSw3+c7myDuAa3eQ=",
+        "lastModified": 1611477361,
+        "narHash": "sha256-WEOovCUPz9sPgxT9rZ4SeJdGcapeXgWS5+SMtAM9fEU=",
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "0c16b94df497bc2a336f0339e5eec1756f1ab8fe",
+        "rev": "9ce8cce170c6890b2cf61b651aceeec48618bc29",
         "type": "github"
       },
       "original": {
@@ -126,11 +147,11 @@
     "neovim-nightly_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1611165243,
-        "narHash": "sha256-CNF0ampiqV1l0dax1v0Z79yS0n2rARkPUo43zBSt7d4=",
+        "lastModified": 1611438389,
+        "narHash": "sha256-fdkSn13pTcCX6NNNWgSHIDgUVp2NhQxAdLPjAWeG+u8=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "d68026c9ed0c161ee98d4b71454ef5a7fad1aeec",
+        "rev": "69103ff0cf9e23e4f003c9f22f482b3d52bf7892",
         "type": "github"
       },
       "original": {
@@ -156,11 +177,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1611278258,
-        "narHash": "sha256-dmNK5TaFHyCqM4XEwRJl6adZ0Y4ZdnV12YztvPm1B14=",
+        "lastModified": 1611573985,
+        "narHash": "sha256-/99tW/FVulTati8qgvS5ul4/aQDCWHkEFAR7adXZ6BY=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "fd0daed2e8d590418fc565de70ea6ca47a6d2dcb",
+        "rev": "cc75b0e3b55646c141efa10fcf8c81f55daf8a9a",
         "type": "github"
       },
       "original": {
@@ -190,6 +211,7 @@
         "futils": "futils",
         "hardware": "hardware",
         "home": "home",
+        "mobile-nixos": "mobile-nixos",
         "neovim-nightly": "neovim-nightly",
         "nixos": "nixos",
         "nixpkgs": "nixpkgs",
@@ -203,11 +225,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1610083436,
-        "narHash": "sha256-Hw7AitbnNq5XqDl6OKqqzB4xz7UqQqrA69BMsCu4Doo=",
+        "lastModified": 1611531427,
+        "narHash": "sha256-k+TKUS8a+2o8jxwjhPI3kN8JG+rHCDemkoi3nZEuYzo=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "4a7bf1c67c987ea65806d0e21e15c747102caaac",
+        "rev": "261094cc01a40a366e09117229391cba33f9ea53",
         "type": "github"
       },
       "original": {
