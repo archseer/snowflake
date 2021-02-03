@@ -66,6 +66,8 @@ in
     trustedUsers = [ "root" "@wheel" ];
     extraOptions = ''
       experimental-features = nix-command flakes ca-references
+      keep-outputs = true
+      keep-derivations = true
     '';
   };
 
