@@ -2,14 +2,11 @@
 , kernelPatches
 , ... }:
 (linuxManualConfig {
-  inherit (pkgs.linux_latest) stdenv version src;
+  inherit (pkgs.linux_latest) stdenv version modDirVersion src;
   inherit lib;
   configfile = ./kernel.config;
+
   kernelPatches = [
-    {
-      name = "nct1";
-      patch = ./nct1.patch;
-    }
     {
       name = "nct2";
       patch = ./nct2.patch;
