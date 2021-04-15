@@ -9,7 +9,7 @@ in
 
   imports = [ ../../profiles/develop  ];
 
-  # users.users.speed.packages = with pkgs; [ ];
+  users.users.speed.packages = with pkgs; [ megasync transmission-gtk ];
 
   environment.systemPackages = with pkgs; [ cachix ];
 

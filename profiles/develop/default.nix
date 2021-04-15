@@ -38,6 +38,7 @@
       usbutils
 
       rustup
+      cargo-outdated
 
       # language servers
       rust-analyzer

@@ -2,7 +2,10 @@
 {
   programs.mpv = {
     enable = true;
-    scripts = [ pkgs.mpvScripts.mpris ];
+    scripts = with pkgs.mpvScripts; [
+      mpris
+      autoload
+    ];
   };
 
   xdg.configFile."mpv/mpv.conf".source = ./mpv.conf;
