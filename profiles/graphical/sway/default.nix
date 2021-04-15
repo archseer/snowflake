@@ -359,6 +359,8 @@ in
           "${modifier}+minus"       = "scratchpad show";
 
           # ----
+          #
+          "${modifier}+r"       = "mode resize";
 
           # resize window to φ ratio of screen or ½
           # bindsym $mod+Shift+space exec swaymsg resize set width $φ
