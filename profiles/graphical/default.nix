@@ -27,7 +27,6 @@ in
 
   # # pipewire
   # # Not strictly required but pipewire will use rtkit if it is present
-  # security.rtkit.enable = true;
   # # security.pam.loginLimits = [
   # #   { domain = "@users"; item = "memlock"; type = "soft"; value = "1048576"; }
   # #   { domain = "@users"; item = "memlock"; type = "hard"; value = "unlimited"; }
@@ -42,8 +41,10 @@ in
   # #   { domain = "@messagebus"; item = "priority"; type = "soft"; value = "-10"; }
   # # ];
 
+  # security.rtkit.enable = true;
   # services.pipewire = {
   #   enable = true;
+  #   media-session.enable = true;
   #   # Compatibility shims, adjust according to your needs
   #   alsa.enable = true;
   #   alsa.support32Bit = true;

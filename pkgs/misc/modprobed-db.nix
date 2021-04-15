@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchFromGitHub
 , pkg-config
 , libevdev
@@ -27,7 +28,7 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/graysky2/modprobed-db";
     description = "Keeps track of EVERY kernel module that has ever been probed. Useful for those of us who make localmodconfig :)";
     license = licenses.mit;
