@@ -2,6 +2,7 @@
 , lib
 , hardware
 , nixos
+, mobile-nixos
 , nixpkgs
 , osPkgs
 , self
@@ -20,7 +21,7 @@ let
       inherit system;
 
       # pass through to modules
-      specialArgs = { inherit hardware; };
+      specialArgs = { inherit hardware mobile-nixos; };
 
       modules =
         let

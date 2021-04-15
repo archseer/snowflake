@@ -79,8 +79,13 @@ in
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = false;
 
+  # I'd like to keep it available but rfkill disable the signal, but not sure how.
+  # networking.wireless.iwd.enable = lib.mkForce false;
+  # TODO: find all the iptables/nftables modules needed in the kernel
+  networking.firewall.enable = lib.mkForce false;
+
   # Track list of enabled modules for localmodconfig generation.
-  environment.systemPackages = with pkgs; [ modprobed-db stress-ng lm_sensors piper zenmonitor ];
+  environment.systemPackages = with pkgs; [ modprobed-db stress-ng lm_sensors piper zenmonitor pciutils acpica-tools iasl ];
   services.ratbagd.enable = true; # ratbagd + piper = logitech mouse config
 
   # This value determines the NixOS release from which the default
