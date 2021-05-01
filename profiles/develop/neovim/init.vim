@@ -192,6 +192,8 @@ nvim_lsp.rust_analyzer.setup {
     }
   }
 }
+
+nvim_lsp.gopls.setup { on_attach = on_attach }
 EOF
 
 function! SetupLSP()
@@ -216,6 +218,7 @@ endfunction
 augroup LSP
   au!
   au FileType rust call SetupLSP()
+  au FileType go call SetupLSP()
 augroup END
 
 " ---------------------------------------------------------------------------
