@@ -122,21 +122,24 @@ in
       };
       xwayland = true;
       extraConfig = ''
-          set $bg #281733
-          set $fg #eff1f5
-          set $br #a4a0e8
-          set $ia #232425
+        set $bg #281733
+        set $fg #eff1f5
+        set $br #a4a0e8
+        set $ia #232425
 
 
-          # class                 border  backgr. text    indicator child_border
-          client.focused          $br     $br     $bg     $bg       $br
-          client.focused_inactive $bg     $bg     $fg     $bg       $bg
-          client.unfocused        $bg     $bg     $fg     $bg       $bg
-          client.urgent           $br     $br     $fg     $bg       $br
-          client.placeholder      $br     $br     $fg     $bg       $br
-          client.background $bg
+        # class                 border  backgr. text    indicator child_border
+        client.focused          $br     $br     $bg     $bg       $br
+        client.focused_inactive $bg     $bg     $fg     $bg       $bg
+        client.unfocused        $bg     $bg     $fg     $bg       $bg
+        client.urgent           $br     $br     $fg     $bg       $br
+        client.placeholder      $br     $br     $fg     $bg       $br
+        client.background $bg
 
-           seat seat0 xcursor_theme "capitaine-cursors"
+        seat seat0 xcursor_theme "capitaine-cursors"
+
+        for_window [title="Firefox — Sharing Indicator"] floating enable
+        for_window [title="Firefox — Sharing Indicator"] nofocus
       '';
       config = rec {
         modifier = "Mod4";

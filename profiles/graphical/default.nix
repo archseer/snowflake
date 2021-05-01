@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let inherit (builtins) readFile;
 in
 {
@@ -14,8 +14,8 @@ in
   sound.enableOSSEmulation = false;
 
   # TEMP: back to pulseaudio
-  hardware.pulseaudio.enable = true;
-  nixpkgs.config.pulseaudio = true;
+  # hardware.pulseaudio.enable = true;
+  # nixpkgs.config.pulseaudio = true;
 
   # # Disable ALSA
   # sound.enable = false;
@@ -41,23 +41,29 @@ in
   # #   { domain = "@messagebus"; item = "priority"; type = "soft"; value = "-10"; }
   # # ];
 
-  # security.rtkit.enable = true;
-  # services.pipewire = {
-  #   enable = true;
-  #   media-session.enable = true;
-  #   # Compatibility shims, adjust according to your needs
-  #   alsa.enable = true;
-  #   alsa.support32Bit = true;
-  #   pulse.enable = true;
-  #   # jack.enable = true;
-  #   # socketActivation ?
-  #   # package = pkgs.pipewire-git;
-  # };
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    media-session.enable = true;
+    # Compatibility shims, adjust according to your needs
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # jack.enable = true;
+    # socketActivation ?
+    # package = pkgs.pipewire-git;
+  };
 
-  # xdg.portal.enable = true;
-  # xdg.portal.gtkUsePortal = true;
-  # xdg.portal.extraPortals = with pkgs;
-  #   [ xdg-desktop-portal-wlr xdg-desktop-portal-gtk ];
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [ xdg-desktop-portal-wlr xdg-desktop-portal-gtk ];
+    gtkUsePortal = true;
+  };
+
+  programs.sway.extraSessionCommands = lib.mkBefore ''
+    # Screensharing
+    export XDG_CURRENT_DESKTOP=sway
+  '';
 
   hardware.opengl.enable = true;
 
