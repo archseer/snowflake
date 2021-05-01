@@ -1,16 +1,17 @@
 { lib, stdenv, buildPackages, fetchurl, linuxManualConfig, pkgs
 , kernelPatches
+, linuxPackagesFor
 , ... }:
+let 
+  # linux = pkgs.linux_latest;
+  linux = pkgs.callPackage ./linux-5.12.nix {};
+in
 (linuxManualConfig {
-  inherit (pkgs.linux_latest) stdenv version modDirVersion src;
+  inherit (linux) stdenv version modDirVersion src;
   inherit lib;
   configfile = ./kernel.config;
 
   kernelPatches = [
-    {
-      name = "nct2";
-      patch = ./nct2.patch;
-    }
   ]; # TODO: pass through kernelPatches
   allowImportFromDerivation = true;
 })
