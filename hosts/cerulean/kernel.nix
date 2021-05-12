@@ -3,8 +3,8 @@
 , linuxPackagesFor
 , ... }:
 let 
-  # linux = pkgs.linux_latest;
-  linux = pkgs.callPackage ./linux-5.12.nix {};
+  linux = pkgs.linux_5_12;
+  # linux = pkgs.callPackage ./linux-5.12.nix {};
 in
 (linuxManualConfig {
   inherit (linux) stdenv version modDirVersion src;

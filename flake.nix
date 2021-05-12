@@ -6,8 +6,7 @@
       nixos.url = "nixpkgs/nixos-unstable";
       nixpkgs.url = "nixpkgs/nixpkgs-unstable";
 
-      # home.url = "github:rycee/home-manager";
-      home.url = "github:archseer/home-manager";
+      home.url = "github:rycee/home-manager";
       home.inputs.nixpkgs.follows = "nixpkgs";
 
       hardware.url = "github:NixOS/nixos-hardware";
