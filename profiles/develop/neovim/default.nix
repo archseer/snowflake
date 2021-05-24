@@ -23,11 +23,13 @@
         vim-elixir
         vim-nix
         rust-vim
-        vim-polyglot
+        vim-go
+        # vim-polyglot
 
         # neovim 0.5
         nvim-lspconfig
-        completion-nvim        
+        # completion-nvim        
+        nvim-compe
         # TODO: completion-buffers
         # nvim-treesitter        # neovim 0.5
         # completion-treesitter  # neovim 0.5

@@ -141,12 +141,12 @@ sign define LspDiagnosticsSignHint text=● texthl=LspDiagnosticsHint linehl= nu
 
 set signcolumn=yes
 packadd nvim-lspconfig
-packadd completion-nvim
 " packadd snippets.nvim
+
 lua << EOF
 
 local nvim_lsp = require('lspconfig')
-local completion = require('completion')
+local compe = require('compe')
 -- local snippets = require('snippets')
 
 -- snippets.set_ux(require'snippets.inserters.vim_input')
@@ -166,38 +166,67 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
-local on_attach = function(_, bufnr)
-  -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  completion.on_attach()
-end
+compe.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+  documentation = true;
+
+  source = {
+    path = true;
+    buffer = false;
+    calc = true;
+    nvim_lsp = true;
+    nvim_lua = false;
+    vsnip = false;
+    ultisnips = false;
+  };
+}
 
 -- vim.lsp.set_log_level(0)
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
+
 nvim_lsp.rust_analyzer.setup {
-  on_attach = on_attach,
   settings = {
     ["rust-analyzer"] = {
       checkOnSave = {
         enable = true
       }
     },
-    capabilities = {
-      textDocument = {
-        completion = {
-          completionItem = {
-            snippetSupport = true
-          }
-        }
-      }
-    }
+    capabilities = capabilities,
   }
 }
 
-nvim_lsp.gopls.setup { on_attach = on_attach }
+nvim_lsp.gopls.setup {
+  capabilities = capabilities
+}
 EOF
 
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm({ 'keys': "\<Plug>(MyCR)", 'mode': '' })
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
 function! SetupLSP()
-  setlocal omnifunc=v:lua.vim.lsp.omnifunc
+  " setlocal omnifunc=v:lua.vim.lsp.omnifunc
   " keywordprg
   nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
   nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
@@ -224,6 +253,22 @@ augroup END
 " ---------------------------------------------------------------------------
 "  Filetype/Plugin-specific config
 " ---------------------------------------------------------------------------
+" for some reason it's broken again without force override
+au FileType go setl noet ts=4 sw=4 sts=4
+" Go syntax highlighting
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_operators = 1
+let g:go_fmt_command = "goimports"
+" use nvim-lsp for keywordprg
+let g:go_doc_keywordprg_enabled = 0
+let g:go_def_mapping_enabled = 0
+let g:go_code_completion_enabled = 0
+let g:go_textobj_enabled = 0
+let g:go_metalinter_enable = 0
+
 " ruby private/protected indentation
 let g:ruby_indent_access_modifier_style = 'outdent'
 let ruby_operators = 1 " highlight operators
