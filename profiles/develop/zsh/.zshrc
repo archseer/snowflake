@@ -14,6 +14,8 @@ if [[ $TERM != dumb ]]; then
   fi
 
   eval "$(fasd --init auto)"
+  # I use sd the sed replacement util
+  unalias sd
 
   eval "$(direnv hook zsh)"
 

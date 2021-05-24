@@ -7,7 +7,11 @@ let
   up = "k";
   right = "l";
 
-  font = "Inter:style=Regular 10";
+  fonts = {
+    names = ["Inter"];
+    style = "Regular";
+    size = 10.0;
+  };
   terminal = "${pkgs.alacritty}/bin/alacritty";
   browser = "${pkgs.firefox-wayland}/bin/firefox";
 
@@ -144,8 +148,7 @@ in
       config = rec {
         modifier = "Mod4";
         inherit terminal menu;
-        inherit left up right down;
-        fonts = [ font ];
+        inherit left up right down fonts;
 
         focus.followMouse = "always";
 

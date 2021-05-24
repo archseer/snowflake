@@ -8,7 +8,7 @@
       {
         layer = "top";
         height = 30; 
-        modules-left = ["sway/mode" "pulseaudio"];
+        modules-left = ["sway/mode" "pulseaudio" "custom/weather"];
         modules-center = ["sway/workspaces"];
         modules-right = ["tray" "idle_inhibitor" "cpu" "memory" "network" "temperature" "battery" "clock"];
         modules = {
@@ -130,6 +130,15 @@
                   default = ["" "" ""];
               };
               on-click = "pavucontrol";
+          };
+          "custom/weather" = {
+              format = "{}";
+              format-alt = "{alt}: {}";
+              format-alt-click = "click-right";
+              interval = 1800;
+              return-type = "json";
+              exec = "~/weather-waybar.sh";
+              exec-if = "ping -c1 wttr.in";
           };
         };
       }
