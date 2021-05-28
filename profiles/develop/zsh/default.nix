@@ -21,7 +21,7 @@ in
       p7zip
       procs
       skim
-      unrar
+      # unrar
       unzip
       xz
       xdg_utils

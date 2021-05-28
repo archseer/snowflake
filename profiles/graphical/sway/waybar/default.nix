@@ -63,8 +63,8 @@
               format = "{}% ";
           };
           temperature = {
-              thermal-zone = 5;
-              # "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+              # thermal-zone = 5;
+              hwmon-path = "/sys/class/hwmon/hwmon2/temp2_input"; # Tdie
               critical-threshold = 80;
               # "format-critical": "{temperatureC}°C {icon}",
               format = "{temperatureC}°C {icon}";

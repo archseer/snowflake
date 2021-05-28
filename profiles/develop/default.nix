@@ -40,6 +40,8 @@
       rustup
       cargo-outdated
 
+      asciinema
+
       # language servers
       rust-analyzer
       clang-tools
