@@ -69,14 +69,8 @@ in
       moduleList = import ../modules/list.nix;
       modulesAttrs = pathsToImportedAttrs moduleList;
 
-      # profiles
-      profilesList = import ../profiles/list.nix;
-      profilesAttrs = { profiles = pathsToImportedAttrs profilesList; };
-
     in
-    recursiveUpdate
-      (recursiveUpdate cachixAttrs modulesAttrs)
-      profilesAttrs;
+    recursiveUpdate cachixAttrs modulesAttrs;
 
 
   genPackages = { self, pkgs }:

@@ -1,9 +1,6 @@
 { config, lib, pkgs, ... }:
 {
-  imports = [ ];
-  # ./adblocking
-  # ./stubby
-  # ./torrent
+  imports = [ ./torrent.nix ];
   
   networking.firewall.enable = true;
 

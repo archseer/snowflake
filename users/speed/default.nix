@@ -10,8 +10,6 @@ in
   imports = [ ../../profiles/develop  ];
 
   users.users.speed.packages = with pkgs; [
-    # megasync
-    transmission-gtk
     v4l-utils
   ];
 
@@ -37,7 +35,6 @@ in
       userName = name;
       userEmail = "blaz@mxxn.io";
       signing = {
-        # key = "0x1170C6F8B2A09BF8";
         key = "F604E0EBDF3A34F2B9B472621238B9C4AD889640";
       #   signByDefault = true;
       };

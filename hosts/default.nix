@@ -34,7 +34,7 @@ let
           #     unstableModules;
           # };
 
-          core = self.nixosModules.profiles.core;
+          core = ../profiles/core;
 
           global = {
             networking.hostName = hostName;
@@ -62,8 +62,7 @@ let
           local = import "${toString ./.}/${hostName}";
 
           # Everything in `./modules/list.nix`.
-          flakeModules =
-            attrValues (removeAttrs self.nixosModules [ "profiles" ]);
+          flakeModules = (attrValues self.nixosModules);
 
         in
         flakeModules ++ [
