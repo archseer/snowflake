@@ -1,6 +1,5 @@
 {
-  programs.direnv = {
-    enable = true;
-    enableNixDirenvIntegration = true;
-  };
+    programs.direnv.enable = true;
+    programs.direnv.nix-direnv.enable = true;
+    programs.direnv.nix-direnv.enableFlakes = true;
 }
