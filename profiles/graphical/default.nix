@@ -116,6 +116,7 @@ in
       # pulsemixer
       pavucontrol
       firefox-wayland
+      chromium
       # qt5.qtgraphicaleffects
       # stdmanpages
       # zathura
