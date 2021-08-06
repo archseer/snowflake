@@ -34,6 +34,9 @@
       nix-du
       graphviz
 
+      wezterm-bin
+      tamsyn
+      curie
 
       usbutils
 

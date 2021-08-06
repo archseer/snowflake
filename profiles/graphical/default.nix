@@ -135,7 +135,8 @@ in
       fira-code fira-code-symbols fira-mono fira
       libertine
       roboto
-      proggyfonts
+      # proggyfonts
+      proggy
     ];
     fontconfig.defaultFonts = {
       serif = ["Linux Libertine"];
