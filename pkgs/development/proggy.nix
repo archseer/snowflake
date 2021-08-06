@@ -1,40 +1,26 @@
-{ lib, stdenv, fetchurl, mkfontscale }:
+{ lib, stdenv, fetchFromGitHub, mkfontscale, mkfontdir }:
 
-stdenv.mkDerivation {
+fetchFromGitHub {
   name = "proggy-2";
+  owner = "bluescan";
+  repo = "proggyfonts";
+  rev = "15812db975e0ab0d810b0f4d2743811d8ef5a47e";
+  sha256 = "a0bcbb3cf646c3ff5dbf646a7130f639472670ffb3c2b534ae660776f9fd37a9";
 
-
-  src = fetchFromGitHub {
-    owner = "bluescan";
-    repo = "proggyfonts";
-    rev = "15812db975e0ab0d810b0f4d2743811d8ef5a47e";
-    sha256 = "1qgimh58hcx5f646gj2kpd36ayvrdkw616ad8cb3lcm11kg0ag79";
-  };
-
-  nativeBuildInputs = [ mkfontscale ];
-
-  installPhase =
+  postFetch =
     ''
-      # compress pcf fonts
+      tar xzf $downloadedFile --strip=1
       mkdir -p $out/share/fonts/misc
-      rm Speedy.pcf # duplicated as Speedy11.pcf
-      for f in */*.pcf; do
-        gzip -n -9 -c "$f" > $out/share/fonts/misc/"$f".gz
-      done
-
-      install -D -m 644 */*.bdf -t "$out/share/fonts/misc"
+      install -D -m 644 */*.pcf.gz -t "$out/share/fonts/misc"
+      # install -D -m 644 */*.bdf -t "$out/share/fonts/misc"
       install -D -m 644 */*.ttf -t "$out/share/fonts/truetype"
       install -D -m 644 */*.otf -t "$out/share/fonts/opentype"
-      install -D -m 644 Licence.txt -t "$out/share/doc/$name"
+      install -D -m 644 LICENSE -t "$out/share/doc/$name"
 
-      mkfontscale "$out/share/fonts/truetype"
-      mkfontscale "$out/share/fonts/opentype"
-      mkfontdir   "$out/share/fonts/misc"
+      ${mkfontscale}/bin/mkfontscale "$out/share/fonts/truetype"
+      ${mkfontscale}/bin/mkfontscale "$out/share/fonts/opentype"
+      ${mkfontdir}/bin/mkfontdir   "$out/share/fonts/misc"
     '';
-
-  outputHashAlgo = "sha256";
-  outputHashMode = "recursive";
-  outputHash = "1x196rp3wqjd7m57bgp5kfy5jmj97qncxi1vwibs925ji7dqzfgf";
 
   meta = with lib; {
     homepage = "http://upperbounds.net";
