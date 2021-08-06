@@ -117,6 +117,8 @@ in
       pavucontrol
       firefox-wayland
       chromium
+      vivaldi
+      
       # qt5.qtgraphicaleffects
       # stdmanpages
       # zathura
