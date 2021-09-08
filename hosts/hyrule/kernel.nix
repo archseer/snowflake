@@ -6,14 +6,6 @@
   inherit lib;
   configfile = ./kernel.config;
   kernelPatches = [
-    {
-      name = "iio";
-      patch = ./iio.patch;
-    }
-      {
-      name = "mt-suspend";
-      patch = ./mt-suspend.patch;
-    }
   ]; # TODO: pass through kernelPatches
   allowImportFromDerivation = true;
 })

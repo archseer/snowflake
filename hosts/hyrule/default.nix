@@ -30,11 +30,11 @@ in
   };
 
   # use the latest upstream kernel
-  # boot.kernelPackages = pkgs.linuxPackages_5_9;
+  # boot.kernelPackages = pkgs.linuxPackages_5_14;
   # use the custom kernel config
   boot.kernelPackages = linuxPackages;
 
-  boot.extraModulePackages = [ linuxPackages.surface-aggregator ];
+  boot.extraModulePackages = [ ];
 
   # use zstd compression instead of gzip for initramfs.
   boot.initrd.compressor = "${lib.getBin pkgs.zstd}/bin/zstd";

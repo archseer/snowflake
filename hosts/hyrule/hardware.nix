@@ -6,6 +6,10 @@
     hardware.nixosModules.common-pc-ssd
   ];
 
+  disabledModules = [
+    "tasks/swraid.nix" # stop blanket importing raid modules because my kernel doesn't include them, thanks
+  ];
+
   boot.kernelParams = [ "cryptomgr.notests" ];
 
   # Load surface_aggregator / surface_hid at stage 1 so we can use the keyboard

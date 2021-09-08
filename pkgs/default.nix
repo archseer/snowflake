@@ -9,9 +9,4 @@ final: prev: {
   proggy = prev.callPackage ./development/proggy.nix { };
   curie = prev.callPackage ./development/curie.nix { };
 
-  # add the surface-aggregator kernel module to all kernel definitions
-  linuxPackagesFor = kernel:
-    (prev.linuxPackagesFor kernel).extend (final': prev': {
-      surface-aggregator = final'.callPackage ./misc/drivers/surface-aggregator {};
-    });
 }
