@@ -20,14 +20,11 @@
 
       futils.url = "github:numtide/flake-utils/flatten-tree-system";
 
-      neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
-      neovim-nightly.inputs.nixpkgs.follows = "nixpkgs";
-
       mobile-nixos.url = "github:archseer/mobile-nixos/flake";
       mobile-nixos.inputs.nixpkgs.follows = "nixpkgs";
     };
 
-  outputs = inputs@{ self, home, nixos, nixpkgs, hardware, sops-nix, neovim-nightly, mobile-nixos, futils }:
+  outputs = inputs@{ self, home, nixos, nixpkgs, hardware, sops-nix, mobile-nixos, futils }:
     let
       inherit (builtins) attrNames attrValues readDir;
       inherit (futils.lib) eachDefaultSystem flattenTreeSystem;
@@ -37,7 +34,7 @@
 
       utils = import ./lib/utils.nix { inherit lib; };
 
-      externOverlays = [ neovim-nightly.overlay ];
+      externOverlays = [];
       externModules = [];
 
       pkgs' = unstable:
