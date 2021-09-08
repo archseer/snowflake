@@ -24,7 +24,8 @@ let
   in_mouse = "1133:16518:Logitech_G703_LS";
   out_laptop = "eDP-1";
   # out_monitor = "DP-1";
-  out_monitor = "Goldstar Company Ltd LG HDR 4K 0x0000EEB5";
+  # out_monitor = "Goldstar Company Ltd LG HDR 4K 0x0000EEB5";
+  out_monitor = "Dell Inc. DELL P2721Q 2SLCVF3";
 
   # Theme colors
   # bg = "#281733";
@@ -218,7 +219,8 @@ in
             scale = "1.498";
           };
           "${out_monitor}" = {
-            mode = "3840x2160@60Hz";
+            # mode = "3840x2160@60Hz";
+            mode = "3840x2160@60.000Hz";
             # subpixel = "rgb";
             scale = "1.5";
             # adaptive_sync = "on";
