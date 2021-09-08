@@ -85,7 +85,7 @@ in
   networking.firewall.enable = lib.mkForce false;
 
   # Track list of enabled modules for localmodconfig generation.
-  environment.systemPackages = with pkgs; [ modprobed-db stress-ng lm_sensors piper zenmonitor pciutils acpica-tools iasl ];
+  environment.systemPackages = with pkgs; [ modprobed-db stress-ng lm_sensors piper zenmonitor pciutils acpica-tools ];
   services.ratbagd.enable = true; # ratbagd + piper = logitech mouse config
 
   # This value determines the NixOS release from which the default
