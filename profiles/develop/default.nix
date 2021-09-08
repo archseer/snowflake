@@ -1,6 +1,5 @@
 { pkgs, ... }: {
-  imports = [ ./zsh ]; # ./kakoune
-
+  imports = [ ./zsh ];
   home-manager.users.speed = {
     imports = [ ./neovim ./tmux  ];
   };
@@ -33,6 +32,8 @@
 
       nix-du
       graphviz
+      
+      kakoune
 
       wezterm-bin
       tamsyn
