@@ -11,6 +11,7 @@
 
   boot.kernelParams = [ "cryptomgr.notests" ];
 
+  # Only load the crypto modules required instead of a blanket import.
   boot.initrd.luks.cryptoModules = [ "aes" ];
 
   # upstream includes SATA drivers etc. which we don't build into the kernel.
