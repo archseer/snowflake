@@ -19,6 +19,8 @@ in
     ../../users/root
   ];
 
+  networking.firewall.enable = lib.mkForce false;
+
   # nvme0n1p1 = efi
   # nvme0n1p2 = vfat
   # nvme0n1p3 = ntfs

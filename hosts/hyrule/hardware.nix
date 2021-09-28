@@ -18,11 +18,13 @@
   # Load surface_aggregator / surface_hid at stage 1 so we can use the keyboard
   # during LUKS.
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "uas"
+  # upstream includes SATA drivers etc. which we don't build into the kernel.
+  boot.initrd.includeDefaultModules = false;
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme"
     # required for keyboard support at init
     "intel_lpss" "intel_lpss_pci"
     "8250_dw"
-    "surface_aggregator" "surface_aggregator_registry" "surface_hid"
+    "surface_aggregator" "surface_aggregator_registry" "surface_hid_core" "surface_hid"
   ];
 
   boot.kernelModules = [ "kvm-intel" ];

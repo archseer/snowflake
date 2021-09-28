@@ -15,6 +15,7 @@
   boot.initrd.luks.cryptoModules = [ "aes" ];
 
   # upstream includes SATA drivers etc. which we don't build into the kernel.
+  boot.initrd.includeDefaultModules = false;
   boot.initrd.availableKernelModules = lib.mkForce [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
 
   boot.kernelModules = [ "kvm-amd"

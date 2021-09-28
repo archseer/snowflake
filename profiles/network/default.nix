@@ -41,13 +41,14 @@
 
   # Wireless: iwd / iwctl
   networking.wireless.iwd.enable = true;
-  environment.etc."iwd/main.conf".text = ''
-  [General]
-  EnableNetworkConfiguration=true
-  UseDefaultNetworkInterface=true # stop renaming predictable names to wlan0
-  [Network]
-  NameResolvingService=systemd
-  #RoutePriorityOffset
-  '';
+  networking.wireless.iwd.settings = {
+    General = {
+      EnableNetworkConfiguration = true;
+      UseDefaultInterface = true;
+    };
+    Network = {
+      NameResolvingService = "systemd";
+    };
+  };
 
 }
