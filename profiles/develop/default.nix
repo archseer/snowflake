@@ -1,7 +1,7 @@
 { pkgs, ... }: {
-  imports = [ ./zsh ];
+  imports = [ ./zsh ./podman ];
   home-manager.users.speed = {
-    imports = [ ./neovim ./tmux  ];
+    imports = [ ./neovim ./tmux ];
   };
 
   environment = {
