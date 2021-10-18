@@ -181,6 +181,8 @@ in
         gaps = {
           outer = 5;
           inner = 10;
+          smartGaps = true;
+          smartBorders = "no_gaps";
         };
 
         startup = [
