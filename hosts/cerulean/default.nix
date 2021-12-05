@@ -13,6 +13,7 @@ in
     ../../profiles/graphical
     ../../profiles/misc/disable-mitigations.nix
     ../../profiles/misc/yubikey.nix
+    # ../../profiles/misc/apparmor.nix
     # ../../profiles/postgres
     ../../users/speed
     ../../users/root
