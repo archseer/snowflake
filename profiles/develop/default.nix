@@ -8,8 +8,8 @@
     sessionVariables = {
       PAGER = "less";
       LESS = "-iFJMRWX -z-4 -x4";
-      EDITOR = "nvim";
-      VISUAL = "nvim";
+      EDITOR = "hx";
+      VISUAL = "hx";
       # TERMINAL = "alacritty";
       # BROWSER = "firefox-developer-edition";
     };
