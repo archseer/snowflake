@@ -92,12 +92,7 @@ set shortmess+=c
 " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
 inoremap <c-c> <ESC>
 
-" let g:ncm2#complete_delay = 10
-" let g:ncm2#popup_delay = 80
-" let g:ncm2#total_popup_limit = 20
-
 let g:completion_docked_hover = 1
-" let g:completion_enable_snippet = "snippets.nvim"
 
 inoremap <silent> <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -106,149 +101,11 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " The parameters are the same as `:help feedkeys()`
 let g:AutoPairsMapCR=0
 inoremap <silent> <Plug>(MyCR) <CR><C-R>=AutoPairsReturn()<CR>
-" inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<Plug>(MyCR)", 'im')
 
-
-" <c-k> will either expand the current snippet at the word or try to jump to
-" the next position for the snippet.
-" inoremap <c-k> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>
-
-" <c-j> will jump backwards to the previous field.
-" If you jump before the first field, it will cancel the snippet.
-" inoremap <c-j> <cmd>lua return require'snippets'.advance_snippet(-1)<CR>
 
 " -- Language servers -------------------------------------------------------
-hi link LspDiagnosticsWarning WarningMsg
-hi link LspDiagnosticsInformation Todo
-hi link LspDiagnosticsError ErrorMsg
-
-hi LspDiagnosticsUnderlineWarning gui=underline
-hi LspDiagnosticsUnderlineInformation gui=underline
-hi LspDiagnosticsUnderlineError gui=underline
-
-hi link LspDiagnosticsVirtualTextError LspDiagnosticsError
-hi link LspDiagnosticsVirtualTextWarning LspDiagnosticsWarning
-hi link LspDiagnosticsVirtualTextInformation LspDiagnosticsInformation
-hi link LspDiagnosticsVirtualTextHint LspDiagnosticsHint
-
-" -- Fixes whitespace highlighted in popups
-highlight mkdLineBreak guifg=none guibg=none
-
-sign define LspDiagnosticsSignError text=● texthl=LspDiagnosticsError linehl= numhl=
-sign define LspDiagnosticsSignWarning text=● texthl=LspDiagnosticsWarning linehl= numhl=
-sign define LspDiagnosticsSignInformation text=● texthl=LspDiagnosticsInformation linehl= numhl=
-sign define LspDiagnosticsSignHint text=● texthl=LspDiagnosticsHint linehl= numhl=
 
 set signcolumn=yes
-packadd nvim-lspconfig
-" packadd snippets.nvim
-
-lua << EOF
-
-local nvim_lsp = require('lspconfig')
-local compe = require('compe')
--- local snippets = require('snippets')
-
--- snippets.set_ux(require'snippets.inserters.vim_input')
-
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = {
-      spacing = 1,
-      prefix = '',
-    },
-
-    -- To configure sign display,
-    --  see: ":help vim.lsp.diagnostic.set_signs()"
-    signs = true,
-
-    update_in_insert = false,
-  }
-)
-
-compe.setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
-  documentation = true;
-
-  source = {
-    path = true;
-    buffer = false;
-    calc = true;
-    nvim_lsp = true;
-    nvim_lua = false;
-    vsnip = false;
-    ultisnips = false;
-  };
-}
-
--- vim.lsp.set_log_level(0)
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    'documentation',
-    'detail',
-    'additionalTextEdits',
-  }
-}
-
-nvim_lsp.rust_analyzer.setup {
-  settings = {
-    ["rust-analyzer"] = {
-      checkOnSave = {
-        enable = true
-      }
-    },
-    capabilities = capabilities,
-  }
-}
-
-nvim_lsp.gopls.setup {
-  capabilities = capabilities
-}
-EOF
-
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm({ 'keys': "\<Plug>(MyCR)", 'mode': '' })
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
-
-function! SetupLSP()
-  " setlocal omnifunc=v:lua.vim.lsp.omnifunc
-  " keywordprg
-  nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-  nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-  " enter is go to definition
-  nnoremap <silent> <CR>  <cmd>lua vim.lsp.buf.definition()<CR>
-  nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-  nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-  nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-  nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-  nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-  nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-  nnoremap <silent> ]d    <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-  nnoremap <silent> [d    <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-  nnoremap <silent> <leader>do <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
-  nnoremap <leader>dl <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
-endfunction
-
-augroup LSP
-  au!
-  au FileType rust call SetupLSP()
-  au FileType go call SetupLSP()
-augroup END
 
 " ---------------------------------------------------------------------------
 "  Filetype/Plugin-specific config
@@ -456,25 +313,6 @@ function! Status(winnr)
 
   if &filetype != 'netrw' && &filetype != 'undotree'
     let status .= '%='
-    if active != 0 " only show diagnostic information in the active window
-      let l:errors = luaeval("vim.lsp.diagnostic.get_count([[Error]])")
-      let l:warnings = luaeval("vim.lsp.diagnostic.get_count([[Warning]])")
-
-      if (l:errors + l:warnings) == 0
-        let status .=  '%#StatusOk#⬥ ok%* '
-      else
-        if l:errors > 0
-          let status .=  '%#StatusError#'
-          let status .= printf('⨉ %d', errors)
-          let status .= '%* '
-        endif
-        if l:warnings > 0
-          let status .=  '%#StatusWarning#'
-          let status .= printf('● %d', warnings)
-          let status .= '%* '
-        endif
-      endif
-    endif
     if &fenc != 'utf-8'
       let status .=  ' %{&fileencoding} |'
     endif

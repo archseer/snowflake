@@ -25,16 +25,6 @@
         vim-go
         # vim-polyglot
 
-        # neovim 0.5
-        nvim-lspconfig
-        # completion-nvim        
-        nvim-compe
-        # TODO: completion-buffers
-        # nvim-treesitter        # neovim 0.5
-        # completion-treesitter  # neovim 0.5
-        #lsp-status-nvim        # neovim 0.5
-        diagnostic-nvim # TODO: deprecated
-
         # Code manipulation
         splitjoin-vim
         vim-easy-align
