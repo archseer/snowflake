@@ -1,4 +1,4 @@
-{ config, lib, modulesPath, hardware, ... }:
+{ config, lib, pkgs, modulesPath, hardware, ... }:
 {
   require = [
     hardware.nixosModules.common-cpu-amd
@@ -38,7 +38,7 @@
     enable = true;
     description = "Tune AMD GPU fan";
     serviceConfig = {
-      ExecStart = "/usr/bin/bash -c 'cd /sys/class/drm/card0/device/hwmon/hwmon4; echo 1 > pwm1_enable && echo 32 > pwm1'";
+      ExecStart = "${pkgs.bash}/bin/bash -c 'cd /sys/class/drm/card0/device/hwmon/hwmon4; echo 1 > pwm1_enable && echo 32 > pwm1'";
     };
     wantedBy = [ "multi-user.target" ];
   };
