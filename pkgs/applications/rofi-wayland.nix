@@ -16,18 +16,19 @@
 , wayland-protocols
 , xcbutilwm
 , xcbutilxrm
+, xcb-util-cursor
 }:
 
 rofi.override {
   rofi-unwrapped = stdenv.mkDerivation rec {
     pname = "rofi-wayland";
-    version = "unstable-2020-10-18";
+    version = "1.7.1+wayland1-dev";
 
     src = fetchFromGitHub {
       owner = "lbonn";
       repo = "rofi";
-      rev = "87b48ce7550d8875aaa0b4ea28d69c898755e8fc";
-      sha256 = "11qr3b826r53jdqq8p0bkngk4srmv8ld3j3zrc2s3g7c9h57wdix";
+      rev = "a2a1c89df846eabeb8e2e7ad7c7beb6d23e11d86";
+      sha256 = "sha256-adTHy37sg2NcxPbuXKihMLYGN2H9JUS+sOHW1qZphO4=";
       fetchSubmodules = true;
     };
 
@@ -49,6 +50,7 @@ rofi.override {
       wayland-protocols
       xcbutilwm
       xcbutilxrm
+      xcb-util-cursor      
     ];
 
     mesonFlags = [
