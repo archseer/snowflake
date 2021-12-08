@@ -126,20 +126,7 @@ let g:go_code_completion_enabled = 0
 let g:go_textobj_enabled = 0
 let g:go_metalinter_enable = 0
 
-" ruby private/protected indentation
-let g:ruby_indent_access_modifier_style = 'outdent'
-let ruby_operators = 1 " highlight operators
-
 let g:rustfmt_autosave = 1
-
-" vinarise
-let g:vinarise_enable_auto_detect = 1
-" Enable with -b option
-augroup vinariseAuto
-  autocmd!
-  autocmd BufReadPre   *.bin let &binary =1
-  autocmd BufReadPost  * if &binary | Vinarise | endif
-augroup END
 
 au filetype mail setl tw=72 fo=aw
 
@@ -155,18 +142,9 @@ let g:gitgutter_sign_removed_first_line = '▘'
 let g:gitgutter_sign_modified = '▐'
 let g:gitgutter_sign_modified_removed = '▞'
 
-" vim-test
-let test#filename_modifier = ":p"
-nnoremap <silent> <leader>t :TestNearest<CR>
-nnoremap <silent> <leader>T :TestFile<CR>
-nnoremap <silent> <leader>a :TestSuite<CR>
-nnoremap <silent> <leader>l :TestLast<CR>
-nnoremap <silent> <leader>g :TestVisit<CR>
-
 " Default peekaboo window
 let g:peekaboo_window = 'vertical botright 60new'
 
-let g:highlightedyank_highlight_duration = 500
 " ---------------------------------------------------------------------------
 "  Mappings
 " ---------------------------------------------------------------------------
@@ -211,17 +189,6 @@ nnoremap <leader><leader> <c-^>
 
 " Write with sudo
 cmap w!! w !sudo tee > /dev/null %
-
-" Shortcut for emmet
-imap <c-e> <c-y>,
-
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-nmap gaa ga_
-
-xmap <Leader>ga <Plug>(LiveEasyAlign)
 
 " Create mappings (with leader)
 nmap <Leader>as <Plug>(AerojumpSpace)
@@ -269,16 +236,6 @@ let g:fzf_colors =
   let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 " endif
 
-" -- vim-sandwich ------------------------------------------------------------
-xmap im <Plug>(textobj-sandwich-literal-query-i)
-xmap am <Plug>(textobj-sandwich-literal-query-a)
-omap im <Plug>(textobj-sandwich-literal-query-i)
-omap am <Plug>(textobj-sandwich-literal-query-a)
-" in middle (of) {'_'  '.' ',' '/' '-')
-xmap i_ im_
-xmap a_ im_
-omap i_ im_
-omap a_ am_
 " ----------------------------------------------------------------------------
 " Statusline
 " ----------------------------------------------------------------------------
@@ -298,10 +255,6 @@ function! StatusHighlight(mode)
   endif
 endfunction
 
-"hi StatusError ctermbg=17 ctermfg=209 guibg=#F22C86 guifg=#281733
-hi StatusError ctermbg=17 ctermfg=209 guifg=#f47868 guibg=#281733
-hi StatusWarning ctermbg=17 ctermfg=209 guifg=#ffcd1c guibg=#281733
-hi StatusOk ctermbg=17 ctermfg=209 guifg=#ffffff guibg=#281733
 function! Status(winnr)
   let active = a:winnr == winnr() || winnr('$') == 1
   let status = ''
