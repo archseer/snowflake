@@ -69,15 +69,12 @@
       g	= "grep -n";
       hrd     = "reset --hard";
       l	= "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(yellow)%an%Creset' --all --abbrev-commit --date=relative";
-      ls	= "log --stat --oneline # show log with filediffs only";
+      ls	= "log --stat --oneline"; # show log with filediffs only
       m	= "merge";
       mm	= "merge origin/master";
       p	= "push";
       pf	= "push --force-with-lease";
       pl	= "pull --rebase";
-    #	pm	= "push origin master;
-    #	pms = push origin master:staging;
-    #	pmp = push origin master:production;
       r	= "rebase";
       ra	= "rebase --abort";
       rc	= "rebase --continue";
@@ -87,7 +84,7 @@
       s	= "status";
       sh	= "!git-sh";
       sq	= "commit --squash";
-      st	= "diff-tree --no-commit-id --name-only -r # show file tree of commit";
+      st	= "diff-tree --no-commit-id --name-only -r"; # show file tree of commit
       sw	= "show";
       w	= "whatchanged";
 

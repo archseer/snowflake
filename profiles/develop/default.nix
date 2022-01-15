@@ -8,8 +8,9 @@
     sessionVariables = {
       PAGER = "less";
       LESS = "-iFJMRWX -z-4 -x4";
-      EDITOR = "hx";
-      VISUAL = "hx";
+      HELIX_RUNTIME="$HOME/src/helix/runtime";
+      EDITOR = "$HOME/src/helix/target/release/hx";
+      VISUAL = "$HOME/src/helix/target/release/hx";
       # TERMINAL = "alacritty";
       # BROWSER = "firefox-developer-edition";
     };
