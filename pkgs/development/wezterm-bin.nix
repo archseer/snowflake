@@ -32,12 +32,12 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "wezterm-bin";
-  version = "nightly-2021";
+  version = "nightly-2022";
 
   src = fetchurl {
     url =
       "https://github.com/wez/wezterm/releases/download/nightly/wezterm-nightly.Ubuntu16.04.tar.xz";
-    sha256 = "abf41581bb2282a5ff49d16bf433d2b5a53eb656705d07820c238bf0e4f25583";
+    sha256 = "sha256-JjcKgoez1bh2JUgi4MUUdjeZmBorlSOvFE+v+69SEqw=";
   };
 
   nativeBuildInputs = [ pkg-config python3 perl ];

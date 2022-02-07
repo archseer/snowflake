@@ -1,4 +1,11 @@
 {
+
+  # programs.gh = {
+  #   enable = true;
+  #   enableGitCredentialHelper = true;
+  #   settings.git_protocol = "ssh";
+  # };
+
   programs.git = {
     enable = true;
 

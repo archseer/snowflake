@@ -6,8 +6,6 @@ in
 {
   nix.package = pkgs.nixFlakes;
 
-  nix.systemFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-
   imports = [ ../../local/locale.nix ];
 
   environment = {
@@ -57,15 +55,17 @@ in
   };
 
   nix = {
-    buildCores = 0;
-    autoOptimiseStore = true;
     gc.automatic = true;
     optimise.automatic = true;
-    useSandbox = true;
-    allowedUsers = [ "@wheel" ];
-    trustedUsers = [ "root" "@wheel" ];
+    settings = {
+      cores = 0;
+      auto-optimise-store = true;
+      sandbox = true;
+      allowed-users = [ "@wheel" ];
+      trusted-users = [ "root" "@wheel" ];
+    };
     extraOptions = ''
-      experimental-features = nix-command flakes ca-references
+      experimental-features = nix-command flakes
       keep-outputs = true
       keep-derivations = true
     '';
