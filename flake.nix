@@ -15,16 +15,13 @@
       # nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
       # nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
 
-      sops-nix.url = "github:Mic92/sops-nix";
-      sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-
       futils.url = "github:numtide/flake-utils/flatten-tree-system";
 
       mobile-nixos.url = "github:archseer/mobile-nixos/flake";
       mobile-nixos.inputs.nixpkgs.follows = "nixpkgs";
     };
 
-  outputs = inputs@{ self, home, nixos, nixpkgs, hardware, sops-nix, mobile-nixos, futils }:
+  outputs = inputs@{ self, home, nixos, nixpkgs, hardware, mobile-nixos, futils }:
     let
       inherit (builtins) attrNames attrValues readDir;
       inherit (futils.lib) eachDefaultSystem flattenTreeSystem;
