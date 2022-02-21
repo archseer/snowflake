@@ -7,5 +7,4 @@ final: prev: {
 
   proggy = prev.callPackage ./development/proggy.nix { };
   curie = prev.callPackage ./development/curie.nix { };
-
 }
