@@ -4,7 +4,6 @@ final: prev: {
   colibri-vim = prev.callPackage ./development/colibri-vim.nix { };
   dual-function-keys = prev.callPackage ./dual-function-keys.nix { };
   modprobed-db = prev.callPackage ./misc/modprobed-db.nix {  };
-  wezterm-bin = prev.callPackage ./development/wezterm-bin.nix { };
 
   proggy = prev.callPackage ./development/proggy.nix { };
   curie = prev.callPackage ./development/curie.nix { };

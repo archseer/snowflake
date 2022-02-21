@@ -13,7 +13,7 @@ let
     size = 10.0;
   };
   # terminal = "${pkgs.alacritty}/bin/alacritty";
-  terminal = "${pkgs.wezterm-bin}/bin/wezterm";
+  terminal = "${pkgs.wezterm}/bin/wezterm";
   browser = "${pkgs.firefox-wayland}/bin/firefox";
 
   menu = "${pkgs.rofi-wayland}/bin/rofi -terminal ${terminal} -show drun -theme sidestyle -show-icons -icon-theme Paper";

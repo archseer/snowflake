@@ -36,7 +36,7 @@
       
       kakoune
 
-      wezterm-bin
+      wezterm
       tamsyn
       curie
 
