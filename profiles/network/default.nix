@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 {
-  imports = [ ./torrent.nix ];
+  imports = [ ./torrent.nix ./wireguard.nix ];
   
   networking.firewall.enable = true;
 

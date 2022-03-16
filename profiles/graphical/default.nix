@@ -44,7 +44,11 @@ in
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
+      
+    # TODO: switch to wireplumber once  https://github.com/NixOS/nixpkgs/pull/163060 lands
     media-session.enable = true;
+    wireplumber.enable = false;
+
     # Compatibility shims, adjust according to your needs
     alsa.enable = true;
     alsa.support32Bit = true;

@@ -18,7 +18,8 @@ in
   home-manager.users.speed = {
     imports = [
       ../profiles/git
-      ../profiles/alacritty
+      # ../profiles/alacritty
+      # TODO: wezterm
       ../profiles/direnv
     ];
 
