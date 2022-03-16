@@ -21,6 +21,7 @@ let
   # inherit (config.hardware) pulseaudio;
   in_touchpad = "1118:2479:Microsoft_Surface_045E:09AF_Touchpad";
   in_keyboard = "1118:2478:Microsoft_Surface_045E:09AE_Keyboard";
+  in_ergodox = "12951:18804:ZSA_Technology_Labs_ErgoDox_EZ_Consumer_Control";
   in_mouse = "1133:16518:Logitech_G703_LS";
   out_laptop = "eDP-1";
   # out_monitor = "DP-1";
@@ -105,7 +106,7 @@ in
         #
         libinput-gestures
         qt5.qtwayland
-        alacritty
+        # alacritty
         libnotify
         mako
         # volnoti
@@ -213,6 +214,9 @@ in
             pointer_accel = "-0.2";
             # accel_profile = "flat";
             # pointer_accel = "0";
+          };
+          "${in_ergodox}" = {
+            xkb_options = "compose:ralt";
           };
         };
 
