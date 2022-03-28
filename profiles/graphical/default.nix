@@ -19,11 +19,7 @@ in
 
   # # Disable ALSA
   # sound.enable = false;
-  # # Disable pulseaudio
-  # hardware.pulseaudio.enable = pkgs.lib.mkForce false;
 
-  # # build programs with pulseaudio support, pipewire will handle them
-  # nixpkgs.config.pulseaudio = true;
 
   # # pipewire
   # # Not strictly required but pipewire will use rtkit if it is present
@@ -41,13 +37,18 @@ in
   # #   { domain = "@messagebus"; item = "priority"; type = "soft"; value = "-10"; }
   # # ];
 
+  # build programs with pulseaudio support, pipewire will handle them
+  # https://github.com/NixOS/nixpkgs/issues/139344
+  nixpkgs.config.pulseaudio = true;
+  # Disable pulseaudio
+  hardware.pulseaudio.enable = pkgs.lib.mkForce false;
+
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
       
-    # TODO: switch to wireplumber once  https://github.com/NixOS/nixpkgs/pull/163060 lands
-    media-session.enable = true;
-    wireplumber.enable = false;
+    media-session.enable = false;
+    wireplumber.enable = true;
 
     # Compatibility shims, adjust according to your needs
     alsa.enable = true;
