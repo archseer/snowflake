@@ -61,7 +61,7 @@
     aliases = {
       a	= "add";
       ap	= "add --patch";
-      b	= "branch";
+      b	= "branch -vv";
       bd	= "branch -d";
       bdd     = "branch -D";
       c	= "commit -v";
