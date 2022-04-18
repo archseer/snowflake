@@ -6,10 +6,6 @@
     hardware.nixosModules.common-pc-ssd
   ];
 
-  disabledModules = [
-    "tasks/swraid.nix" # stop blanket importing raid modules because my kernel doesn't include them, thanks
-  ];
-
   boot.kernelParams = [ "cryptomgr.notests" ];
 
   # Only load the crypto modules required instead of a blanket import.
