@@ -71,6 +71,8 @@ in
   '';
 
   hardware.opengl.enable = true;
+  # For Vulkan
+  hardware.opengl.driSupport = true;
 
   boot = {
     # use the latest upstream kernel
@@ -97,6 +99,9 @@ in
       # TODO: gtk-cursor-theme-name..
     };
   };
+    
+  # Wayland support
+  nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 
   environment = {
 

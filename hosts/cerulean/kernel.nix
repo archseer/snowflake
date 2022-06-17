@@ -3,7 +3,7 @@
 , linuxPackagesFor
 , ... }:
 let 
-  linux = pkgs.linuxKernel.kernels.linux_5_17;
+  linux = pkgs.linuxKernel.kernels.linux_5_18;
   # linux = pkgs.callPackage ./linux-5.15.nix {};
 in
 (linuxManualConfig {

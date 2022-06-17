@@ -2,7 +2,7 @@
 , kernelPatches
 , ... }:
 (linuxManualConfig {
-  inherit (pkgs.linuxKernel.packageAliases.linux_5_16.kernel) stdenv version src;
+  inherit (pkgs.linuxKernel.packageAliases.linux_5_18.kernel) stdenv version src;
   inherit lib;
   configfile = ./kernel.config;
   kernelPatches = [
