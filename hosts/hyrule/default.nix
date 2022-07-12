@@ -10,7 +10,7 @@ in
     ./hardware.nix
     ../../profiles/laptop
     ../../profiles/network # sets up wireless
-    # ../../profiles/graphical/games
+    ../../profiles/graphical/games
     ../../profiles/graphical
     ../../profiles/misc/disable-mitigations.nix
     ../../profiles/misc/yubikey.nix
@@ -36,7 +36,7 @@ in
   # use the custom kernel config
   boot.kernelPackages = linuxPackages;
 
-  boot.extraModulePackages = [ ];
+  # boot.extraModulePackages = [ ];
 
   # use zstd compression instead of gzip for initramfs.
   boot.initrd.compressor = "${lib.getBin pkgs.zstd}/bin/zstd";
