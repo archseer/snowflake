@@ -30,12 +30,12 @@
 
   services.fwupd.enable = true; 
   
-  systemd.services.amdfan = {
-    enable = true;
-    description = "Tune AMD GPU fan";
-    serviceConfig = {
-      ExecStart = "${pkgs.bash}/bin/bash -c 'cd /sys/class/drm/card0/device/hwmon/hwmon4; echo 1 > pwm1_enable && echo 32 > pwm1'";
-    };
-    wantedBy = [ "multi-user.target" ];
-  };
+  # systemd.services.amdfan = {
+  #   enable = true;
+  #   description = "Tune AMD GPU fan";
+  #   serviceConfig = {
+  #     ExecStart = "${pkgs.bash}/bin/bash -c 'cd /sys/class/drm/card0/device/hwmon/hwmon4; echo 1 > pwm1_enable && echo 32 > pwm1'";
+  #   };
+  #   wantedBy = [ "multi-user.target" ];
+  # };
 }
