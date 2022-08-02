@@ -9,7 +9,7 @@ in
   require = [
     ./hardware.nix
     ../../profiles/network # sets up wireless
-    # ../../profiles/graphical/games
+    ../../profiles/graphical/games
     ../../profiles/graphical
     ../../profiles/misc/disable-mitigations.nix
     ../../profiles/misc/yubikey.nix
