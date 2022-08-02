@@ -20,6 +20,7 @@ in
       fd
       git
       htop
+      powertop
       iputils
       jq
       manix

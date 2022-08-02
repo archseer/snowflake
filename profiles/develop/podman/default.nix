@@ -8,6 +8,7 @@
     defaultNetwork.dnsname.enable = true;
   };
   virtualisation.oci-containers.backend = "podman";
+
   # environment.systemPackages = [ pkgs.docker-client ];
   # environment.systemPackages = [
   #   # daemonless docker

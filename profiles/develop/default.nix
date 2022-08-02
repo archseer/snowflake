@@ -44,6 +44,7 @@
       graphviz
       
       kakoune
+      # meli
 
       wezterm
       tamsyn
@@ -53,12 +54,17 @@
 
       rustup
       cargo-outdated
+      zola
 
       asciinema
+      
+      gource
 
       # language servers
       rust-analyzer
       clang-tools
+      
+      gh
 
       # nixpkgs-fmt
       # nix-linter

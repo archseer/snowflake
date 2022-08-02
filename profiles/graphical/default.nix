@@ -127,7 +127,10 @@ in
       pavucontrol
       firefox-wayland
       chromium
-      vivaldi
+        
+      logseq
+      anki
+      # calibre
       
       # qt5.qtgraphicaleffects
       # stdmanpages
