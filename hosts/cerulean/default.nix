@@ -11,7 +11,6 @@ in
     ../../profiles/network # sets up wireless
     ../../profiles/graphical/games
     ../../profiles/graphical
-    ../../profiles/misc/disable-mitigations.nix
     ../../profiles/misc/yubikey.nix
     # ../../profiles/misc/apparmor.nix
     # ../../profiles/postgres
@@ -70,7 +69,7 @@ in
   # nix.maxJobs = lib.mkDefault 8;
   # nix.systemFeatures = [ "gccarch-haswell" ];
 
-  security.mitigations.acceptRisk = true;
+  boot.kernelParams = [ "mitigations=off" ];
 
   # powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 

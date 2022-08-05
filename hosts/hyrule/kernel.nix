@@ -2,7 +2,7 @@
 , kernelPatches
 , ... }:
 let 
-  linux = pkgs.linuxKernel.kernels.linux_5_18;
+  linux = pkgs.linuxKernel.kernels.linux_5_19;
   # linux = pkgs.callPackage ./linux-5.15.nix {};
 
   kernel = (linuxManualConfig {
