@@ -63,7 +63,7 @@ in
   # Resume from encrypted volume's /swapfile
   boot.resumeDevice = "/dev/mapper/cryptroot";
   # filefrag -v /swapfile | awk '{ if($1=="0:"){print $4} }'
-  boot.kernelParams = [ "resume_offset=114857984" ];
+  boot.kernelParams = [ "resume_offset=114857984" "mitigations=off" ];
 
   hardware = {
     enableRedistributableFirmware = true;
@@ -72,8 +72,6 @@ in
 
   # nix.maxJobs = lib.mkDefault 8;
   # nix.systemFeatures = [ "gccarch-haswell" ];
-
-  boot.kernelParams = [ "mitigations=off" ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
