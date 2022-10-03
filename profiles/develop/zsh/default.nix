@@ -24,7 +24,7 @@ in
       # unrar
       unzip
       xz
-      xdg_utils
+      xdg-utils
     ];
   };
 
@@ -66,7 +66,7 @@ in
         # j stands for jump
         j="fasd_cd -d";
 
-        open ="${pkgs.xdg_utils}/bin/xdg-open";
+        open ="${pkgs.xdg-utils}/bin/xdg-open";
         ps = "${pkgs.procs}/bin/procs";
       };
 
