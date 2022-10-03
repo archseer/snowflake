@@ -2,8 +2,8 @@
 , kernelPatches
 , ... }:
 let 
-  linux = pkgs.linuxKernel.kernels.linux_5_19;
-  # linux = pkgs.callPackage ./linux-5.15.nix {};
+  # linux = pkgs.linuxKernel.kernels.linux_5_19;
+  linux = pkgs.callPackage ./linux-6.0.nix {};
 
   kernel = (linuxManualConfig {
     inherit (linux) stdenv version modDirVersion src;
