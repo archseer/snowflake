@@ -29,7 +29,7 @@ in
       nmap
       sd
       ripgrep
-      utillinux
+      util-linux
       whois
     ];
 
