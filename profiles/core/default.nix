@@ -4,7 +4,7 @@ let inherit (lib) fileContents;
 
 in
 {
-  nix.package = pkgs.nixFlakes;
+  nix.package = pkgs.nixVersions.stable;
 
   imports = [ ../../local/locale.nix ];
 

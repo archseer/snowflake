@@ -18,7 +18,7 @@ pkgs.mkShell {
   nativeBuildInputs = with pkgs; [
     git
     git-crypt
-    nixFlakes
+    nixVersions.stable
     rebuild
   ];
 
@@ -26,7 +26,7 @@ pkgs.mkShell {
     mkdir -p secrets
     PATH=${
       pkgs.writeShellScriptBin "nix" ''
-        ${pkgs.nixFlakes}/bin/nix --option experimental-features "nix-command flakes" "$@"
+        ${pkgs.nixVersions.stable}/bin/nix --option experimental-features "nix-command flakes" "$@"
       ''
     }/bin:$PATH
   '';
