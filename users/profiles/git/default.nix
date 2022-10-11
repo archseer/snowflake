@@ -33,7 +33,8 @@
         helper = "cache --timeout=3600";
       };
       diff = {
-        # enames = "copies";
+        algorithm = "histogram";
+        renames = "copies";
         mnemonicprefix = true;
       };
       push = {
