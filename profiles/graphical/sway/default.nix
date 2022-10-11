@@ -134,7 +134,6 @@ in
         set $br #a4a0e8
         set $ia #232425
 
-
         # class                 border  backgr. text    indicator child_border
         client.focused          $br     $br     $bg     $bg       $br
         client.focused_inactive $bg     $bg     $fg     $bg       $bg
