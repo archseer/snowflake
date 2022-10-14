@@ -18,7 +18,6 @@
       futils.url = "github:numtide/flake-utils/flatten-tree-system";
 
       mobile-nixos.url = "github:archseer/mobile-nixos/flake";
-      mobile-nixos.inputs.nixpkgs.follows = "nixpkgs";
     };
 
   outputs = inputs@{ self, home, nixos, nixpkgs, hardware, mobile-nixos, futils }:
