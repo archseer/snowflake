@@ -12,6 +12,7 @@ in
     ../../profiles/graphical/games
     ../../profiles/graphical
     ../../profiles/misc/yubikey.nix
+    ../../profiles/misc/ledger.nix
     # ../../profiles/misc/apparmor.nix
     # ../../profiles/postgres
     ../../users/speed
