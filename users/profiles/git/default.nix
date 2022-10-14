@@ -38,9 +38,10 @@
       };
       push = {
         default = "simple";
+        autoSetupRemote = true;
       };
       merge = {
-        conflictstyle = "diff3";
+        conflictstyle = "zdiff3";
       };
       rerere = {
         enabled = 1;
@@ -50,6 +51,10 @@
       };
       rebase = {
         autostash = true;
+        updateRefs = true;
+      };
+      transfer = {
+        credentialsInUrl = "warn";
       };
       # TODO: color config
       # diff-so-fancy = {
