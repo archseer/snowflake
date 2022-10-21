@@ -12,11 +12,6 @@ let
     recursiveUpdate
     genAttrs;
 
-  # mapFilterAttrs ::
-  #   (name -> value -> bool )
-  #   (name -> value -> { name = any; value = any; })
-  #   attrs
-  mapFilterAttrs = seive: f: attrs: filterAttrs seive (mapAttrs' f attrs);
 
   # Generate an attribute set by mapping a function over a list of values.
   genAttrs' = values: f: listToAttrs (map f values);
@@ -38,7 +33,7 @@ let
 
 in
 {
-  inherit mapFilterAttrs genAttrs' pkgsFor pathsToImportedAttrs;
+  inherit genAttrs' pkgsFor pathsToImportedAttrs;
 
   overlayPaths =
     let
@@ -46,18 +41,6 @@ in
       fullPath = name: overlayDir + "/${name}";
     in
     map fullPath (attrNames (readDir overlayDir));
-
-  recImport = { dir, _import ? base: import "${dir}/${base}.nix" }:
-    mapFilterAttrs
-      (_: v: v != null)
-      (n: v:
-        if n != "default.nix" && hasSuffix ".nix" n && v == "regular"
-        then
-          let name = removeSuffix ".nix" n; in nameValuePair (name) (_import name)
-
-        else
-          nameValuePair ("") (null))
-      (readDir dir);
 
   modules =
     let

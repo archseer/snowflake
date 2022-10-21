@@ -1,10 +1,10 @@
-{ lib, nixpkgs, mobile-nixos, ... }:
+{ lib, nixpkgs, inputs, ... }:
 (mobile-nixos.mkDevice {
   device = "pine64-pinephone";
   configuration = [
     {
       imports = [
-        (import "${mobile-nixos}/lib/configuration.nix" {
+        (import "${inputs.mobile-nixos}/lib/configuration.nix" {
           device = "pine64-pinephone";
         })
       ];

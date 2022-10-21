@@ -1,9 +1,9 @@
-{ config, lib, modulesPath, hardware, ... }:
+{ config, lib, modulesPath, inputs, ... }:
 {
   require = [
-    hardware.nixosModules.common-cpu-intel
-    hardware.nixosModules.common-pc-laptop
-    hardware.nixosModules.common-pc-ssd
+    inputs.hardware.nixosModules.common-cpu-intel
+    inputs.hardware.nixosModules.common-pc-laptop
+    inputs.hardware.nixosModules.common-pc-ssd
   ];
 
   boot.kernelParams = [ "cryptomgr.notests" ];
