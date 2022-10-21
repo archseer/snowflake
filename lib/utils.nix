@@ -21,10 +21,10 @@ let
   # Generate an attribute set by mapping a function over a list of values.
   genAttrs' = values: f: listToAttrs (map f values);
 
-  pkgImport = nixpkgs: overlays: system:
+  pkgsFor = nixpkgs: overlays: system:
     import nixpkgs {
       inherit system overlays;
-      config = { allowUnfree = true; };
+      config.allowUnfree = true;
     };
 
   # Convert a list to file paths to attribute set
@@ -38,7 +38,7 @@ let
 
 in
 {
-  inherit mapFilterAttrs genAttrs' pkgImport pathsToImportedAttrs;
+  inherit mapFilterAttrs genAttrs' pkgsFor pathsToImportedAttrs;
 
   overlayPaths =
     let
@@ -71,25 +71,4 @@ in
 
     in
     recursiveUpdate cachixAttrs modulesAttrs;
-
-
-  genPackages = { self, pkgs }:
-    let
-      inherit (self) overlay overlays;
-      packagesNames = attrNames (overlay null null)
-        ++ attrNames (fold
-        (attr: sum: recursiveUpdate sum attr)
-        { }
-        (attrValues
-          (mapAttrs (_: v: v null null) overlays)
-        )
-      );
-    in
-    fold
-      (key: sum: recursiveUpdate sum {
-        ${key} = pkgs.${key};
-      })
-      { }
-      packagesNames;
-
 }

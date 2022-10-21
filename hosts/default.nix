@@ -7,9 +7,7 @@
 , osPkgs
 , self
 , system
-, unstablePkgs
 , utils
-, externModules
 , ...
 }:
 let
@@ -26,13 +24,6 @@ let
       modules =
         let
           inherit (home.nixosModules) home-manager;
-
-          # modOverrides = { config, unstableModulesPath, ... }: {
-          #   disabledModules = unstableModules ++ addToDisabledModules;
-          #   imports = map
-          #     (path: "${unstableModulesPath}/${path}")
-          #     unstableModules;
-          # };
 
           core = ../profiles/core;
 
@@ -67,8 +58,7 @@ let
         in
         flakeModules ++ [
           core global local home-manager
-          # modOverrides
-        ] ++ externModules;
+        ];
 
     };
 
@@ -78,9 +68,5 @@ let
     (filterAttrs
       (n: v: v == "directory")
       (readDir ./.));
-  # hosts = recImport {
-  #   dir = ./.;
-  #   _import = config;
-  # };
 in
 hosts

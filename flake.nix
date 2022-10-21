@@ -1,5 +1,5 @@
 {
-  description = "A highly structured configuration database.";
+  description = "My personal config";
 
   inputs =
     {
@@ -11,80 +11,41 @@
 
       hardware.url = "github:NixOS/nixos-hardware";
 
-      # Wayland overlay
-      # nixpkgs-wayland.url = "github:colemickens/nixpkgs-wayland";
-      # nixpkgs-wayland.inputs.nixpkgs.follows = "nixpkgs";
-
-      futils.url = "github:numtide/flake-utils/flatten-tree-system";
-
       mobile-nixos.url = "github:archseer/mobile-nixos/flake";
     };
 
-  outputs = inputs@{ self, home, nixos, nixpkgs, hardware, mobile-nixos, futils }:
+  outputs = inputs@{ self, home, nixos, nixpkgs, hardware, mobile-nixos }:
     let
-      inherit (builtins) attrNames attrValues readDir;
-      inherit (futils.lib) eachDefaultSystem flattenTreeSystem;
       inherit (nixos) lib;
       inherit (lib) recursiveUpdate filterAttrs mapAttrs;
-      inherit (utils) pathsToImportedAttrs overlayPaths modules genPackages pkgImport;
+      inherit (utils) overlayPaths modules pkgsFor;
 
       utils = import ./lib/utils.nix { inherit lib; };
 
-      externOverlays = [];
-      externModules = [];
+      system = "x86_64-linux";
+      
+      overlay = import ./pkgs;
 
-      pkgs' = unstable:
-        let
-          override = import ./pkgs/override.nix;
-          overlays = (attrValues self.overlays)
-            ++ externOverlays
-            ++ [ self.overlay (override unstable) ];
-        in
-        pkgImport nixos overlays;
-
-      unstable' = pkgImport nixpkgs [ ];
-
-      osSystem = "x86_64-linux";
+      pkgs' = pkgsFor nixos [ overlay ];
+      unstable' = pkgsFor nixpkgs [ ];
 
       outputs =
         let
-          system = osSystem;
           unstablePkgs = unstable' system;
-          osPkgs = pkgs' unstablePkgs system;
+          osPkgs = pkgs' system;
         in
         {
           nixosConfigurations =
             import ./hosts (recursiveUpdate inputs {
-              inherit lib osPkgs unstablePkgs utils externModules system;
+              inherit lib osPkgs utils system;
             });
 
-          overlay = import ./pkgs;
-
-          overlays = pathsToImportedAttrs overlayPaths;
-
           nixosModules = modules;
+          
+          inherit overlay;
+
+          devShell.${system} = (import ./shell.nix { pkgs = osPkgs; });
         };
     in
-    recursiveUpdate
-      (eachDefaultSystem
-        (system:
-          let
-            unstablePkgs = unstable' system;
-            pkgs = pkgs' unstablePkgs system;
-
-            packages = flattenTreeSystem system
-              (genPackages {
-                inherit self pkgs;
-              });
-          in
-          {
-            inherit packages;
-
-            devShell = import ./shell.nix {
-              inherit pkgs;
-            };
-          }
-        )
-      )
-      outputs;
+    outputs;
 }

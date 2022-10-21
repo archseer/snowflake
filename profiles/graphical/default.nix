@@ -74,9 +74,6 @@ in
   hardware.opengl.driSupport = true;
 
   boot = {
-    # use the latest upstream kernel
-    # kernelPackages = pkgs.linuxPackages_latest;
-
     tmpOnTmpfs = true;
 
     kernel.sysctl."kernel.sysrq" = 1;
