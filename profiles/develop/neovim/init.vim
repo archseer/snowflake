@@ -18,7 +18,7 @@ set undofile
 " -- Colors / Theme ---------------------------------------------------------
 set background=dark
 set termguicolors
-colors colibri
+colors desert
 
 "  -- UI --------------------------------------------------------------------
 set title
@@ -92,58 +92,16 @@ set shortmess+=c
 " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
 inoremap <c-c> <ESC>
 
-let g:completion_docked_hover = 1
-
 inoremap <silent> <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" Press enter key to trigger snippet expansion
-" The parameters are the same as `:help feedkeys()`
-let g:AutoPairsMapCR=0
-inoremap <silent> <Plug>(MyCR) <CR><C-R>=AutoPairsReturn()<CR>
-
-
-" -- Language servers -------------------------------------------------------
 
 set signcolumn=yes
 
 " ---------------------------------------------------------------------------
 "  Filetype/Plugin-specific config
 " ---------------------------------------------------------------------------
-" for some reason it's broken again without force override
-au FileType go setl noet ts=4 sw=4 sts=4
-" Go syntax highlighting
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_operators = 1
-let g:go_fmt_command = "goimports"
-" use nvim-lsp for keywordprg
-let g:go_doc_keywordprg_enabled = 0
-let g:go_def_mapping_enabled = 0
-let g:go_code_completion_enabled = 0
-let g:go_textobj_enabled = 0
-let g:go_metalinter_enable = 0
-
-let g:rustfmt_autosave = 1
 
 au filetype mail setl tw=72 fo=aw
-
-augroup postcss
-  autocmd!
-  autocmd BufNewFile,BufRead *.css set filetype=postcss
-augroup END
-
-" vim-gitgutter
-let g:gitgutter_sign_added = '▌'
-let g:gitgutter_sign_removed = '▖'
-let g:gitgutter_sign_removed_first_line = '▘'
-let g:gitgutter_sign_modified = '▐'
-let g:gitgutter_sign_modified_removed = '▞'
-
-" Default peekaboo window
-let g:peekaboo_window = 'vertical botright 60new'
 
 " ---------------------------------------------------------------------------
 "  Mappings
@@ -151,11 +109,6 @@ let g:peekaboo_window = 'vertical botright 60new'
 " Dump ex mode for formatting
 nnoremap Q gqip
 vnoremap Q gq
-
-" Steal hauleth's file closing mappings
-nnoremap ZS :wa<CR>
-nnoremap ZA :qa<CR>
-nnoremap ZX :cq<CR>
 
 " Save the file (if it has been modified)
 nnoremap <silent> <leader>w :up<CR>
@@ -166,10 +119,6 @@ nnoremap Y y$
 " Copy/paste system buffer
 noremap <leader>y "+y
 noremap <leader>p "+p
-
-" Switch from horizontal split to vertical split and vice versa
-nnoremap <leader>- <C-w>t<C-w>H
-nnoremap <leader>\ <C-w>t<C-w>K
 
 noremap <leader>v <C-w>v
 
@@ -186,16 +135,6 @@ nnoremap <tab>   <c-w>w
 nnoremap <S-tab> <c-w>W
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
-
-" Write with sudo
-cmap w!! w !sudo tee > /dev/null %
-
-" Create mappings (with leader)
-nmap <Leader>as <Plug>(AerojumpSpace)
-nmap <Leader>ab <Plug>(AerojumpBolt)
-nmap <Leader>aa <Plug>(AerojumpFromCursorBolt)
-" Boring mode
-nmap <Leader>ad <Plug>(AerojumpDefault)
 
 " -- fzf ---------------------------------------------------------------------
 function! s:find_git_root()
@@ -314,10 +253,6 @@ augroup vimrcEx
     \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal g`\"" |
     \ endif
-
-  autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
-  autocmd BufRead,BufNewFile *.graphql,*.graphqls,*.gql setfiletype graphql
-  autocmd BufRead,BufNewFile *.lalrpop setfiletype rust
 augroup END
 
 augroup align_windows
@@ -328,6 +263,5 @@ augroup END
 au TextYankPost * silent! lua require'highlight'.on_yank("IncSearch", 500, vim.v.event)
 
 " -- Abbreviations ----------------------------------------------------------
-iabbrev jsut    just
 iabbrev teh     the
 iabbrev recieve receive
