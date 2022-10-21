@@ -1,6 +1,6 @@
 * {
 	text-color:        #ffffff;
-	background-color:  rgba(59, 34, 76, 0.3);
+	background-color:  rgba(0, 0, 0, 0.0);
 	
 	fc-color: #a8b298;
 	bg-color: #3c4140;
@@ -30,12 +30,14 @@
         margin: 32px 0 0 0;
   	border: 0px;
 	border-color: #a4a0e8;
+	/* background-color:  rgba(59, 34, 76, 0.3); */
+	background-color:  rgba(40, 23, 51, 0.95);
 }
 
 /* First container */
 #mainbox {
 	expand:            false;
-	background-color:  @bg-color;
+	/* background-color:  @bg-color; */
 	/* spacing:           1em; */
   	padding:           0px;
 }
@@ -76,14 +78,14 @@
 
 #prompt {
 	font: "Inter SemiBold 11";
-        background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 #entry {
 	font: "Inter 11";
 	width: 24em;
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0);
 }
 /* ================================================= */
 
@@ -115,9 +117,11 @@
 #element alternate normal {
 }
 
+/*
 #element alternate active {
 	text-color: @focus-col;
 }
+*/
 
 #element alternate urgent {
 	background-color: OrangeRed;
@@ -131,5 +135,6 @@
 	background-color:  DarkOrange;
 }
 
+element-text { background-color: None; highlight: None; }
 element-icon { size: 2ch;}
 element-icon { size: 24; margin: 0 0.5em 0 0; }
