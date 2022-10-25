@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   services.wlsunset = {
     enable = true;
     latitude = "35.7";

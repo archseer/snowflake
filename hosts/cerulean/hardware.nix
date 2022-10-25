@@ -1,20 +1,28 @@
-{ config, lib, pkgs, modulesPath, hardware, inputs, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  hardware,
+  inputs,
+  ...
+}: {
   require = [
     inputs.hardware.nixosModules.common-cpu-amd
     inputs.hardware.nixosModules.common-pc-ssd
   ];
 
-  boot.kernelParams = [ "cryptomgr.notests" ];
+  boot.kernelParams = ["cryptomgr.notests"];
 
   # Only load the crypto modules required instead of a blanket import.
-  boot.initrd.luks.cryptoModules = [ "aes" ];
+  boot.initrd.luks.cryptoModules = ["aes"];
 
   # upstream includes SATA drivers etc. which we don't build into the kernel.
   boot.initrd.includeDefaultModules = false;
-  boot.initrd.availableKernelModules = lib.mkForce [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = lib.mkForce ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
 
-  boot.kernelModules = [ "kvm-amd"
+  boot.kernelModules = [
+    "kvm-amd"
     "nct6683" # fan speed, temperature and voltage sensors
     # "zenpower" # use this instead of k10temp
   ];
@@ -28,8 +36,8 @@
 
   hardware.cpu.amd.updateMicrocode = true;
 
-  services.fwupd.enable = true; 
-  
+  services.fwupd.enable = true;
+
   # systemd.services.amdfan = {
   #   enable = true;
   #   description = "Tune AMD GPU fan";

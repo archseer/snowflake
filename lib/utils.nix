@@ -1,8 +1,8 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   inherit (builtins) attrNames attrValues isAttrs readDir listToAttrs mapAttrs;
 
-  inherit (lib)
+  inherit
+    (lib)
     fold
     filterAttrs
     hasSuffix
@@ -10,8 +10,8 @@ let
     nameValuePair
     removeSuffix
     recursiveUpdate
-    genAttrs;
-
+    genAttrs
+    ;
 
   # Generate an attribute set by mapping a function over a list of values.
   genAttrs' = values: f: listToAttrs (map f values);
@@ -30,28 +30,23 @@ let
       name = removeSuffix ".nix" (baseNameOf path);
       value = import path;
     });
-
-in
-{
+in {
   inherit genAttrs' pkgsFor pathsToImportedAttrs;
 
-  overlayPaths =
-    let
-      overlayDir = ../overlays;
-      fullPath = name: overlayDir + "/${name}";
-    in
+  overlayPaths = let
+    overlayDir = ../overlays;
+    fullPath = name: overlayDir + "/${name}";
+  in
     map fullPath (attrNames (readDir overlayDir));
 
-  modules =
-    let
-      # binary cache
-      cachix = import ../cachix.nix;
-      cachixAttrs = { inherit cachix; };
+  modules = let
+    # binary cache
+    cachix = import ../cachix.nix;
+    cachixAttrs = {inherit cachix;};
 
-      # modules
-      moduleList = import ../modules/list.nix;
-      modulesAttrs = pathsToImportedAttrs moduleList;
-
-    in
+    # modules
+    moduleList = import ../modules/list.nix;
+    modulesAttrs = pathsToImportedAttrs moduleList;
+  in
     recursiveUpdate cachixAttrs modulesAttrs;
 }

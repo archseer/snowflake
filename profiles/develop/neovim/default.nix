@@ -1,17 +1,15 @@
-{ pkgs, ... }:
+{pkgs, ...}: {
+  programs.neovim = {
+    enable = true;
 
-{
-    programs.neovim = {
-      enable = true;
-      
-      plugins = with pkgs.vimPlugins; [
-        vim-repeat
-        vim-abolish
+    plugins = with pkgs.vimPlugins; [
+      vim-repeat
+      vim-abolish
 
-        fzf-vim
-        fzfWrapper
-      ];
+      fzf-vim
+      fzfWrapper
+    ];
 
-      extraConfig = builtins.readFile ./init.vim;
-    };
+    extraConfig = builtins.readFile ./init.vim;
+  };
 }

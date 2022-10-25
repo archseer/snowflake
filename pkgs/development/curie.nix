@@ -1,5 +1,9 @@
-{ stdenv, lib, fetchzip, mkfontdir }:
-
+{
+  stdenv,
+  lib,
+  fetchzip,
+  mkfontdir,
+}:
 stdenv.mkDerivation rec {
   name = "curie-${version}";
   version = "v1.0";
@@ -10,7 +14,7 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  nativeBuildInputs = [ mkfontdir ];
+  nativeBuildInputs = [mkfontdir];
 
   installPhase = ''
     install -m 644 -Dt "$out/share/fonts/misc" *.otb

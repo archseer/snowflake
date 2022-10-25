@@ -1,9 +1,9 @@
-{ pkgs, ... }: {
-  imports = [ ./zsh ./podman ];
+{pkgs, ...}: {
+  imports = [./zsh ./podman];
   home-manager.users.speed = {
-    imports = [ ./neovim ./tmux ];
+    imports = [./neovim ./tmux];
   };
-  
+
   # qmk rules
   services.udev.extraRules = ''
     # UDEV rules for Teensy USB devices
@@ -17,7 +17,7 @@
     sessionVariables = {
       PAGER = "less";
       LESS = "-iFJMRWX -z-4 -x4";
-      HELIX_RUNTIME="$HOME/src/helix/runtime";
+      HELIX_RUNTIME = "$HOME/src/helix/runtime";
       EDITOR = "$HOME/src/helix/target/release/hx";
       VISUAL = "$HOME/src/helix/target/release/hx";
       # TERMINAL = "alacritty";
@@ -42,7 +42,8 @@
 
       nix-du
       graphviz
-      
+      imagemagick
+
       kakoune
       # meli
 
@@ -57,22 +58,28 @@
       zola
 
       asciinema
-      
+
       gource
 
       # language servers
       rust-analyzer
       clang-tools
-      
+
       gh
 
       # nixpkgs-fmt
       # nix-linter
 
       # dhall dhall-lsp-server
+
+      bandwhich
+      jless
+      xh
+      xplr
+      bottom
     ];
 
-     # TODO: mutt / aerc
+    # TODO: mutt / aerc
   };
 
   documentation.dev.enable = true;

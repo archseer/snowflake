@@ -1,5 +1,9 @@
-{ config, lib, pkgs, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   programs.mpv = {
     enable = true;
     scripts = with pkgs.mpvScripts; [

@@ -9,14 +9,17 @@
       font.bold.style = "Bold";
       font.italic.family = "ProggyCleanTT";
       font.size = 14.0;
-      font.offset = { x = 0; y = 4; };
+      font.offset = {
+        x = 0;
+        y = 4;
+      };
 
       # snazzy theme
       colors = {
         # Default colors
         primary = {
           text = "0xebeafa";
-          background= "0x3b224c";
+          background = "0x3b224c";
           dim_foreground = "0x9a9a9a";
           bright_foreground = "0xffffff";
         };
@@ -28,26 +31,26 @@
 
         # Normal colors
         normal = {
-          black =   "#3b224c";
-          red =     "#f47868";
-          green =   "#9ff28f";
-          yellow =  "#efba5d";
-          blue =    "#a4a0e8";
+          black = "#3b224c";
+          red = "#f47868";
+          green = "#9ff28f";
+          yellow = "#efba5d";
+          blue = "#a4a0e8";
           magenta = "#dbbfef";
-          cyan =    "#6acdca";
-          white =   "#ebeafa";
+          cyan = "#6acdca";
+          white = "#ebeafa";
         };
 
         # Bright colors
         bright = {
-          black =  "#697c81";
-          red =    "#ff3334";
-          green =  "#9ec400";
+          black = "#697c81";
+          red = "#ff3334";
+          green = "#9ec400";
           yellow = "#e7c547";
-          blue =   "#7aa6da";
+          blue = "#7aa6da";
           magenta = "#b77ee0";
-          cyan =   "#54ced6";
-          white =  "#ffffff";
+          cyan = "#54ced6";
+          white = "#ffffff";
         };
       };
     };

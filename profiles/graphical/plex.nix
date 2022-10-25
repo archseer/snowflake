@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   services.plex = {
     enable = true;
     dataDir = "/srv/plex";
@@ -6,5 +6,5 @@
     openFirewall = true;
   };
 
-  users.groups.media.members = [ "plex" ];
+  users.groups.media.members = ["plex"];
 }

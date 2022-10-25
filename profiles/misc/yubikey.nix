@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # https://zach.codes/ultimate-yubikey-setup-guide/
   # https://github.com/drduh/YubiKey-Guide/
   environment.systemPackages = with pkgs; [

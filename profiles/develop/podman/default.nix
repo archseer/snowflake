@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   virtualisation.docker.enable = false;
   virtualisation.podman = {
     enable = true;
@@ -20,7 +19,7 @@
   #   skopeo
   #   slirp4netns
   # ];
-  environment.systemPackages = [ pkgs.docker-compose ];
+  environment.systemPackages = [pkgs.docker-compose];
   users.users.speed.extraGroups = ["podman"];
   # TODO: or virtualisation.containers.users instead?
 }

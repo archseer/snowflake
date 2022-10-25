@@ -1,21 +1,23 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 # let
-  # inherit (builtins) readFile concatStringsSep;
-  # inherit (lib) removePrefix;
-
-  # pluginConf = plugins:
-  #   concatStringsSep "\n\n" (map
-  #     (plugin:
-  #       let name = removePrefix "tmuxplugin-" plugin.pname;
-  #       in "run-shell ${plugin}/share/tmux-plugins/${name}/${name}.tmux")
-  #     plugins
-  #   );
-
-  # plugins = with pkgs.tmuxPlugins; [
-  #   open
-  #   yank
-  #   vim-tmux-navigator
-  # ];
+# inherit (builtins) readFile concatStringsSep;
+# inherit (lib) removePrefix;
+# pluginConf = plugins:
+#   concatStringsSep "\n\n" (map
+#     (plugin:
+#       let name = removePrefix "tmuxplugin-" plugin.pname;
+#       in "run-shell ${plugin}/share/tmux-plugins/${name}/${name}.tmux")
+#     plugins
+#   );
+# plugins = with pkgs.tmuxPlugins; [
+#   open
+#   yank
+#   vim-tmux-navigator
+# ];
 # in
 {
   # environment.shellAliases = { tx = "tmux new-session -A -s $USER"; };

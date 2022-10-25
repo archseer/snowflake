@@ -1,5 +1,10 @@
-{ lib, config, options, pkgs, ... }:
-let
+{
+  lib,
+  config,
+  options,
+  pkgs,
+  ...
+}: let
   inherit (builtins) readFile;
 
   left = "h";
@@ -27,18 +32,16 @@ let
   # out_monitor = "DP-1";
   # out_monitor = "Goldstar Company Ltd LG HDR 4K 0x0000EEB5";
   out_monitor = "Dell Inc. DELL P2721Q 2SLCVF3";
-
   # Theme colors
   # bg = "#281733";
   # fg = "#eff1f5";
   # br = "#a4a0e8";
   # ia = "#232425";
-in
-{
-  imports = [ ];
+in {
+  imports = [];
 
   # xdg.portal stuff?
-  
+
   environment.systemPackages = with pkgs; [
     capitaine-cursors
   ];
@@ -50,8 +53,8 @@ in
     set -g @override_copy_command 'wl-copy'
   '';
 
-  home-manager.users.speed = { pkgs, ... }: {
-    imports = [ ./waybar ./wlsunset ];
+  home-manager.users.speed = {pkgs, ...}: {
+    imports = [./waybar ./wlsunset];
 
     # rofi menu style
     xdg.configFile."rofi/sidestyle.rasi".source = ./sidestyle.rasi;
@@ -63,7 +66,7 @@ in
       padding = "15,20";
       # backgroundColor = "#3b224cF0";
       backgroundColor = "#281733F0";
-      textColor="#ebeafa";
+      textColor = "#ebeafa";
       borderSize = 2;
       borderColor = "#a4a0e8";
       defaultTimeout = 5000;
@@ -96,29 +99,28 @@ in
       XDG_CURRENT_DESKTOP = "sway";
     };
 
-    home.packages = with pkgs;
-      [
-        swaylock
-        swayidle
-        xwayland
+    home.packages = with pkgs; [
+      swaylock
+      swayidle
+      xwayland
 
-        rofi-wayland
-        #
-        libinput-gestures
-        qt5.qtwayland
-        # alacritty
-        libnotify
-        mako
-        # volnoti
-        wl-clipboard
-        waybar
-        grim
-        slurp
-        # ydotool-git
-        
-        pulseaudio # just for pactl, wish there was pulseaudio-util
-        playerctl
-      ];
+      rofi-wayland
+      #
+      libinput-gestures
+      qt5.qtwayland
+      # alacritty
+      libnotify
+      mako
+      # volnoti
+      wl-clipboard
+      waybar
+      grim
+      slurp
+      # ydotool-git
+
+      pulseaudio # just for pactl, wish there was pulseaudio-util
+      playerctl
+    ];
 
     wayland.windowManager.sway = {
       enable = true;
@@ -158,8 +160,14 @@ in
           titlebar = false; # pixel border
           border = 3;
           commands = [
-            { criteria = { app_id = "mpv"; }; command = "sticky enable"; }
-            { criteria = { app_id = "mpv"; }; command = "floating enable"; }
+            {
+              criteria = {app_id = "mpv";};
+              command = "sticky enable";
+            }
+            {
+              criteria = {app_id = "mpv";};
+              command = "floating enable";
+            }
 
             # {
             #   criteria = { title = "^(.*) Indicator"; };
@@ -354,13 +362,11 @@ in
           # Move focus to the parent container
           "${modifier}+a" = "focus parent";
 
-
           # Toggle the current focus between tiling and floating mode
           "${modifier}+Shift+space" = "floating toggle";
           "${modifier}+Shift+Alt+space" = "sticky toggle";
           # Swap focus between the tiling area and the floating area
           "${modifier}+space" = "focus mode_toggle";
-
 
           # Sway has a "scratchpad", which is a bag of holding for windows.
           # You can send windows there and get them back later.
@@ -370,11 +376,11 @@ in
 
           # Show the next scratchpad window or hide the focused scratchpad window.
           # If there are multiple scratchpad windows, this command cycles through them.
-          "${modifier}+minus"       = "scratchpad show";
+          "${modifier}+minus" = "scratchpad show";
 
           # ----
           #
-          "${modifier}+r"       = "mode resize";
+          "${modifier}+r" = "mode resize";
 
           # resize window to φ ratio of screen or ½
           # bindsym $mod+Shift+space exec swaymsg resize set width $φ

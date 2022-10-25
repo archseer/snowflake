@@ -1,4 +1,4 @@
-{ modulesPath, ... }: {
+{modulesPath, ...}: {
   imports = [
     # passwd is nixos by default
     ../../users/nixos

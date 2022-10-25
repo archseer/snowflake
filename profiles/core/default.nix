@@ -1,14 +1,17 @@
 # The core profile is automatically applied to all hosts.
-{ config, lib, pkgs, ... }:
-let inherit (lib) fileContents;
-
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit (lib) fileContents;
+in {
   nix.package = pkgs.nixVersions.stable;
 
   i18n.defaultLocale = "en_US.UTF-8";
   time.timeZone = lib.mkDefault "Asia/Tokyo";
-  
+
   environment = {
     systemPackages = with pkgs; [
       binutils
@@ -33,19 +36,17 @@ in
       whois
     ];
 
-    shellAliases =
-      {
-        # nix
-        n = "nix";
-        np = "n profile";
-        ni = "np install";
-        nr = "np remove";
-        ns = "n search --no-update-lock-file";
-        nf = "n flake";
-        srch = "ns nixpkgs";
-        nrb = "sudo nixos-rebuild";
-      };
-
+    shellAliases = {
+      # nix
+      n = "nix";
+      np = "n profile";
+      ni = "np install";
+      nr = "np remove";
+      ns = "n search --no-update-lock-file";
+      nf = "n flake";
+      srch = "ns nixpkgs";
+      nrb = "sudo nixos-rebuild";
+    };
   };
 
   nix = {
@@ -55,8 +56,8 @@ in
       cores = 0;
       auto-optimise-store = true;
       sandbox = true;
-      allowed-users = [ "@wheel" ];
-      trusted-users = [ "root" "@wheel" ];
+      allowed-users = ["@wheel"];
+      trusted-users = ["root" "@wheel"];
     };
     extraOptions = ''
       experimental-features = nix-command flakes

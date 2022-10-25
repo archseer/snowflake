@@ -1,4 +1,10 @@
-{config, lib, pkgs, modulesPath, ...}: {
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}: {
   # hardware-configuration
 
   imports = [
@@ -11,7 +17,12 @@
 
   boot.cleanTmpDir = true;
 
-  swapDevices = [ { device = "/var/swapfile"; size = 1024; } ];
+  swapDevices = [
+    {
+      device = "/var/swapfile";
+      size = 1024;
+    }
+  ];
 
   # Auto GC older generations
   nix.gc.options = "--delete-older-than 7d";
@@ -29,7 +40,7 @@
     email = "blaz@mxxn.io";
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [80 443];
 
   # mxxn.io
   services.nginx = {

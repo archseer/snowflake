@@ -1,19 +1,27 @@
-{ lib, stdenv, buildPackages, fetchurl, linuxManualConfig, pkgs
-, kernelPatches
-, ... }:
-let 
+{
+  lib,
+  stdenv,
+  buildPackages,
+  fetchurl,
+  linuxManualConfig,
+  pkgs,
+  kernelPatches,
+  ...
+}: let
   # linux = pkgs.linuxKernel.kernels.linux_5_19;
   linux = pkgs.callPackage ./linux-6.0.nix {};
 
-  kernel = (linuxManualConfig {
-    inherit (linux) stdenv version modDirVersion src;
-    inherit lib;
-    configfile = ./kernel.config;
-    kernelPatches = [
-    ]; # TODO: pass through kernelPatches
-    allowImportFromDerivation = true;
-  }) .overrideAttrs(o: { nativeBuildInputs = o.nativeBuildInputs ++ [ pkgs.zstd pkgs.zlib ]; }); # for zstd compression
-  
+  kernel =
+    (linuxManualConfig {
+      inherit (linux) stdenv version modDirVersion src;
+      inherit lib;
+      configfile = ./kernel.config;
+      kernelPatches = [
+      ]; # TODO: pass through kernelPatches
+      allowImportFromDerivation = true;
+    })
+    .overrideAttrs (o: {nativeBuildInputs = o.nativeBuildInputs ++ [pkgs.zstd pkgs.zlib];}); # for zstd compression
+
   passthru = {
     # TODO: confirm all these stil apply
     features = {
@@ -26,4 +34,5 @@ let
   };
 
   finalKernel = lib.extendDerivation true passthru kernel;
-in finalKernel
+in
+  finalKernel

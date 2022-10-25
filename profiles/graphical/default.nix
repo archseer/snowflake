@@ -1,10 +1,13 @@
-{ pkgs, lib, ... }:
-let inherit (builtins) readFile;
-in
 {
-  imports = [ ./sway ../develop ../network ./im ];
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit (builtins) readFile;
+in {
+  imports = [./sway ../develop ../network ./im];
 
-  nixpkgs.overlays =  [
+  nixpkgs.overlays = [
     #nixpkgs-wayland.overlay
   ];
 
@@ -19,7 +22,6 @@ in
 
   # # Disable ALSA
   # sound.enable = false;
-
 
   # # pipewire
   # # Not strictly required but pipewire will use rtkit if it is present
@@ -46,7 +48,7 @@ in
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
-      
+
     media-session.enable = false;
     wireplumber.enable = true;
 
@@ -61,7 +63,7 @@ in
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-wlr xdg-desktop-portal-gtk ];
+    extraPortals = with pkgs; [xdg-desktop-portal-wlr xdg-desktop-portal-gtk];
   };
 
   programs.sway.extraSessionCommands = lib.mkBefore ''
@@ -79,8 +81,8 @@ in
     kernel.sysctl."kernel.sysrq" = 1;
   };
 
-  home-manager.users.speed = { pkgs, ... }: {
-    imports = [ ./misc/mpv ];
+  home-manager.users.speed = {pkgs, ...}: {
+    imports = [./misc/mpv];
 
     gtk = {
       enable = true;
@@ -95,12 +97,11 @@ in
       # TODO: gtk-cursor-theme-name..
     };
   };
-    
+
   # Wayland support
   nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 
   environment = {
-
     systemPackages = with pkgs; [
       evince
       imv
@@ -123,11 +124,14 @@ in
       pavucontrol
       firefox-wayland
       chromium
-        
+
+      wf-recorder
+      ffmpeg
+
       logseq
       anki
       # calibre
-      
+
       # qt5.qtgraphicaleffects
       # stdmanpages
       # zathura
@@ -143,7 +147,10 @@ in
       noto-fonts-cjk
       twemoji-color-font
       inter
-      fira-code fira-code-symbols fira-mono fira
+      fira-code
+      fira-code-symbols
+      fira-mono
+      fira
       libertine
       roboto
       # proggyfonts
@@ -152,7 +159,7 @@ in
     fontconfig.defaultFonts = {
       serif = ["Linux Libertine"];
       sansSerif = ["Inter"];
-      monospace = [ "Fira Code" ];
+      monospace = ["Fira Code"];
     };
     # Bind Inter to Helvetica
     fontconfig.localConf = ''
@@ -166,5 +173,4 @@ in
       </fontconfig>
     '';
   };
-
 }

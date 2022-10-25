@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   environment.systemPackages = with pkgs; [
     acpi
     lm_sensors
@@ -9,29 +14,29 @@
 
   # remap caps to escape/ctrl on built-in keyboard.
   environment.etc."dual-function-keys.yaml".text = ''
-  TIMING:
-    TAP_MILLISEC: 200
-    DOUBLE_TAP_MILLISEC: 0
-  
-  MAPPINGS:
-    - KEY: KEY_LEFTSHIFT
-      TAP: [KEY_LEFTSHIFT, KEY_9]
-      HOLD: KEY_LEFTSHIFT
-    - KEY: KEY_RIGHTSHIFT
-      TAP: [KEY_RIGHTSHIFT, KEY_0]
-      HOLD: KEY_RIGHTSHIFT
-    - KEY: KEY_CAPSLOCK
-      TAP: KEY_ESC
-      HOLD: KEY_LEFTCTRL
-  '';  
+    TIMING:
+      TAP_MILLISEC: 200
+      DOUBLE_TAP_MILLISEC: 0
+
+    MAPPINGS:
+      - KEY: KEY_LEFTSHIFT
+        TAP: [KEY_LEFTSHIFT, KEY_9]
+        HOLD: KEY_LEFTSHIFT
+      - KEY: KEY_RIGHTSHIFT
+        TAP: [KEY_RIGHTSHIFT, KEY_0]
+        HOLD: KEY_RIGHTSHIFT
+      - KEY: KEY_CAPSLOCK
+        TAP: KEY_ESC
+        HOLD: KEY_LEFTCTRL
+  '';
   services.interception-tools = {
     enable = true;
-    plugins = [ pkgs.interception-tools-plugins.dual-function-keys ];
+    plugins = [pkgs.interception-tools-plugins.dual-function-keys];
     udevmonConfig = ''
-    - JOB: "${pkgs.interception-tools}/bin/intercept -g $DEVNODE | ${pkgs.interception-tools-plugins.dual-function-keys}/bin/dual-function-keys -c /etc/dual-function-keys.yaml | ${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
-      DEVICE:
-        EVENTS:
-          EV_KEY: [KEY_LEFTSHIFT, KEY_RIGHTSHIFT, KEY_CAPSLOCK]
+      - JOB: "${pkgs.interception-tools}/bin/intercept -g $DEVNODE | ${pkgs.interception-tools-plugins.dual-function-keys}/bin/dual-function-keys -c /etc/dual-function-keys.yaml | ${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
+        DEVICE:
+          EVENTS:
+            EV_KEY: [KEY_LEFTSHIFT, KEY_RIGHTSHIFT, KEY_CAPSLOCK]
     '';
   };
 

@@ -1,8 +1,10 @@
-{ lib, pkgs, ... }:
-let
-  inherit (lib) fileContents;
-in
 {
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit (lib) fileContents;
+in {
   users.defaultUserShell = pkgs.zsh;
 
   environment = {
@@ -51,21 +53,20 @@ in
         df = "df -h";
         du = "du -h";
 
-        g="${pkgs.git}/bin/git";
+        g = "${pkgs.git}/bin/git";
 
-        e="v $(fzf)";
+        e = "v $(fzf)";
 
-        l="exa -lahgF --group-directories-first";
+        l = "exa -lahgF --group-directories-first";
         # --time-style=long-iso
-        ll="exa -F";
+        ll = "exa -F";
 
         # j stands for jump
-        j="fasd_cd -d";
+        j = "fasd_cd -d";
 
-        open ="${pkgs.xdg-utils}/bin/xdg-open";
+        open = "${pkgs.xdg-utils}/bin/xdg-open";
         ps = "${pkgs.procs}/bin/procs";
       };
-
 
       plugins = with pkgs; [
         # {
@@ -80,12 +81,15 @@ in
         }
         {
           name = "fast-syntax-highlighting";
-          src =  pkgs.zsh-fast-syntax-highlighting;
+          src = pkgs.zsh-fast-syntax-highlighting;
           file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh";
         }
       ];
     };
 
-    xdg.configFile."zsh/config" = { source = ./config; recursive = true; };
+    xdg.configFile."zsh/config" = {
+      source = ./config;
+      recursive = true;
+    };
   };
 }

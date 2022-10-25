@@ -1,5 +1,4 @@
-{ pkgs ? import <nixpkgs> { } }:
-let
+{pkgs ? import <nixpkgs> {}}: let
   configs = "${toString ./.}#nixosConfigurations";
   build = "config.system.build";
 
@@ -13,21 +12,21 @@ let
     fi
   '';
 in
-pkgs.mkShell {
-  name = "nixflk";
-  nativeBuildInputs = with pkgs; [
-    git
-    git-crypt
-    nixVersions.stable
-    rebuild
-  ];
+  pkgs.mkShell {
+    name = "nixflk";
+    nativeBuildInputs = with pkgs; [
+      git
+      git-crypt
+      nixVersions.stable
+      rebuild
+    ];
 
-  shellHook = ''
-    mkdir -p secrets
-    PATH=${
-      pkgs.writeShellScriptBin "nix" ''
-        ${pkgs.nixVersions.stable}/bin/nix --option experimental-features "nix-command flakes" "$@"
-      ''
-    }/bin:$PATH
-  '';
-}
+    shellHook = ''
+      mkdir -p secrets
+      PATH=${
+        pkgs.writeShellScriptBin "nix" ''
+          ${pkgs.nixVersions.stable}/bin/nix --option experimental-features "nix-command flakes" "$@"
+        ''
+      }/bin:$PATH
+    '';
+  }

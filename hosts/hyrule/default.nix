@@ -1,11 +1,14 @@
-{ hardware, lib, pkgs, ... }:
-let
+{
+  hardware,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (builtins) readFile;
 
   kernel = pkgs.callPackage ./kernel.nix {};
-  linuxPackages = (pkgs.linuxPackagesFor kernel);
-in
-{
+  linuxPackages = pkgs.linuxPackagesFor kernel;
+in {
   require = [
     ./hardware.nix
     ../../profiles/laptop
@@ -44,30 +47,35 @@ in
 
   # Setup root as encrypted LUKS volume
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/f0173313-719c-4e09-a766-e74d96d35ee8";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/f0173313-719c-4e09-a766-e74d96d35ee8";
+    fsType = "ext4";
+  };
 
   boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/253b225b-eb1a-4f16-8e17-18b9c33e7ce8";
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/92D3-1812";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/92D3-1812";
+    fsType = "vfat";
+  };
 
   # 8GB swapfile for hibernation
 
-  swapDevices = [{device = "/swapfile"; size = 8192;}];
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 8192;
+    }
+  ];
 
   # Resume from encrypted volume's /swapfile
   boot.resumeDevice = "/dev/mapper/cryptroot";
   # filefrag -v /swapfile | awk '{ if($1=="0:"){print $4} }'
-  boot.kernelParams = [ "resume_offset=114857984" "mitigations=off" ];
+  boot.kernelParams = ["resume_offset=114857984" "mitigations=off"];
 
   hardware = {
     enableRedistributableFirmware = true;
-    firmware = [ pkgs.wireless-regdb ];
+    firmware = [pkgs.wireless-regdb];
   };
 
   # nix.maxJobs = lib.mkDefault 8;
@@ -79,7 +87,7 @@ in
   hardware.video.hidpi.enable = lib.mkDefault true;
 
   # Track list of enabled modules for localmodconfig generation.
-  environment.systemPackages = [ pkgs.modprobed-db ];
+  environment.systemPackages = [pkgs.modprobed-db];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -1,19 +1,20 @@
-{ lib, pkgs, ... }:
-let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (builtins) toFile readFile;
   inherit (lib) fileContents mkForce;
 
   name = "Blaž Hrastnik";
-in
-{
-
-  imports = [ ../../profiles/develop  ];
+in {
+  imports = [../../profiles/develop];
 
   users.users.speed.packages = with pkgs; [
     v4l-utils
   ];
 
-  environment.systemPackages = with pkgs; [ cachix ];
+  environment.systemPackages = with pkgs; [cachix];
 
   home-manager.users.speed = {
     imports = [
@@ -37,7 +38,7 @@ in
       userEmail = "blaz@mxxn.io";
       signing = {
         key = "F604E0EBDF3A34F2B9B472621238B9C4AD889640";
-      #   signByDefault = true;
+        #   signByDefault = true;
       };
       # TODO: sendemail config
     };
@@ -76,6 +77,6 @@ in
     openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINhYkvu/rVDYYlcM8Rq8HP3KPY2AX3mCvmyZ+/L1/yuh speed@hyrule.local"];
     # shell = pkgs.zsh;
     # video is needed to control the backlight
-    extraGroups = [ "wheel" "input" "docker" "video"]; # audio ?
+    extraGroups = ["wheel" "input" "docker" "video"]; # audio ?
   };
 }

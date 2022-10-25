@@ -1,8 +1,8 @@
 {
-  imports = [ ../../profiles/develop ];
+  imports = [../../profiles/develop];
 
   home-manager.users.nixos = {
-    imports = [ ../profiles/git ../profiles/direnv ];
+    imports = [../profiles/git ../profiles/direnv];
 
     # required so home doesn't import <nixpkgs>
     home.stateVersion = "20.09";
@@ -13,6 +13,6 @@
     password = "nixos";
     description = "default";
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = ["wheel"];
   };
 }

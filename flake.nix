@@ -1,101 +1,108 @@
 {
   description = "My personal config";
 
-  inputs =
-    {
-      nixos.url = "nixpkgs/nixos-unstable";
-      nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+  inputs = {
+    nixos.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
 
-      home.url = "github:rycee/home-manager";
-      home.inputs.nixpkgs.follows = "nixpkgs";
+    home.url = "github:rycee/home-manager";
+    home.inputs.nixpkgs.follows = "nixpkgs";
 
-      hardware.url = "github:NixOS/nixos-hardware";
+    hardware.url = "github:NixOS/nixos-hardware";
 
-      mobile-nixos.url = "github:archseer/mobile-nixos/flake";
-    };
+    mobile-nixos.url = "github:archseer/mobile-nixos/flake";
+  };
 
-  outputs = inputs@{ self, home, nixos, nixpkgs, hardware, mobile-nixos }:
-    let
-      inherit (builtins) attrValues;
-      inherit (nixos) lib;
-      inherit (utils) overlayPaths modules pkgsFor;
+  outputs = inputs @ {
+    self,
+    home,
+    nixos,
+    nixpkgs,
+    hardware,
+    mobile-nixos,
+  }: let
+    inherit (builtins) attrValues;
+    inherit (nixos) lib;
+    inherit (utils) overlayPaths modules pkgsFor;
 
-      utils = import ./lib/utils.nix { inherit lib; };
+    utils = import ./lib/utils.nix {inherit lib;};
 
-      system = "x86_64-linux";
+    system = "x86_64-linux";
 
-      overlay = import ./pkgs;
+    overlay = import ./pkgs;
 
-      pkgs' = pkgsFor nixos [ overlay ];
-      unstable' = pkgsFor nixpkgs [ ];
+    pkgs' = pkgsFor nixos [overlay];
+    unstable' = pkgsFor nixpkgs [];
 
-      mkSystem = pkgs: system: hostName:
-        let
-          unstablePkgs = unstable' system;
-          osPkgs = pkgs' system;
-        in
-        pkgs.lib.nixosSystem {
-          inherit system;
+    mkSystem = pkgs: system: hostName: let
+      unstablePkgs = unstable' system;
+      osPkgs = pkgs' system;
+    in
+      pkgs.lib.nixosSystem {
+        inherit system;
 
-          # pass through to modules
-          specialArgs = { inherit inputs; };
+        # pass through to modules
+        specialArgs = {inherit inputs;};
 
-          modules =
-            let
-              inherit (home.nixosModules) home-manager;
+        modules = let
+          inherit (home.nixosModules) home-manager;
 
-              core = ./profiles/core;
+          core = ./profiles/core;
 
-              global = {
-                networking.hostName = hostName;
-                nix.nixPath = let path = toString ./.; in
-                  [
-                    "nixpkgs=${nixpkgs}"
-                    "nixos=${nixos}"
-                    "nixos-config=${path}/configuration.nix"
-                    "home-manager=${home}"
-                  ];
-
-                nixpkgs.pkgs = osPkgs;
-
-                nix.registry = {
-                  nixpkgs.flake = nixpkgs;
-                  snowflake.flake = self;
-                  nixos.flake = nixos;
-                  home-manager.flake = home;
-                };
-
-                system.configurationRevision = lib.mkIf (self ? rev) self.rev;
-              };
-
-              local = import ./hosts/${hostName};
-
-              # Everything in `./modules/list.nix`.
-              flakeModules = (attrValues self.nixosModules);
-
-            in
-            flakeModules ++ [
-              core global local home-manager
+          global = {
+            networking.hostName = hostName;
+            nix.nixPath = let
+              path = toString ./.;
+            in [
+              "nixpkgs=${nixpkgs}"
+              "nixos=${nixos}"
+              "nixos-config=${path}/configuration.nix"
+              "home-manager=${home}"
             ];
 
-        };
+            nixpkgs.pkgs = osPkgs;
 
-      outputs =
-        {
-          nixosConfigurations = {
-            cerulean = mkSystem nixos system "cerulean";
-            hyrule = mkSystem nixos system "hyrule";
-            midna = mkSystem nixos system "midna";
-            corrin = mkSystem nixos "aarch64-linux" "corrin";
-            # TODO: niximg / NixOS
+            nix.registry = {
+              nixpkgs.flake = nixpkgs;
+              snowflake.flake = self;
+              nixos.flake = nixos;
+              home-manager.flake = home;
+            };
+
+            system.configurationRevision = lib.mkIf (self ? rev) self.rev;
           };
 
-          nixosModules = modules;
-          
-          inherit overlay;
+          local = import ./hosts/${hostName};
 
-          devShell.${system} = (import ./shell.nix { pkgs = pkgs' system; });
-        };
-    in
+          # Everything in `./modules/list.nix`.
+          flakeModules = attrValues self.nixosModules;
+        in
+          flakeModules
+          ++ [
+            core
+            global
+            local
+            home-manager
+          ];
+      };
+
+    outputs = {
+      nixosConfigurations = {
+        cerulean = mkSystem nixos system "cerulean";
+        hyrule = mkSystem nixos system "hyrule";
+        midna = mkSystem nixos system "midna";
+        corrin = mkSystem nixos "aarch64-linux" "corrin";
+        # TODO: niximg / NixOS
+      };
+
+      nixosModules = modules;
+
+      inherit overlay;
+
+      devShell.${system} = import ./shell.nix {pkgs = pkgs' system;};
+
+      formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
+    };
+  in
     outputs;
 }

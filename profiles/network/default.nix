@@ -1,11 +1,14 @@
-{ config, lib, pkgs, ... }:
 {
-  imports = [ ./torrent.nix ./wireguard.nix ];
-  
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [./torrent.nix ./wireguard.nix];
+
   networking.firewall.enable = true;
 
-  networking.nameservers =
-    [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
+  networking.nameservers = ["1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one"];
 
   # systemd-resolved instead of dhcpcd
   networking.useDHCP = false;
@@ -15,7 +18,7 @@
     enable = true;
     # dnssec = "true"; "opportunistic"
     dnssec = "false";
-    fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
+    fallbackDns = ["1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one"];
     # extraConfig = ''
     #   DNSOverTLS=yes / allow-downgrade
     # '';
@@ -24,7 +27,7 @@
   # Wired: systemd-networkd
   networking.useNetworkd = true;
   systemd.network.networks."40-wired" = {
-    matchConfig = { Name = lib.mkForce "enp* eth*"; };
+    matchConfig = {Name = lib.mkForce "enp* eth*";};
     DHCP = "yes";
     networkConfig = {
       IPv6PrivacyExtensions = "yes";
@@ -50,5 +53,4 @@
       NameResolvingService = "systemd";
     };
   };
-
 }

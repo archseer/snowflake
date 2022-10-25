@@ -1,11 +1,14 @@
-{ hardware, lib, pkgs, ... }:
-let
+{
+  hardware,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (builtins) readFile;
 
   kernel = pkgs.callPackage ./kernel.nix {};
-  linuxPackages = (pkgs.linuxPackagesFor kernel);
-in
-{
+  linuxPackages = pkgs.linuxPackagesFor kernel;
+in {
   require = [
     ./hardware.nix
     ../../profiles/network # sets up wireless
@@ -41,21 +44,26 @@ in
 
   # Setup root as encrypted LUKS volume
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/3d953c33-2053-49c1-a4fc-064cdbd761c6";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/3d953c33-2053-49c1-a4fc-064cdbd761c6";
+    fsType = "ext4";
+  };
 
   boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/663d4e43-9596-49e5-b555-101fbfc6cf18";
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/6C9C-379F";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/6C9C-379F";
+    fsType = "vfat";
+  };
 
   # 8GB swapfile for hibernation
 
-  swapDevices = [{device = "/swapfile"; size = 8192;}];
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 8192;
+    }
+  ];
 
   # # Resume from encrypted volume's /swapfile
   # boot.resumeDevice = "/dev/mapper/cryptroot";
@@ -64,13 +72,13 @@ in
 
   hardware = {
     enableRedistributableFirmware = true;
-    firmware = [ pkgs.wireless-regdb ];
+    firmware = [pkgs.wireless-regdb];
   };
 
   # nix.maxJobs = lib.mkDefault 8;
   # nix.systemFeatures = [ "gccarch-haswell" ];
 
-  boot.kernelParams = [ "mitigations=off" ];
+  boot.kernelParams = ["mitigations=off"];
 
   # powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 
@@ -86,7 +94,7 @@ in
   networking.firewall.enable = lib.mkForce false;
 
   # Track list of enabled modules for localmodconfig generation.
-  environment.systemPackages = with pkgs; [ modprobed-db stress-ng lm_sensors piper zenmonitor pciutils acpica-tools linuxPackages.perf linuxPackages.turbostat ];
+  environment.systemPackages = with pkgs; [modprobed-db stress-ng lm_sensors piper zenmonitor pciutils acpica-tools linuxPackages.perf linuxPackages.turbostat];
   services.ratbagd.enable = true; # ratbagd + piper = logitech mouse config
 
   # This value determines the NixOS release from which the default
