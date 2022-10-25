@@ -5,6 +5,7 @@
 }: let
   inherit (lib) fileContents;
 in {
+  environment.pathsToLink = [ "/share/zsh" ];
   users.defaultUserShell = pkgs.zsh;
 
   environment = {
