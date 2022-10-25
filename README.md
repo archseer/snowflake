@@ -32,7 +32,7 @@ rebuild <host-filename> test
 
 ## Build an ISO
 
-You can make an ISO and customize it by modifying the [niximg](./hosts/niximg.nix)
+You can make an ISO and customize it by modifying the [iso](./hosts/iso.nix)
 file:
 
 ```sh

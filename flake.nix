@@ -92,7 +92,7 @@
         hyrule = mkSystem nixos system "hyrule";
         midna = mkSystem nixos system "midna";
         corrin = mkSystem nixos "aarch64-linux" "corrin";
-        # TODO: niximg / NixOS
+        iso = mkSystem nixos system "iso";
       };
 
       nixosModules = modules;
