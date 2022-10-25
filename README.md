@@ -19,8 +19,7 @@ nix-shell # or `direnv allow` if you prefer
 
 From here it's up to you. You can deploy the barebones [NixOS](./hosts/NixOS.nix)
 host and build from there, or you can copy your existing `configuration.nix`.
-You'll probably at least need to setup your `fileSystems` and make sure the
-[locale](./local/locale.nix) is correct.
+You'll probably at least need to setup your `fileSystems`.
 
 Once you're ready to deploy you can use `nixos-rebuild` if your NixOS version
 is recent enough to support flakes, _or_ the [shell.nix](./shell.nix) defines

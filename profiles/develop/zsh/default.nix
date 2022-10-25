@@ -40,10 +40,6 @@ in
 
       dotDir = ".config/zsh";
 
-      # interactiveShellInit = ''
-      #   eval "$(direnv hook zsh)"
-      # '';
-
       initExtra = builtins.readFile ./.zshrc;
 
       shellAliases = {

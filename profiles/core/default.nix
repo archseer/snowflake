@@ -6,10 +6,10 @@ in
 {
   nix.package = pkgs.nixVersions.stable;
 
-  imports = [ ../../local/locale.nix ];
-
+  i18n.defaultLocale = "en_US.UTF-8";
+  time.timeZone = lib.mkDefault "Asia/Tokyo";
+  
   environment = {
-
     systemPackages = with pkgs; [
       binutils
       coreutils
@@ -32,13 +32,6 @@ in
       util-linux
       whois
     ];
-
-    shellInit = ''
-      export STARSHIP_CONFIG=${
-        pkgs.writeText "starship.toml"
-        (fileContents ./starship.toml)
-      }
-    '';
 
     shellAliases =
       {
