@@ -8,8 +8,8 @@
   kernelPatches,
   ...
 }: let
-  # linux = pkgs.linuxKernel.kernels.linux_5_19;
-  linux = pkgs.callPackage ./linux-6.0.nix {};
+  linux = pkgs.linuxKernel.kernels.linux_6_0;
+  # linux = pkgs.callPackage ./linux-6.0.nix {};
 
   kernel =
     (linuxManualConfig {
