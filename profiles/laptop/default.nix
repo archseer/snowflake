@@ -62,10 +62,15 @@
 
   # power management features
   services.tlp.enable = true;
+  services.tlp.settings = {
+    SOUND_POWER_SAVE_ON_BAT = 10;
+    USB_EXCLUDE_BTUSB = 1;
+    USB_EXCLUDE_PHONE = 1;
+  };
   # services.tlp.extraConfig = ''
-  #   CPU_SCALING_GOVERNOR_ON_AC=performance
-  #   CPU_SCALING_GOVERNOR_ON_BAT=powersave
-  #   CPU_HWP_ON_AC=performance
+  #   CPU_SCALING_GOVERNOR_ON_AC="performance";
+  #   CPU_SCALING_GOVERNOR_ON_BAT="schedutil";
+  #   CPU_HWP_ON_AC="performance";
   # '';
   services.logind.lidSwitch = "suspend";
 }
