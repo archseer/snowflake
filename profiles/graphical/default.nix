@@ -13,37 +13,12 @@ in {
 
   # Enable sound.
 
-  # would require snd_pci_oss to be built into the kernel
-  sound.enableOSSEmulation = false;
-
-  # TEMP: back to pulseaudio
-  # hardware.pulseaudio.enable = true;
-  # nixpkgs.config.pulseaudio = true;
-
-  # # Disable ALSA
-  # sound.enable = false;
-
-  # # pipewire
-  # # Not strictly required but pipewire will use rtkit if it is present
-  # # security.pam.loginLimits = [
-  # #   { domain = "@users"; item = "memlock"; type = "soft"; value = "1048576"; }
-  # #   { domain = "@users"; item = "memlock"; type = "hard"; value = "unlimited"; }
-  # #   # Allow using RT (RR/FIFO) scheduling
-  # #   { domain = "@users"; item = "rtprio";  type = "soft"; value = "46"; }
-  # #   { domain = "@users"; item = "rtprio";  type = "hard"; value = "49"; }
-  # #   # Get higher user process priority over background system services and allow
-  # #   # higher normal scheduling priorities
-  # #   { domain = "@users"; item = "priority"; type = "soft"; value = "-2"; }
-  # #   { domain = "@users"; item = "nice"; type = "soft"; value = "-19"; }
-  # #   { domain = "@users"; item = "nice"; type = "hard"; value = "-20"; }
-  # #   { domain = "@messagebus"; item = "priority"; type = "soft"; value = "-10"; }
-  # # ];
-
   # build programs with pulseaudio support, pipewire will handle them
   # https://github.com/NixOS/nixpkgs/issues/139344
   nixpkgs.config.pulseaudio = true;
-  # Disable pulseaudio
-  hardware.pulseaudio.enable = pkgs.lib.mkForce false;
+  # Disable pulseaudio and ALSA
+  sound.enable = lib.mkForce false
+  hardware.pulseaudio.enable = lib.mkForce false;
 
   security.rtkit.enable = true;
   services.pipewire = {
