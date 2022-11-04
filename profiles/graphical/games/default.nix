@@ -11,6 +11,8 @@
   hardware.opengl.enable = true;
   hardware.pulseaudio.support32Bit = true;
 
+  programs.gamemode.enable = true;
+
   environment.systemPackages = with pkgs; [
     protontricks
     # proton-caller

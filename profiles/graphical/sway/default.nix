@@ -40,8 +40,6 @@
 in {
   imports = [];
 
-  # xdg.portal stuff?
-
   environment.systemPackages = with pkgs; [
     capitaine-cursors
   ];
@@ -88,14 +86,13 @@ in {
       MOZ_ENABLE_WAYLAND = "1";
       MOZ_USE_XINPUT2 = "1";
 
-      #WLR_DRM_NO_MODIFIERS = "1";
       SDL_VIDEODRIVER = "wayland";
       # needs qt5.qtwayland in systemPackages
       QT_QPA_PLATFORM = "wayland";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
       _JAVA_AWT_WM_NONREPARENTING = "1";
 
-      XDG_SESSION_TYPE = "wayland";
+      # XDG_SESSION_TYPE = "wayland"; now set by wlroots https://github.com/nix-community/home-manager/commit/2464c21ab2b3607bed3c206a436855c487f35f55
       XDG_CURRENT_DESKTOP = "sway";
     };
 

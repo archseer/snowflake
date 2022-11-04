@@ -17,7 +17,7 @@ in {
   # https://github.com/NixOS/nixpkgs/issues/139344
   nixpkgs.config.pulseaudio = true;
   # Disable pulseaudio and ALSA
-  sound.enable = lib.mkForce false
+  sound.enable = lib.mkForce false;
   hardware.pulseaudio.enable = lib.mkForce false;
 
   security.rtkit.enable = true;
@@ -40,11 +40,6 @@ in {
     enable = true;
     extraPortals = with pkgs; [xdg-desktop-portal-wlr xdg-desktop-portal-gtk];
   };
-
-  programs.sway.extraSessionCommands = lib.mkBefore ''
-    # Screensharing
-    export XDG_CURRENT_DESKTOP=sway
-  '';
 
   hardware.opengl.enable = true;
   # For Vulkan
@@ -71,9 +66,16 @@ in {
       };
       # TODO: gtk-cursor-theme-name..
     };
+
+    # Wayland support in electron-based apps
+    xdg.configFile."electron-flags.conf".text = ''
+      --enable-features=UseOzonePlatform
+      --ozone-platform=wayland
+    '';
   };
 
   # Wayland support
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
   nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 
   environment = {
