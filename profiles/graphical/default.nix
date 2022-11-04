@@ -5,36 +5,11 @@
 }: let
   inherit (builtins) readFile;
 in {
-  imports = [./sway ../develop ../network ./im];
+  imports = [./pipewire ./sway ../develop ../network ./im];
 
   nixpkgs.overlays = [
     #nixpkgs-wayland.overlay
   ];
-
-  # Enable sound.
-
-  # build programs with pulseaudio support, pipewire will handle them
-  # https://github.com/NixOS/nixpkgs/issues/139344
-  nixpkgs.config.pulseaudio = true;
-  # Disable pulseaudio and ALSA
-  sound.enable = lib.mkForce false;
-  hardware.pulseaudio.enable = lib.mkForce false;
-
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-
-    media-session.enable = false;
-    wireplumber.enable = true;
-
-    # Compatibility shims, adjust according to your needs
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # jack.enable = true;
-    # socketActivation ?
-    # package = pkgs.pipewire-git;
-  };
 
   xdg.portal = {
     enable = true;
@@ -73,49 +48,43 @@ in {
       --ozone-platform=wayland
     '';
   };
-
+ 
   # Wayland support
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 
-  environment = {
-    systemPackages = with pkgs; [
-      evince
-      imv
-      # adapta-gtk-theme
-      # cursor
-      # dzen2
-      # feh
-      # ffmpeg-full
-      # gnome3.adwaita-icon-theme
-      # gnome3.networkmanagerapplet
-      # gnome-themes-extra
-      # imagemagick
-      # imlib2
-      # librsvg
-      # libsForQt5.qtstyleplugins
-      # manpages
-      pop-gtk-theme
-      paper-icon-theme
-      # pulsemixer
-      pavucontrol
-      firefox-wayland
-      chromium
+  environment.systemPackages = with pkgs; [
+    evince
+    imv
+    # adapta-gtk-theme
+    # cursor
+    # dzen2
+    # feh
+    # ffmpeg-full
+    # gnome3.adwaita-icon-theme
+    # imagemagick
+    # imlib2
+    # librsvg
+    # libsForQt5.qtstyleplugins
+    # manpages
+    pop-gtk-theme
+    paper-icon-theme
+    firefox-wayland
+    chromium
 
-      wf-recorder
-      ffmpeg
+    wf-recorder
+    ffmpeg
 
-      logseq
-      anki
-      # calibre
+    logseq
+    anki
+    # calibre
 
-      # qt5.qtgraphicaleffects
-      # stdmanpages
-      # zathura
+    # qt5.qtgraphicaleffects
+    # stdmanpages
+    # zathura
 
-      # TODO: mpv
-    ];
-  };
+    # TODO: mpv
+  ];
 
   fonts = {
     fonts = with pkgs; [
