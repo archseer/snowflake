@@ -67,6 +67,8 @@
 
       gh
 
+      libqalculate
+
       # nixpkgs-fmt
       # nix-linter
 
