@@ -1,9 +1,28 @@
 {
+  pkgs,
+  ...
+}: {
   # programs.gh = {
   #   enable = true;
   #   enableGitCredentialHelper = true;
   #   settings.git_protocol = "ssh";
   # };
+
+  # Additional git packages
+  home.packages = with pkgs.gitAndTools; [ git-absorb git-revise ];
+  
+  programs.lazygit = {
+    enable = true;
+    settings = {
+      git = {
+        paging = {
+          colorArg = "always";
+          pager = "delta --dark --paging=never";
+        };
+        overrideGpg = true;
+      };
+    };
+  };
 
   programs.git = {
     enable = true;
@@ -11,8 +30,9 @@
     delta = {
       enable = true;
       options = {
+        navigate = true;
         syntax-theme = "OneHalfDark";
-        features = "side-by-side line-numbers decorations";
+        features = "side-by-side line-numbers decorations"; # hyperlinks
         whitespace-error-style = "22 reverse";
         decorations = {
           commit-decoration-style = "bold yellow box ul";
@@ -31,10 +51,15 @@
       credential = {
         helper = "cache --timeout=3600";
       };
+      commit = {
+        # Show my changes when writing the message
+        verbose = true;
+      };
       diff = {
         algorithm = "histogram";
         renames = "copies";
         mnemonicprefix = true;
+        colormoved = "default";
       };
       push = {
         default = "simple";
@@ -56,6 +81,9 @@
       transfer = {
         credentialsInUrl = "warn";
       };
+      absorb = {
+        maxstack = 50;
+      };
       # TODO: color config
       # diff-so-fancy = {
       #   stripLeadingSymbols = false;
@@ -69,8 +97,8 @@
       b = "branch -vv";
       bd = "branch -d";
       bdd = "branch -D";
-      c = "commit -v";
-      ca = "commit -v --amend";
+      c = "commit";
+      ca = "commit --amend";
       co = "checkout";
       cp = "cherry-pick";
       d = "diff";
