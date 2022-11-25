@@ -5,7 +5,7 @@
 }: let
   inherit (builtins) readFile;
 in {
-  imports = [./pipewire ./sway ../develop ../network ./im];
+  imports = [./pipewire.nix ./sway ../develop ../network ./im];
 
   nixpkgs.overlays = [
     #nixpkgs-wayland.overlay
