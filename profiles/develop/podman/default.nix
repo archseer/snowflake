@@ -4,7 +4,7 @@
     enable = true;
     dockerCompat = true;
     dockerSocket.enable = true;
-    defaultNetwork.dnsname.enable = true;
+    defaultNetwork.settings.dns_enabled = true;
   };
   virtualisation.oci-containers.backend = "podman";
 
