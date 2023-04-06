@@ -82,9 +82,6 @@ in {
 
   # powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 
-  # high-resolution display
-  hardware.video.hidpi.enable = lib.mkDefault true;
-
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = false;
 

@@ -83,9 +83,6 @@ in {
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
-  # high-resolution display
-  hardware.video.hidpi.enable = lib.mkDefault true;
-
   # Track list of enabled modules for localmodconfig generation.
   environment.systemPackages = [pkgs.modprobed-db];
 

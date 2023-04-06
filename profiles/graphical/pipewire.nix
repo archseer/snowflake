@@ -16,7 +16,6 @@
   services.pipewire = {
     enable = true;
 
-    media-session.enable = false;
     wireplumber.enable = true;
 
     # Compatibility shims, adjust according to your needs

@@ -1,12 +1,10 @@
 {
-  lib,
   pkgs,
   ...
-}: let
-  inherit (lib) fileContents;
-in {
+}: {
   environment.pathsToLink = [ "/share/zsh" ];
   users.defaultUserShell = pkgs.zsh;
+  programs.zsh.enable = true;
 
   environment = {
     sessionVariables = {
@@ -69,7 +67,7 @@ in {
         ps = "${pkgs.procs}/bin/procs";
       };
 
-      plugins = with pkgs; [
+      plugins = [
         # {
         #   name = "zsh-history-substring-search";
         #   src = zsh-history-substring-search;

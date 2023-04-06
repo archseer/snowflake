@@ -58,7 +58,7 @@ in {
     xdg.configFile."rofi/sidestyle.rasi".source = ./sidestyle.rasi;
 
     # Starts automatically via dbus
-    programs.mako = {
+    services.mako = {
       enable = true;
       font = "Inter UI, Font Awesome 10";
       padding = "15,20";
