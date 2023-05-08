@@ -8,7 +8,7 @@
   kernelPatches,
   ...
 }: let
-  linux = pkgs.linuxKernel.kernels.linux_6_2;
+  linux = pkgs.linuxKernel.kernels.linux_6_3;
   # linux = pkgs.callPackage ./linux-6.1.nix {};
 
   kernel =
