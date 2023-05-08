@@ -1,10 +1,7 @@
 {
   pkgs,
-  lib,
   ...
-}: let
-  inherit (builtins) readFile;
-in {
+}: {
   imports = [./pipewire.nix ./sway ../develop ../network ./im];
 
   nixpkgs.overlays = [
@@ -21,7 +18,7 @@ in {
   hardware.opengl.driSupport = true;
 
   boot = {
-    tmpOnTmpfs = true;
+    tmp.useTmpfs = true;
 
     kernel.sysctl."kernel.sysrq" = 1;
   };
