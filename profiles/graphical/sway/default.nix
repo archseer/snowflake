@@ -121,7 +121,7 @@ in {
 
     wayland.windowManager.sway = {
       enable = true;
-      systemdIntegration = true;
+      systemd.enable = true;
       wrapperFeatures = {
         base = true; # this is the default, but be explicit for now
         gtk = true;

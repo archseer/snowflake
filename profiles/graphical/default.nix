@@ -84,7 +84,7 @@
   ];
 
   fonts = {
-    fonts = with pkgs; [
+    packages = with pkgs; [
       font-awesome # waybar icons: TODO: move to there
       noto-fonts
       noto-fonts-cjk
