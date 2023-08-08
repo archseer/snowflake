@@ -23,7 +23,28 @@
 
   menu = "${pkgs.rofi-wayland}/bin/rofi -terminal ${terminal} -show drun -theme sidestyle -show-icons -icon-theme Paper";
 
-  # inherit (config.hardware) pulseaudio;
+    # inherit (config.hardware) pulseaudio;
+
+  _touchpad = {
+    left_handed = "enabled"; # This is a thing, thank you
+    click_method = "clickfinger";
+    # tap = "enabled";
+    tap = "disabled";
+    dwt = "enabled"; # disable while typing
+    scroll_method = "two_finger";
+    natural_scroll = "enabled";
+    scroll_factor = "0.75";
+    accel_profile = "adaptive";
+    pointer_accel = "0.3";
+    # accel_profile = "flat";
+    # pointer_accel = "1";
+  };
+  _keyboard = {
+    xkb_layout = "us";
+    xkb_variant = "norman";
+    xkb_options = "compose:ralt";
+  };
+
   in_touchpad = "1118:2479:Microsoft_Surface_045E:09AF_Touchpad";
   in_keyboard = "1118:2478:Microsoft_Surface_045E:09AE_Keyboard";
   in_ergodox = "12951:18804:ZSA_Technology_Labs_ErgoDox_EZ_Keyboard";
@@ -194,25 +215,10 @@ in {
         ];
 
         input = {
-          "${in_touchpad}" = {
-            left_handed = "enabled"; # This is a thing, thank you
-            click_method = "clickfinger";
-            # tap = "enabled";
-            tap = "disabled";
-            dwt = "enabled"; # disable while typing
-            scroll_method = "two_finger";
-            natural_scroll = "enabled";
-            scroll_factor = "0.75";
-            accel_profile = "adaptive";
-            pointer_accel = "0.3";
-            # accel_profile = "flat";
-            # pointer_accel = "1";
-          };
-          "${in_keyboard}" = {
-            xkb_layout = "us";
-            xkb_variant = "norman";
-            xkb_options = "compose:ralt";
-          };
+          # "${in_touchpad}" = _touchpad;
+          "type:touchpad" = _touchpad;
+          "${in_keyboard}" = _keyboard;
+          "1:1:AT_Translated_Set_2_keyboard" = _keyboard;
           "${in_mouse}" = {
             accel_profile = "adaptive";
             pointer_accel = "-0.2";
