@@ -97,7 +97,7 @@
       libertine
       roboto
       # proggyfonts
-      proggy
+      # proggy
     ];
     fontconfig.defaultFonts = {
       serif = ["Linux Libertine"];

@@ -49,7 +49,7 @@
 
       wezterm
       tamsyn
-      curie
+      # curie
 
       usbutils
 
