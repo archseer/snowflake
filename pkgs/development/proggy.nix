@@ -2,28 +2,30 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  mkfontscale,
-  mkfontdir,
+  xorg,
 }:
-fetchFromGitHub {
-  name = "proggy-2";
-  owner = "bluescan";
-  repo = "proggyfonts";
-  rev = "15812db975e0ab0d810b0f4d2743811d8ef5a47e";
-  sha256 = "a0bcbb3cf646c3ff5dbf646a7130f639472670ffb3c2b534ae660776f9fd37a9";
+stdenv.mkDerivation rec {
+  pname = "proggyfonts";
+  version = "1.0";
+  src = fetchFromGitHub {
+    owner = "bluescan";
+    repo = "proggyfonts";
+    rev = "4ea05b4ff3e29ccc77e5d6a10519288882f3582d";
+    sha256 = "sha256-yGjrM4L4LMGavqxWdaMC4HrGA9E4fVbLU+vJOxrZc9E=";
+  };
 
-  postFetch = ''
-    tar xzf $downloadedFile --strip=1
-    mkdir -p $out/share/fonts/misc
+  nativeBuildInputs = [ xorg.mkfontscale ];
+
+  postInstall = ''
     install -D -m 644 */*.pcf.gz -t "$out/share/fonts/misc"
     # install -D -m 644 */*.bdf -t "$out/share/fonts/misc"
     install -D -m 644 */*.ttf -t "$out/share/fonts/truetype"
     install -D -m 644 */*.otf -t "$out/share/fonts/opentype"
     install -D -m 644 LICENSE -t "$out/share/doc/$name"
 
-    ${mkfontscale}/bin/mkfontscale "$out/share/fonts/truetype"
-    ${mkfontscale}/bin/mkfontscale "$out/share/fonts/opentype"
-    ${mkfontdir}/bin/mkfontdir   "$out/share/fonts/misc"
+    mkfontscale "$out/share/fonts/truetype"
+    mkfontscale "$out/share/fonts/opentype"
+    mkfontdir   "$out/share/fonts/misc"
   '';
 
   meta = with lib; {
