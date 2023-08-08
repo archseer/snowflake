@@ -89,6 +89,7 @@
     outputs = {
       nixosConfigurations = {
         cerulean = mkSystem nixos system "cerulean";
+        trantor = mkSystem nixos system "trantor";
         hyrule = mkSystem nixos system "hyrule";
         midna = mkSystem nixos system "midna";
         corrin = mkSystem nixos "aarch64-linux" "corrin";
