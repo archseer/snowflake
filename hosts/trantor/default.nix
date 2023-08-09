@@ -52,7 +52,11 @@ in {
     fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/8e71082e-b583-4848-a4c0-8f05709d0151";
+  boot.initrd.luks.devices."cryptroot" = {
+    device = "/dev/disk/by-uuid/8e71082e-b583-4848-a4c0-8f05709d0151";
+    allowDiscards = true; # some security implications but not really too concerning to me
+    bypassWorkqueues = true;
+  };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/EFC9-3E40";
