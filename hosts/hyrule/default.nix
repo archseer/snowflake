@@ -59,9 +59,11 @@ in {
     fsType = "vfat";
   };
 
-  # 8GB swapfile for hibernation
+  # Use zram for swap
+  zramSwap.enable = true;
 
   swapDevices = [
+    # 8GB swapfile for hibernation
     {
       device = "/swapfile";
       size = 8192;

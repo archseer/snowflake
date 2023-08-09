@@ -56,19 +56,15 @@ in {
     fsType = "vfat";
   };
 
-  # 8GB swapfile for hibernation
-
+  # Use zram for swap
   swapDevices = [
+    # 8GB swapfile for hibernation
     {
-      device = "/swapfile";
+      device = "/swapfile"; # TODO: remove
       size = 8192;
     }
   ];
-
-  # # Resume from encrypted volume's /swapfile
-  # boot.resumeDevice = "/dev/mapper/cryptroot";
-  # # filefrag -v /swapfile | awk '{ if($1=="0:"){print $4} }'
-  # boot.kernelParams = [ "resume_offset=114857984" ];
+  zramSwap.enable = true;
 
   hardware = {
     enableRedistributableFirmware = true;

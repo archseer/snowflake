@@ -59,7 +59,9 @@ in {
     fsType = "vfat";
   };
 
+  # Use zram for swap
   swapDevices = [ ];
+  zramSwap.enable = true;
 
   hardware = {
     enableRedistributableFirmware = true;
