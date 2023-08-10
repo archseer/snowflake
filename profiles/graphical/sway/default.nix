@@ -35,7 +35,7 @@
     natural_scroll = "enabled";
     scroll_factor = "0.75";
     accel_profile = "adaptive";
-    pointer_accel = "0.3";
+    # pointer_accel = "0.3"; configured per touchpad
     # accel_profile = "flat";
     # pointer_accel = "1";
   };
@@ -215,10 +215,11 @@ in {
         ];
 
         input = {
-          # "${in_touchpad}" = _touchpad;
           "type:touchpad" = _touchpad;
+          "${in_touchpad}" = { pointer_accel = "0.3"; };
           "${in_keyboard}" = _keyboard;
           "1:1:AT_Translated_Set_2_keyboard" = _keyboard;
+          "2362:628:PIXA3854:00_093A:0274_Touchpad" = { pointer_accel = "-0.2"; };
           "${in_mouse}" = {
             accel_profile = "adaptive";
             pointer_accel = "-0.2";
