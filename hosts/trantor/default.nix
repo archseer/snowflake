@@ -23,11 +23,6 @@ in {
 
   networking.firewall.enable = lib.mkForce false;
 
-  # nvme0n1p1 = efi
-  # nvme0n1p2 = vfat
-  # nvme0n1p3 = ntfs
-  # nvme0n1p4 = ext4
-
   boot.loader.systemd-boot = {
     enable = true;
     # editor = false;
@@ -45,23 +40,79 @@ in {
 
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Setup root as encrypted LUKS volume
+  boot.initrd.supportedFilesystems = [ "btrfs" ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/6545af13-5ef5-4239-af46-8387923adb83";
-    fsType = "ext4";
-  };
+  
+  # Take an empty *readonly* snapshot of the root subvolume,
+  # which we'll eventually rollback to on every boot.
+  # btrfs subvolume snapshot -r /mnt/root /mnt/root-blank
 
-  boot.initrd.luks.devices."cryptroot" = {
-    device = "/dev/disk/by-uuid/8e71082e-b583-4848-a4c0-8f05709d0151";
-    allowDiscards = true; # some security implications but not really too concerning to me
-    bypassWorkqueues = true;
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/EFC9-3E40";
-    fsType = "vfat";
-  };
+  disko.devices = {
+    disk = {
+       nvme0n1 = {
+        type = "disk";
+        device = "/dev/nvme0n1";
+        content = {
+          type = "gpt";
+          partitions = {
+            ESP = {
+              label = "EFI";
+              name = "ESP";
+              size = "512M";
+              type = "EF00";
+              content = {
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/boot";
+                mountOptions = [
+                  "defaults"
+                ];
+              };
+            };
+            # Setup as encrypted LUKS volume
+            luks = {
+              size = "100%";
+              content = {
+                type = "luks";
+                name = "cryptroot";
+                extraOpenArgs = [
+                    "--allow-discards"
+                    "--perf-no_read_workqueue"
+                    "--perf-no_write_workqueue"
+                ];
+                content = {
+                  type = "btrfs";
+                  extraArgs = [ "-L" "nixos" ]; # -f ?
+                  subvolumes = { # TODO: consider autodefrag and commit=120
+                    "/root" = {
+                      mountpoint = "/";
+                      mountOptions = [ "compress=zstd:1" "noatime" ];
+                    };
+                    "/home" = {
+                      mountpoint = "/home";
+                      mountOptions = [ "compress=zstd:1" "noatime" ];
+                    };
+                    "/nix" = {
+                      mountpoint = "/nix";
+                      mountOptions = [ "compress=zstd:1" "noatime" ];
+                    };
+                    "/persist" = {
+                      mountpoint = "/persist";
+                      mountOptions = [ "compress=zstd:1" "noatime" ];
+                    };
+                    "/log" = {
+                      mountpoint = "/var/log";
+                      mountOptions = [ "compress=zstd:1" "noatime" ];
+                    };
+                  };
+                };
+              };
+            };
+          };
+        };
+      };
+    };
+  };  
 
   # Use zram for swap
   swapDevices = [ ];

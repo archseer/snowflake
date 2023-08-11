@@ -10,6 +10,9 @@
 
     hardware.url = "github:NixOS/nixos-hardware";
 
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+
     mobile-nixos.url = "github:archseer/mobile-nixos/flake";
   };
 
@@ -19,6 +22,7 @@
     nixos,
     nixpkgs,
     hardware,
+    disko,
     mobile-nixos,
   }: let
     inherit (builtins) attrValues;
@@ -83,6 +87,7 @@
             global
             local
             home-manager
+            disko.nixosModules.disko
           ];
       };
 
