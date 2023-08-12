@@ -116,7 +116,7 @@ in {
       };
     };
   };
-  fileSystems."/persistence".neededForBoot = true;
+  fileSystems."/persist".neededForBoot = true;
   fileSystems."/var/log".neededForBoot = true;
 
   # Use zram for swap
