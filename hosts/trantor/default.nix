@@ -42,6 +42,8 @@ in {
 
   boot.initrd.supportedFilesystems = [ "btrfs" ];
 
+  environment.systemPackages = [pkgs.btrfs-progs pkgs.compsize];
+
   
   # Take an empty *readonly* snapshot of the root subvolume,
   # which we'll eventually rollback to on every boot.
@@ -132,9 +134,6 @@ in {
   # nix.systemFeatures = [ "gccarch-haswell" ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-
-  # Track list of enabled modules for localmodconfig generation.
-  environment.systemPackages = [pkgs.modprobed-db];
 
   security.pam.services.login.fprintAuth = true;
 
