@@ -4,6 +4,9 @@
   lib,
   ...
 }: {
+  # Don't block boot/nixos-rebuild on all interfaces, wired usually unplugged
+  systemd.network.wait-online.anyInterface = true;
+
   environment.systemPackages = with pkgs; [
     acpi
     lm_sensors
