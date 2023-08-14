@@ -1,4 +1,4 @@
-{...}: {
+_: {
   services.plex = {
     enable = true;
     dataDir = "/srv/plex";

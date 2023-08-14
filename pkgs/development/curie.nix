@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A slightly upscaled version of scientifica";
-    homepage = https://github.com/NerdyPepper/curie;
+    homepage = "https://github.com/NerdyPepper/curie";
     license = licenses.ofl;
     platforms = platforms.all;
   };
