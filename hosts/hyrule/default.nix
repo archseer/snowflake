@@ -63,8 +63,6 @@ in {
     fsType = "vfat";
   };
 
-  # Use zram for swap
-  zramSwap.enable = true;
 
   swapDevices = [
     # 8GB swapfile for hibernation
@@ -73,6 +71,15 @@ in {
       size = 8192;
     }
   ];
+
+  # Use zram for swap
+  zramSwap.enable = true;
+  # zram is relatively cheap, prefer swap
+  boot.kernel.sysctl."vm.swappiness" = 180;
+  boot.kernel.sysctl."vm.watermark_boost_factor" = 0;
+  boot.kernel.sysctl."vm.watermark_scale_factor" = 125;
+  # zram is in memory, no need to readahead
+  boot.kernel.sysctl."vm.page-cluster" = 0;
 
   # Resume from encrypted volume's /swapfile
   boot.resumeDevice = "/dev/mapper/cryptroot";
