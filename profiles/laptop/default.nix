@@ -5,6 +5,7 @@
   ...
 }: {
   # Don't block boot/nixos-rebuild on all interfaces, wired usually unplugged
+  systemd.network.wait-online.timeout = 10;
   systemd.network.wait-online.anyInterface = true;
 
   environment.systemPackages = with pkgs; [
