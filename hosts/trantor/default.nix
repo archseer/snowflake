@@ -40,10 +40,10 @@ in {
 
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # btrfs
   boot.initrd.supportedFilesystems = [ "btrfs" ];
-
+  services.btrfs.autoScrub.enable = true;
   environment.systemPackages = [pkgs.btrfs-progs pkgs.compsize];
-
   
   # Take an empty *readonly* snapshot of the root subvolume,
   # which we'll eventually rollback to on every boot.
