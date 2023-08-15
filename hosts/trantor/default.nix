@@ -23,6 +23,10 @@ in {
 
   networking.firewall.enable = lib.mkForce false;
 
+  boot.initrd.systemd.enable = true;
+  # boot.initrd.systemd.emergencyAccess = true;
+  # boot.plymouth.enable = true;
+
   boot.loader.systemd-boot = {
     enable = true;
     # editor = false;
@@ -85,6 +89,8 @@ in {
                     "--perf-no_read_workqueue"
                     "--perf-no_write_workqueue"
                 ];
+                # https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-security-hardware-on-systemd-248.html
+                settings = { crypttabExtraOpts = [ "fido2-device=auto" "token-timeout=10" ]; };
                 content = {
                   type = "btrfs";
                   extraArgs = [ "-L" "nixos" ]; # -f ?
@@ -118,6 +124,7 @@ in {
       };
     };
   };
+
   fileSystems."/persist".neededForBoot = true;
   fileSystems."/var/log".neededForBoot = true;
 
