@@ -41,7 +41,7 @@ in {
   # boot.extraModulePackages = [ ];
 
   # use zstd compression instead of gzip for initramfs.
-  boot.initrd.compressor = "${lib.getBin pkgs.zstd}/bin/zstd";
+  boot.initrd.compressor = "zstd";
 
   boot.loader.efi.canTouchEfiVariables = true;
 
