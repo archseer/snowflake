@@ -19,6 +19,7 @@ in {
   home-manager.users.speed = {
     imports = [
       ../profiles/git
+      ../profiles/jj
       # ../profiles/alacritty
       # TODO: wezterm
       ../profiles/direnv

@@ -14,6 +14,8 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
     mobile-nixos.url = "github:archseer/mobile-nixos/flake";
+
+    jj.url = "github:martinvonz/jj";
   };
 
   outputs = inputs @ {
@@ -24,6 +26,7 @@
     hardware,
     disko,
     mobile-nixos,
+    jj
   }: let
     inherit (builtins) attrValues;
     inherit (nixos) lib;
