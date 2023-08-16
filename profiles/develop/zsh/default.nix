@@ -91,5 +91,15 @@
       source = ./config;
       recursive = true;
     };
+
+    programs.atuin = {
+      enable = true;
+      enableZshIntegration = true;
+      settings = {
+        workspace = true;
+        # TODO: auto_sync etc
+        update_check = false;
+      };
+    };
   };
 }
