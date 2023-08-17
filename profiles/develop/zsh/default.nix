@@ -40,6 +40,8 @@
       enableCompletion = false;
       # promptInit = "";
 
+      defaultKeymap = "viins";
+
       dotDir = ".config/zsh";
 
       initExtra = builtins.readFile ./.zshrc;
