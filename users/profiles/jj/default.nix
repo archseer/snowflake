@@ -11,6 +11,10 @@
       };
       ui = {
         color = "always";
+        pager = "delta";
+      };
+      diff = {
+        format = "git";
       };
     };
   };
