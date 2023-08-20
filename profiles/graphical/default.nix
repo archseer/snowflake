@@ -79,8 +79,6 @@
     # qt5.qtgraphicaleffects
     # stdmanpages
     # zathura
-
-    # TODO: mpv
   ];
 
   fonts = {

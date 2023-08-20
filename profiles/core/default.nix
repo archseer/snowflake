@@ -27,26 +27,19 @@ in {
       powertop
       iputils
       jq
-      manix
-      nix-index
       # moreutils
       nmap
       sd
       ripgrep
       util-linux
       whois
+
+      manix
+      nix-index
     ];
 
     shellAliases = {
-      # nix
       n = "nix";
-      np = "n profile";
-      ni = "np install";
-      nr = "np remove";
-      ns = "n search --no-update-lock-file";
-      nf = "n flake";
-      srch = "ns nixpkgs";
-      nrb = "sudo nixos-rebuild";
     };
   };
 
@@ -73,9 +66,6 @@ in {
   home-manager.extraSpecialArgs = { inherit inputs; };
 
   programs.bash = {
-    promptInit = ''
-      eval "$(${pkgs.starship}/bin/starship init bash)"
-    '';
     shellInit = ''
       eval "$(${pkgs.direnv}/bin/direnv hook bash)"
     '';

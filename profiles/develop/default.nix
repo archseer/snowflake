@@ -26,53 +26,36 @@
 
     systemPackages = with pkgs; [
       gnumake
-      clang
-      lld
       file
-      git-crypt
+      # git-crypt
       gnupg
       less
+      wget
+      rsync
+      picocom
+
       dua # disk usage
       pass
-      tig
       tokei
-      wget
-      picocom
-      rsync
 
-      nix-du
       graphviz
       imagemagick
 
-      kakoune
       # meli
 
-      wezterm
-      tamsyn
+      # tamsyn
       # curie
 
       usbutils
 
-      rustup
       cargo-outdated
       zola
 
       asciinema
 
-      gource
-
-      # language servers
-      rust-analyzer
-      clang-tools
-
-      gh
+      gh # TODO: move to git profile
 
       libqalculate
-
-      # nixpkgs-fmt
-      # nix-linter
-
-      # dhall dhall-lsp-server
 
       bandwhich
       jless

@@ -7,6 +7,8 @@
   inherit (lib) fileContents mkForce;
 
   name = "Blaž Hrastnik";
+  email = "blaz@mxxn.io";
+  username = "speed";
 in {
   imports = [../../profiles/develop];
 
@@ -31,12 +33,11 @@ in {
       pinentryFlavor = "curses";
     };
 
-    # required so home doesn't import <nixpkgs>
-    home.stateVersion = "20.09";
+    home.stateVersion = "23.05";
 
     programs.git = {
       userName = name;
-      userEmail = "blaz@mxxn.io";
+      userEmail = email;
       signing = {
         key = "F604E0EBDF3A34F2B9B472621238B9C4AD889640";
         #   signByDefault = true;
@@ -71,7 +72,7 @@ in {
 
   # Avoid typing the username on TTY and only prompt for the password
   # https://wiki.archlinux.org/title/Getty#Prompt_only_the_password_for_a_default_user_in_virtual_console_login
-  services.getty.loginOptions = "-p -- speed";
+  services.getty.loginOptions = "-p -- ${username}";
   services.getty.extraArgs = [ "--noclear" "--skip-login" ];
 
   users.users.speed = {
