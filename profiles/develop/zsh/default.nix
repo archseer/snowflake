@@ -15,7 +15,6 @@
       bat
       bzip2
       exa
-      fasd
       fd
       fzf
       gzip
@@ -44,7 +43,7 @@
 
       dotDir = ".config/zsh";
 
-      initExtra = builtins.readFile ./.zshrc;
+      initExtra = builtins.readFile ./zshrc;
 
       shellAliases = {
         v = "$EDITOR";
@@ -64,7 +63,7 @@
         ll = "exa -F";
 
         # j stands for jump
-        j = "fasd_cd -d";
+        j = "z";
 
         open = "${pkgs.xdg-utils}/bin/xdg-open";
         ps = "${pkgs.procs}/bin/procs";
@@ -94,6 +93,16 @@
       recursive = true;
     };
 
+    programs.fzf = {
+      enable = true;
+
+      # fd > find
+      defaultOptions = ["--reverse" "--ansi"]; # FZF_DEFAULT_OPTS
+      defaultCommand = "fd ."; # FZF_DEFAULT_COMMAND
+      fileWidgetCommand = "fd ."; # FZF_CTRL_T_COMMAND
+      changeDirWidgetCommand = "fd --type d . $HOME"; # FZF_ALT_C_COMMAND
+    };
+
     programs.atuin = {
       enable = true;
       enableZshIntegration = true;
@@ -102,6 +111,8 @@
         # TODO: auto_sync etc
         update_check = false;
       };
+
     };
+    programs.zoxide.enable = true;
   };
 }
