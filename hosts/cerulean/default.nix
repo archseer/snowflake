@@ -61,13 +61,7 @@ in {
   };
 
   # Use zram for swap
-  swapDevices = [
-    # 8GB swapfile for hibernation
-    {
-      device = "/swapfile"; # TODO: remove
-      size = 8192;
-    }
-  ];
+  swapDevices = [ ];
   zramSwap.enable = true;
   # zram is relatively cheap, prefer swap
   boot.kernel.sysctl."vm.swappiness" = 180;
