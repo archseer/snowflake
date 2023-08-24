@@ -23,7 +23,7 @@ in {
       ../profiles/git
       ../profiles/jj
       # ../profiles/alacritty
-      # TODO: wezterm
+      ../profiles/wezterm
       ../profiles/direnv
     ];
 
