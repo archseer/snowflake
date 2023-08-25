@@ -67,9 +67,10 @@
 
   # power management features
   services.tlp.enable = true;
-  # services.tlp.settings = {
-  #   USB_EXCLUDE_PHONE = 1;
-  # };
+  services.tlp.settings = {
+    USB_ALLOWLIST="32ac:0002"; # Suspend Framework HDMI card
+    # USB_EXCLUDE_PHONE = 1;
+  };
   # services.tlp.extraConfig = ''
   #   CPU_SCALING_GOVERNOR_ON_AC="performance";
   #   CPU_SCALING_GOVERNOR_ON_BAT="schedutil";
