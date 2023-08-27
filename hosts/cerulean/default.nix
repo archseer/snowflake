@@ -87,8 +87,6 @@ in {
 
   # I'd like to keep it available but rfkill disable the signal, but not sure how.
   # networking.wireless.iwd.enable = lib.mkForce false;
-  # TODO: find all the iptables/nftables modules needed in the kernel
-  networking.firewall.enable = lib.mkForce false;
 
   # Track list of enabled modules for localmodconfig generation.
   environment.systemPackages = with pkgs; [modprobed-db stress-ng lm_sensors piper zenmonitor pciutils acpica-tools linuxPackages.perf linuxPackages.turbostat];
