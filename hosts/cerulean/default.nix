@@ -89,7 +89,12 @@ in {
   # networking.wireless.iwd.enable = lib.mkForce false;
 
   # Track list of enabled modules for localmodconfig generation.
-  environment.systemPackages = with pkgs; [modprobed-db stress-ng lm_sensors piper zenmonitor pciutils acpica-tools linuxPackages.perf linuxPackages.turbostat];
+  environment.systemPackages = with pkgs; [
+    modprobed-db
+    piper zenmonitor
+    lm_sensors # TODO: extract from laptop/default.nix
+    linuxPackages.perf linuxPackages.turbostat
+  ];
   services.ratbagd.enable = true; # ratbagd + piper = logitech mouse config
 
   # This value determines the NixOS release from which the default

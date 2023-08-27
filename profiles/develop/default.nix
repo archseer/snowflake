@@ -47,6 +47,7 @@
       # curie
 
       usbutils
+      pciutils
 
       cargo-outdated
       zola

@@ -12,9 +12,7 @@
   environment.systemPackages = with pkgs; [
     acpi
     lm_sensors
-    wirelesstools
-    pciutils
-    usbutils
+    wirelesstools # TODO: probably unnecessary with iwd
   ];
 
   # remap caps to escape/ctrl on built-in keyboard.
