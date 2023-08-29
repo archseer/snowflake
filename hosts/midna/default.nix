@@ -24,69 +24,27 @@
     ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINhYkvu/rVDYYlcM8Rq8HP3KPY2AX3mCvmyZ+/L1/yuh speed@hyrule.local''
   ];
 
+  environment.systemPackages = [pkgs.helix];
+
   # Auto GC older generations
   nix.gc.options = "--delete-older-than 7d";
-
-  # Configure the email address used with Let's Encrypt.
-  # This way you get renewal reminders (automated by NixOS) as well as expiration emails.
-  security.acme = {
-    acceptTerms = true;
-    email = "blaz@mxxn.io";
-  };
 
   networking.firewall.allowedTCPPorts = [80 443];
 
   # mxxn.io
-  services.nginx = {
+  services.caddy = {
     enable = true;
 
-    # Use recommended settings
-    recommendedGzipSettings = true;
-    recommendedOptimisation = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
-
-    # Only allow PFS-enabled ciphers with AES256
-    sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
-
-    commonHttpConfig = ''
-      # Add HSTS header with preloading to HTTPS requests.
-      # Adding this header to HTTP requests is discouraged
-      map $scheme $hsts_header {
-          https   "max-age=31536000; includeSubdomains; preload";
-      }
-      add_header Strict-Transport-Security $hsts_header;
-
-      # Enable CSP for your services.
-      #add_header Content-Security-Policy "script-src 'self'; object-src 'none'; base-uri 'none';" always;
-
-      # Minimize information leaked to other domains
-      add_header 'Referrer-Policy' 'origin-when-cross-origin';
-
-      # Disable embedding as a frame
-      add_header X-Frame-Options DENY;
-
-      # Prevent injection of code in other mime types (XSS Attacks)
-      add_header X-Content-Type-Options nosniff;
-
-      # Enable XSS protection of the browser.
-      # May be unnecessary when CSP is configured properly (see above)
-      add_header X-XSS-Protection "1; mode=block";
-
-      # This might create errors
-      proxy_cookie_path / "/; secure; HttpOnly; SameSite=strict";
+    virtualHosts."mxxn.io".extraConfig = ''
+    encode zstd gzip
+    file_server
+    root * /var/www/mxxn
     '';
 
-    virtualHosts."mxxn.io" = {
-      enableACME = true;
-      forceSSL = true;
-      root = "/var/www/mxxn";
-    };
-
-    virtualHosts."polyfox.io" = {
-      enableACME = true;
-      forceSSL = true;
-      root = "/var/www/fox";
-    };
+    virtualHosts."polyfox.io".extraConfig = ''
+    encode zstd gzip
+    file_server
+    root * /var/www/polyfox
+    '';
   };
 }
