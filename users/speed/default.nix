@@ -10,12 +10,6 @@
   email = "blaz@mxxn.io";
   username = "speed";
 in {
-  imports = [../../profiles/develop];
-
-  users.users.speed.packages = with pkgs; [
-    v4l-utils
-  ];
-
   environment.systemPackages = with pkgs; [cachix];
 
   home-manager.users.speed = {

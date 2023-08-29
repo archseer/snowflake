@@ -23,6 +23,10 @@
     kernel.sysctl."kernel.sysrq" = 1;
   };
 
+  users.users.speed.packages = with pkgs; [
+    v4l-utils
+  ];
+
   home-manager.users.speed = {pkgs, ...}: {
     imports = [./misc/mpv];
 
