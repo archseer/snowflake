@@ -7,6 +7,9 @@ let
   domain = "headscale.mxxn.io";
   derpPort = 3478;
 in {
+  # headscale namespaces create <namespace>
+  # tailscale up https://headscale.mxxn.io
+  # headscale nodes register ... --user <namespace>
   services = {
     headscale = {
       enable = true;
@@ -27,7 +30,7 @@ in {
     };
 
     caddy.virtualHosts.${domain}.extraConfig = ''
-    reverse_proxy http://localhost:${toString config.services.headscale.port}"
+    reverse_proxy http://localhost:${toString config.services.headscale.port}
     '';
   };
 
