@@ -16,22 +16,16 @@
   ];
 
   boot.cleanTmpDir = true;
-
-  swapDevices = [
-    {
-      device = "/var/swapfile";
-      size = 1024;
-    }
+  zramSwap.enable = true;
+  # networking.hostName = "midna"; already set by flake
+  networking.domain = "";
+  services.openssh.enable = true;
+  users.users.root.openssh.authorizedKeys.keys = [
+    ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINhYkvu/rVDYYlcM8Rq8HP3KPY2AX3mCvmyZ+/L1/yuh speed@hyrule.local''
   ];
 
   # Auto GC older generations
   nix.gc.options = "--delete-older-than 7d";
-
-  # ssh-agent
-  # programs.ssh.startAgent = true
-
-  # Docker
-  # virtualisation.docker.enable = true;
 
   # Configure the email address used with Let's Encrypt.
   # This way you get renewal reminders (automated by NixOS) as well as expiration emails.

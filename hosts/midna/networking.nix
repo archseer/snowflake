@@ -1,16 +1,17 @@
-{
-  config,
-  lib,
-  ...
-}: {
+{lib, ...}: {
   # This file was populated at runtime with the networking
   # details gathered from the active system.
   networking = {
-    nameservers = ["8.8.8.8"];
+    nameservers = [
+      "8.8.8.8"
+    ];
     defaultGateway = "209.97.160.1";
-    defaultGateway6 = "2400:6180:0:d1::1";
+    defaultGateway6 = {
+      address = "2400:6180:0:d1::1";
+      interface = "eth0";
+    };
     dhcpcd.enable = false;
-    usePredictableInterfaceNames = lib.mkForce true;
+    usePredictableInterfaceNames = lib.mkForce false;
     interfaces = {
       eth0 = {
         ipv4.addresses = [
@@ -42,7 +43,7 @@
         ipv6.routes = [
           {
             address = "2400:6180:0:d1::1";
-            prefixLength = 32;
+            prefixLength = 128;
           }
         ];
       };
