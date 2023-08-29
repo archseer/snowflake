@@ -15,7 +15,7 @@
     ../../users/root
   ];
 
-  boot.cleanTmpDir = true;
+  boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
   # networking.hostName = "midna"; already set by flake
   networking.domain = "";
