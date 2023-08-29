@@ -10,6 +10,7 @@
   imports = [
     ./hardware-configuration.nix
     ./networking.nix
+    ../../profiles/network/headscale.nix
     ../../profiles/ssh
     ../../users/speed
     ../../users/root

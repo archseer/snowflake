@@ -13,6 +13,7 @@ in {
     ./hardware.nix
     ../../profiles/laptop
     ../../profiles/network # sets up wireless
+    ../../profiles/network/tailscale.nix
     ../../profiles/graphical/games
     ../../profiles/graphical
     ../../profiles/misc/yubikey.nix
