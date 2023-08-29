@@ -43,10 +43,10 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
 
   # btrfs
-  boot.initrd.supportedFilesystems = [ "btrfs" ];
+  boot.initrd.supportedFilesystems = ["btrfs"];
   services.btrfs.autoScrub.enable = true;
   environment.systemPackages = [pkgs.btrfs-progs pkgs.compsize];
-  
+
   # Take an empty *readonly* snapshot of the root subvolume,
   # which we'll eventually rollback to on every boot.
   # sudo mount /dev/mapper/cryptroot -o subvol=root /mnt/root
@@ -56,7 +56,7 @@ in {
   # --arg disks ["/dev/nvme0p1"] not necessary?
   disko.devices = {
     disk = {
-       nvme0n1 = {
+      nvme0n1 = {
         type = "disk";
         device = "/dev/nvme0n1";
         content = {
@@ -83,35 +83,36 @@ in {
                 type = "luks";
                 name = "cryptroot";
                 extraOpenArgs = [
-                    "--allow-discards"
-                    "--perf-no_read_workqueue"
-                    "--perf-no_write_workqueue"
+                  "--allow-discards"
+                  "--perf-no_read_workqueue"
+                  "--perf-no_write_workqueue"
                 ];
                 # https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-security-hardware-on-systemd-248.html
-                settings = { crypttabExtraOpts = [ "fido2-device=auto" "token-timeout=10" ]; };
+                settings = {crypttabExtraOpts = ["fido2-device=auto" "token-timeout=10"];};
                 content = {
                   type = "btrfs";
-                  extraArgs = [ "-L" "nixos" ]; # -f ?
-                  subvolumes = { # TODO: consider autodefrag and commit=120
+                  extraArgs = ["-L" "nixos"]; # -f ?
+                  subvolumes = {
+                    # TODO: consider autodefrag and commit=120
                     "/root" = {
                       mountpoint = "/";
-                      mountOptions = [ "compress=zstd:1" "noatime" ];
+                      mountOptions = ["compress=zstd:1" "noatime"];
                     };
                     "/home" = {
                       mountpoint = "/home";
-                      mountOptions = [ "compress=zstd:1" "noatime" ];
+                      mountOptions = ["compress=zstd:1" "noatime"];
                     };
                     "/nix" = {
                       mountpoint = "/nix";
-                      mountOptions = [ "compress=zstd:1" "noatime" ];
+                      mountOptions = ["compress=zstd:1" "noatime"];
                     };
                     "/persist" = {
                       mountpoint = "/persist";
-                      mountOptions = [ "compress=zstd:1" "noatime" ];
+                      mountOptions = ["compress=zstd:1" "noatime"];
                     };
                     "/log" = {
                       mountpoint = "/var/log";
-                      mountOptions = [ "compress=zstd:1" "noatime" ];
+                      mountOptions = ["compress=zstd:1" "noatime"];
                     };
                   };
                 };
@@ -127,7 +128,7 @@ in {
   fileSystems."/var/log".neededForBoot = true;
 
   # Use zram for swap
-  swapDevices = [ ];
+  swapDevices = [];
   zramSwap.enable = true;
   # zram is relatively cheap, prefer swap
   boot.kernel.sysctl."vm.swappiness" = 180;
@@ -142,7 +143,9 @@ in {
   };
 
   # nix.maxJobs = lib.mkDefault 8;
-  # nix.systemFeatures = [ "gccarch-haswell" ];
+  # nix.systemFeatures = [ "gccarch-alderlake" ];
+
+  boot.kernelParams = ["mitigations=off"];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 

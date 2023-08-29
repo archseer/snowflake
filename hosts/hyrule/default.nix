@@ -63,7 +63,6 @@ in {
     fsType = "vfat";
   };
 
-
   swapDevices = [
     # 8GB swapfile for hibernation
     {

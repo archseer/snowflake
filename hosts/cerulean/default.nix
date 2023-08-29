@@ -61,7 +61,7 @@ in {
   };
 
   # Use zram for swap
-  swapDevices = [ ];
+  swapDevices = [];
   zramSwap.enable = true;
   # zram is relatively cheap, prefer swap
   boot.kernel.sysctl."vm.swappiness" = 180;
@@ -76,7 +76,7 @@ in {
   };
 
   # nix.maxJobs = lib.mkDefault 8;
-  # nix.systemFeatures = [ "gccarch-haswell" ];
+  # nix.systemFeatures = [ "gccarch-znver2" ];
 
   boot.kernelParams = ["mitigations=off"];
 
@@ -91,9 +91,11 @@ in {
   # Track list of enabled modules for localmodconfig generation.
   environment.systemPackages = with pkgs; [
     modprobed-db
-    piper zenmonitor
+    piper
+    zenmonitor
     lm_sensors # TODO: extract from laptop/default.nix
-    linuxPackages.perf linuxPackages.turbostat
+    linuxPackages.perf
+    linuxPackages.turbostat
   ];
   services.ratbagd.enable = true; # ratbagd + piper = logitech mouse config
 
