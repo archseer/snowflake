@@ -38,7 +38,9 @@
   # TODO: Not necessary since iwd handles it?
   # systemd.network.networks."40-wireless" = {
   #   matchConfig = { Name = lib.mkForce "wlp* wlan*"; };
-  #   DHCP = "yes"
+  #   networkConfig = {
+  #     IgnoreCarrierLoss="3s";
+  #   };
   # };
 
   # Wireless: iwd / iwctl

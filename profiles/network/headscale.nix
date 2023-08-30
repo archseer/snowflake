@@ -16,7 +16,11 @@ in {
       address = "0.0.0.0";
       port = 8888;
       settings = {
-        dns_config = { base_domain = "mxxn.io"; };
+        dns_config = {
+          override_local_dns = true;
+          nameservers = [ "1.1.1.1" ]; # TODO: and 100.100.100.100?
+          base_domain = "mxxn.io";
+        };
         server_url = "https://${domain}";
         logtail.enabled = false;
         # log.level = "warn";
