@@ -1,7 +1,5 @@
 {
-  config,
   lib,
-  pkgs,
   ...
 }: {
   imports = [./torrent.nix ./wireguard.nix];
