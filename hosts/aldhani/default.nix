@@ -11,6 +11,7 @@
     ./hardware-configuration.nix
     ./networking.nix
     ../../profiles/network/headscale.nix
+    ../../profiles/network/tailscale.nix
     ../../profiles/ssh
     ../../users/speed
     ../../users/root
