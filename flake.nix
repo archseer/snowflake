@@ -96,7 +96,7 @@
         cerulean = mkSystem nixos system "cerulean";
         trantor = mkSystem nixos system "trantor";
         hyrule = mkSystem nixos system "hyrule";
-        midna = mkSystem nixos system "midna";
+        aldhani = mkSystem nixos system "aldhani";
         corrin = mkSystem nixos "aarch64-linux" "corrin";
         iso = mkSystem nixos system "iso";
       };
