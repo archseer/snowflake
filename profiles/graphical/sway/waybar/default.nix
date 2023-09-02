@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   ...
 }: {
   programs.waybar = {
@@ -11,7 +10,7 @@
       {
         layer = "top";
         height = 30;
-        modules-left = ["sway/mode" "pulseaudio" "custom/weather"];
+        modules-left = ["sway/mode" "pulseaudio" "custom/wlsunset" "custom/weather"];
         modules-center = ["sway/workspaces"];
         modules-right = ["tray" "idle_inhibitor" "cpu" "memory" "network" "temperature" "battery" "clock"];
         "sway/workspaces" = {
@@ -133,14 +132,15 @@
           };
           on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
         };
-        "custom/weather" = {
-          format = "{}";
-          format-alt = "{alt}: {}";
-          format-alt-click = "click-right";
-          interval = 1800;
-          return-type = "json";
-          exec = "~/weather-waybar.sh";
-          exec-if = "ping -c1 wttr.in";
+        "custom/wlsunset" = {
+          format = "";
+          on-click = pkgs.writeShellScript "wlsunset" ''
+          if systemctl is-active --quiet --user wlsunset; then
+             systemctl --user stop wlsunset
+          else
+             systemctl --user start wlsunset
+          fi
+          '';
         };
       }
     ];
