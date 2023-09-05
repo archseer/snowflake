@@ -104,7 +104,7 @@
         iso = mkSystem nixos system "iso";
       };
 
-      nixosModules = [];
+      nixosModules = {};
 
       inherit overlay;
 

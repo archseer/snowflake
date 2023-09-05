@@ -30,9 +30,6 @@
       ripgrep
       util-linux
       whois
-
-      manix
-      nix-index
     ];
 
     shellAliases = {
@@ -62,16 +59,7 @@
   home-manager.useUserPackages = true;
   home-manager.extraSpecialArgs = { inherit inputs; };
 
-  programs.bash = {
-    shellInit = ''
-      eval "$(${pkgs.direnv}/bin/direnv hook bash)"
-    '';
-  };
-
-  security = {
-    # hideProcessInformation = false; # this doesn't work with systemd + cgroupsv2
-    protectKernelImage = true;
-  };
+  security.protectKernelImage = true;
 
   services.earlyoom.enable = true;
 
