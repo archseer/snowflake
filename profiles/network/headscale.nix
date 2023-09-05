@@ -8,7 +8,7 @@ let
   derpPort = 3478;
 in {
   # headscale namespaces create <namespace>
-  # tailscale up https://headscale.mxxn.io
+  # tailscale up https://headscale.mxxn.io --ssh
   # headscale nodes register ... --user <namespace>
   services = {
     headscale = {

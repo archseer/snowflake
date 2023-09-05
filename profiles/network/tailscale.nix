@@ -5,7 +5,7 @@
 }: 
 {
   services.tailscale.enable = true;
-  services.tailscale.extraUpFlags = ["--ssh" "--no-logs-no-support"];
+  services.tailscale.extraUpFlags = ["--ssh" "--no-logs-no-support"]; # TODO: these actually need to be specified with `tailscale up`
   networking.firewall = {
     checkReversePath = "loose";
     trustedInterfaces = [ "tailscale0" ];
