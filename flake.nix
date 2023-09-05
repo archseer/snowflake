@@ -27,19 +27,22 @@
   }: let
     inherit (builtins) attrValues;
     inherit (nixos) lib;
-    inherit (utils) overlayPaths modules pkgsFor;
 
-    utils = import ./lib/utils.nix {inherit lib;};
+    pkgsFor = nixpkgs: overlays: system:
+      import nixpkgs {
+        inherit system overlays;
+        config.allowUnfree = true;
+      };
 
     system = "x86_64-linux";
 
     overlay = import ./pkgs;
 
     pkgs' = pkgsFor nixos [overlay];
-    unstable' = pkgsFor nixpkgs [];
+    # unstable' = pkgsFor nixpkgs [];
 
     mkSystem = pkgs: system: hostName: let
-      unstablePkgs = unstable' system;
+      # unstablePkgs = unstable' system;
       osPkgs = pkgs' system;
     in
       pkgs.lib.nixosSystem {
@@ -101,7 +104,7 @@
         iso = mkSystem nixos system "iso";
       };
 
-      nixosModules = modules;
+      nixosModules = [];
 
       inherit overlay;
 

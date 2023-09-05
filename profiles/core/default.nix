@@ -1,13 +1,10 @@
 # The core profile is automatically applied to all hosts.
 {
-  config,
   lib,
   pkgs,
   inputs,
   ...
-}: let
-  inherit (lib) fileContents;
-in {
+}: {
   nix.package = pkgs.nixVersions.stable;
 
   i18n.defaultLocale = "en_US.UTF-8";
