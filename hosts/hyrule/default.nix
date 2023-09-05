@@ -1,16 +1,14 @@
 {
-  hardware,
   lib,
   pkgs,
   ...
 }: let
-  inherit (builtins) readFile;
-
   kernel = pkgs.callPackage ./kernel.nix {};
   linuxPackages = pkgs.linuxPackagesFor kernel;
 in {
   require = [
     ./hardware.nix
+    ../../profiles/zram # Use zram for swap
     ../../profiles/laptop
     ../../profiles/network # sets up wireless
     ../../profiles/graphical/games
@@ -63,23 +61,8 @@ in {
     fsType = "vfat";
   };
 
-  swapDevices = [
-    # 8GB swapfile for hibernation
-    {
-      device = "/swapfile";
-      size = 8192;
-    }
-  ];
-
-  # Use zram for swap
-  zramSwap.enable = true;
-  # zram is relatively cheap, prefer swap
-  boot.kernel.sysctl."vm.swappiness" = 180;
-  boot.kernel.sysctl."vm.watermark_boost_factor" = 0;
-  boot.kernel.sysctl."vm.watermark_scale_factor" = 125;
-  # zram is in memory, no need to readahead
-  boot.kernel.sysctl."vm.page-cluster" = 0;
-
+  # Hibernation
+  swapDevices = [ { device = "/swapfile"; size = 8192; } ]; # 8GB swapfile for hibernation
   # Resume from encrypted volume's /swapfile
   boot.resumeDevice = "/dev/mapper/cryptroot";
   # filefrag -v /swapfile | awk '{ if($1=="0:"){print $4} }'

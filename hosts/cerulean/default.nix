@@ -1,16 +1,13 @@
 {
-  hardware,
-  lib,
   pkgs,
   ...
 }: let
-  inherit (builtins) readFile;
-
   kernel = pkgs.callPackage ./kernel.nix {};
   linuxPackages = pkgs.linuxPackagesFor kernel;
 in {
   require = [
     ./hardware.nix
+    ../../profiles/zram # Use zram for swap
     ../../profiles/network # sets up wireless
     ../../profiles/network/tailscale.nix
     ../../profiles/graphical/games
@@ -61,15 +58,7 @@ in {
     fsType = "vfat";
   };
 
-  # Use zram for swap
-  swapDevices = [];
-  zramSwap.enable = true;
-  # zram is relatively cheap, prefer swap
-  boot.kernel.sysctl."vm.swappiness" = 180;
-  boot.kernel.sysctl."vm.watermark_boost_factor" = 0;
-  boot.kernel.sysctl."vm.watermark_scale_factor" = 125;
-  # zram is in memory, no need to readahead
-  boot.kernel.sysctl."vm.page-cluster" = 0;
+  swapDevices = []; # Use zram for swap
 
   hardware = {
     enableRedistributableFirmware = true;
