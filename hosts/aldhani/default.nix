@@ -1,8 +1,5 @@
 {
-  config,
-  lib,
   pkgs,
-  modulesPath,
   ...
 }: {
   # hardware-configuration
@@ -19,7 +16,6 @@
 
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
-  # networking.hostName = "midna"; already set by flake
   networking.domain = "";
   services.openssh.enable = true;
   users.users.root.openssh.authorizedKeys.keys = [
@@ -27,6 +23,12 @@
   ];
 
   environment.systemPackages = [pkgs.helix];
+
+  # Auto upgrade once per day if flake has changed
+  system.autoUpgrade = {
+    enable = true;
+    flake = "github:archseer/snowflake";
+  };
 
   # Auto GC older generations
   nix.gc.options = "--delete-older-than 7d";
