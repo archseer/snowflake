@@ -12,6 +12,7 @@ in {
     ../../profiles/network/tailscale.nix
     ../../profiles/graphical/games
     ../../profiles/graphical
+    ../../profiles/misc/logitech.nix
     ../../profiles/misc/yubikey.nix
     ../../profiles/misc/ledger.nix
     # ../../profiles/misc/apparmor.nix
@@ -81,13 +82,11 @@ in {
   # Track list of enabled modules for localmodconfig generation.
   environment.systemPackages = with pkgs; [
     modprobed-db
-    piper
     zenmonitor
     lm_sensors # TODO: extract from laptop/default.nix
     linuxPackages.perf
     linuxPackages.turbostat
   ];
-  services.ratbagd.enable = true; # ratbagd + piper = logitech mouse config
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

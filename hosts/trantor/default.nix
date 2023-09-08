@@ -15,7 +15,6 @@ in {
     ../../profiles/graphical/games
     ../../profiles/graphical
     ../../profiles/misc/yubikey.nix
-    # ../../profiles/postgres
     ../../users/speed
     ../../users/root
   ];
