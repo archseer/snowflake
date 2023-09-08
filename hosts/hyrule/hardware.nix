@@ -1,7 +1,5 @@
 {
-  config,
   lib,
-  modulesPath,
   inputs,
   ...
 }: {
@@ -39,8 +37,6 @@
   ];
 
   boot.kernelModules = ["kvm-intel"];
-
-  services.thermald.enable = lib.mkDefault true;
 
   hardware.cpu.intel.updateMicrocode = true;
 }

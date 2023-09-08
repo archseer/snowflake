@@ -16,7 +16,6 @@ in {
     ../../profiles/misc/yubikey.nix
     ../../profiles/misc/ledger.nix
     # ../../profiles/misc/apparmor.nix
-    # ../../profiles/postgres
     ../../users/speed
     ../../users/root
   ];
@@ -24,17 +23,11 @@ in {
   # nvme0n1p1 = efi / vfat
   # nvme0n1p2 = ext4
 
-  boot.loader.systemd-boot = {
-    enable = true;
-    # editor = false;
-  };
+  boot.loader.systemd-boot.enable = true;
+  # boot.loader.systemd-boot.editor = false;
 
-  # use the latest upstream kernel
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
   # use the custom kernel config
   boot.kernelPackages = linuxPackages;
-
-  # boot.extraModulePackages = [ ];
 
   # use zstd compression instead of gzip for initramfs.
   boot.initrd.compressor = "zstd";

@@ -23,17 +23,11 @@ in {
   # boot.initrd.systemd.emergencyAccess = true;
   # boot.plymouth.enable = true;
 
-  boot.loader.systemd-boot = {
-    enable = true;
-    # editor = false;
-  };
+  boot.loader.systemd-boot.enable = true;
+  # boot.loader.systemd-boot.editor = false;
 
-  # use the latest upstream kernel
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
   # use the custom kernel config
   boot.kernelPackages = linuxPackages;
-
-  # boot.extraModulePackages = [ ];
 
   # use zstd compression instead of gzip for initramfs.
   boot.initrd.compressor = "zstd";

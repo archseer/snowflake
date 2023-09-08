@@ -1,12 +1,8 @@
 {
   lib,
-  config,
-  options,
   pkgs,
   ...
 }: let
-  inherit (builtins) readFile;
-
   left = "h";
   down = "j";
   up = "k";

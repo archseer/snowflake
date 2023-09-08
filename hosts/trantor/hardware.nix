@@ -1,7 +1,5 @@
 {
-  config,
   lib,
-  modulesPath,
   inputs,
   ...
 }: {
@@ -25,8 +23,6 @@
   "atkbd" "i8042"];
 
   boot.kernelModules = ["kvm-intel"];
-
-  services.thermald.enable = lib.mkDefault true;
 
   hardware.cpu.intel.updateMicrocode = true;
 
