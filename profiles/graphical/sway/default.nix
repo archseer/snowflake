@@ -16,6 +16,7 @@
   # terminal = "${pkgs.alacritty}/bin/alacritty";
   terminal = "${pkgs.wezterm}/bin/wezterm";
   browser = "${pkgs.firefox-wayland}/bin/firefox";
+  file_browser = "${pkgs.xplr}/bin/xplr";
 
   menu = "${pkgs.rofi-wayland}/bin/rofi -terminal ${terminal} -show drun -theme sidestyle -show-icons -icon-theme Paper";
 
@@ -275,7 +276,7 @@ in {
           # Start network manager
 
           # Open a file manager
-          # bindsym $mod+z exec alacritty -e nnn
+          "${modifier}+z" = "exec ${terminal} -e ${file_browser}";
 
           # "${modifier}+Shift+l" = "${swaylockcmd}"; # TODO:? loginctl log-session
 
