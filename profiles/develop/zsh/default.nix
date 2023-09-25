@@ -14,7 +14,7 @@
     systemPackages = with pkgs; [
       bat
       bzip2
-      exa
+      eza
       fd
       fzf
       gzip
@@ -58,9 +58,10 @@
 
         e = "v $(fzf)";
 
-        l = "exa -lahgF --group-directories-first";
+        l = "eza -lahgF --group-directories-first";
         # --time-style=long-iso
-        ll = "exa -F";
+        ll = "eza -F";
+        exa = "exa";
 
         # j stands for jump
         j = "z";
