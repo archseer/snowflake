@@ -1,11 +1,7 @@
 {
-  lib,
   pkgs,
   ...
 }: let
-  inherit (builtins) toFile readFile;
-  inherit (lib) fileContents mkForce;
-
   name = "Blaž Hrastnik";
   email = "blaz@mxxn.io";
   username = "speed";
@@ -16,8 +12,6 @@ in {
     imports = [
       ../profiles/git
       ../profiles/jj
-      # ../profiles/alacritty
-      ../profiles/wezterm
       ../profiles/direnv
     ];
 

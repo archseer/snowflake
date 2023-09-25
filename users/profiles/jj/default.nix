@@ -1,4 +1,4 @@
-{ pkgs, config, inputs, ... }:
+{ ... }:
 
 {
   programs.jujutsu = {
