@@ -52,7 +52,6 @@
  
   # Wayland support
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  nixpkgs.config.chromium.commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
 
   environment.systemPackages = with pkgs; [
     evince
@@ -76,7 +75,7 @@
     wf-recorder
     ffmpeg
 
-    logseq
+    # logseq # TODO: wait for electron upgrade
     anki
     # calibre
 

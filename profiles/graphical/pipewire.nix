@@ -5,9 +5,6 @@
 }: {
   # Enable sound.
 
-  # build programs with pulseaudio support, pipewire will handle them
-  # https://github.com/NixOS/nixpkgs/issues/139344
-  nixpkgs.config.pulseaudio = true;
   # Disable pulseaudio and ALSA
   sound.enable = lib.mkForce false;
   hardware.pulseaudio.enable = lib.mkForce false;
