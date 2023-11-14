@@ -6,6 +6,8 @@ return {
   -- font = wezterm.font("Fira Code"),
   font = wezterm.font("ProggyCleanTT"),
   font_size = 14.0,
+  font = wezterm.font("CozetteHiDpi"),
+  font_size = 17.0,
   line_height = 1.15,
   
   -- timeout_milliseconds defaults to 1000 and can be omitted

@@ -99,6 +99,7 @@
       roboto
       # proggyfonts
       proggy
+      cozette
     ];
     fontconfig.defaultFonts = {
       serif = ["Linux Libertine"];
