@@ -8,11 +8,6 @@
     #nixpkgs-wayland.overlay
   ];
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [xdg-desktop-portal-wlr xdg-desktop-portal-gtk];
-  };
-
   hardware.opengl.enable = true;
   # For Vulkan
   hardware.opengl.driSupport = true;
