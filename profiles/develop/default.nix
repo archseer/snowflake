@@ -37,6 +37,8 @@
       dua # disk usage
       pass
       tokei
+      iptables
+      tcpdump
 
       graphviz
       imagemagick
