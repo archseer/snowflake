@@ -121,6 +121,11 @@ in {
 
   swapDevices = []; # Use zram for swap
 
+  hardware = {
+    enableRedistributableFirmware = true;
+    firmware = [pkgs.wireless-regdb];
+  };
+
   # nix.maxJobs = lib.mkDefault 8;
   # nix.systemFeatures = [ "gccarch-alderlake" ];
 
