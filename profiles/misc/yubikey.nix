@@ -4,7 +4,6 @@
   environment.systemPackages = with pkgs; [
     # yubico-piv-tool
     yubikey-personalization
-    # yubikey-manager
     pinentry-curses # TODO move to general gpg
   ];
 

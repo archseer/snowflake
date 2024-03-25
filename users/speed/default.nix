@@ -18,7 +18,7 @@ in {
     services.gpg-agent = {
       enable = true;
       enableSshSupport = true;
-      pinentryFlavor = "curses";
+      # pinentryFlavor = "curses"; now set via pinentryPackage, defaults to curses?
     };
 
     home.stateVersion = "23.05";

@@ -69,6 +69,10 @@
 
             nixpkgs.pkgs = osPkgs;
 
+            # conflicts definition below
+            nixpkgs.flake.setNixPath = false;
+            nixpkgs.flake.setFlakeRegistry = false;
+
             nix.registry = {
               nixpkgs.flake = nixpkgs;
               snowflake.flake = self;

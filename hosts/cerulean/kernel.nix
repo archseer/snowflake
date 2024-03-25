@@ -9,7 +9,7 @@
   linuxPackagesFor,
   ...
 }: let
-  linux = pkgs.linuxKernel.kernels.linux_6_7;
+  linux = pkgs.linuxKernel.kernels.linux_6_8;
   # linux = pkgs.callPackage ./linux-6.1.nix {};
 
   kernel =

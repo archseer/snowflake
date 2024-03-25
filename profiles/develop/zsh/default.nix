@@ -32,7 +32,7 @@
   home-manager.users.speed = {
     programs.zsh = {
       enable = true;
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       # I init completion myself, because enableCompletion initializes it
       # too soon, which means commands initialized later in my config won't get
       # completion, and running compinit twice is slow.
