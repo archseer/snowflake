@@ -8,6 +8,8 @@
 in {
   environment.systemPackages = with pkgs; [cachix];
 
+  programs.gnupg.agent.pinentryPackage = pkgs.pinentry-curses;
+
   home-manager.users.speed = {
     imports = [
       ../profiles/git
@@ -18,7 +20,7 @@ in {
     services.gpg-agent = {
       enable = true;
       enableSshSupport = true;
-      # pinentryFlavor = "curses"; now set via pinentryPackage, defaults to curses?
+      pinentryPackage = pkgs.pinentry-curses; 
     };
 
     home.stateVersion = "23.05";
