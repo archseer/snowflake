@@ -14,6 +14,12 @@
     ../../users/root
   ];
 
+  # required for tailscale exit node
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;i
+    "net.ipv6.conf.all.forwarding" = 1;
+  };
+
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
   networking.domain = "";
