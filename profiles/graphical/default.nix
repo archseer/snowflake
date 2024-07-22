@@ -8,9 +8,7 @@
     #nixpkgs-wayland.overlay
   ];
 
-  hardware.opengl.enable = true;
-  # For Vulkan
-  hardware.opengl.driSupport = true;
+  hardware.graphics.enable = true;
 
   boot = {
     tmp.useTmpfs = true;

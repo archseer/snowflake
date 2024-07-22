@@ -1,5 +1,5 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    transmission-gtk
+    transmission_4-gtk
   ];
 }
