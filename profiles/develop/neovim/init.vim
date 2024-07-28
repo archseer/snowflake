@@ -98,12 +98,6 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 set signcolumn=yes
 
 " ---------------------------------------------------------------------------
-"  Filetype/Plugin-specific config
-" ---------------------------------------------------------------------------
-
-au filetype mail setl tw=72 fo=aw
-
-" ---------------------------------------------------------------------------
 "  Mappings
 " ---------------------------------------------------------------------------
 " Dump ex mode for formatting
@@ -135,45 +129,6 @@ nnoremap <tab>   <c-w>w
 nnoremap <S-tab> <c-w>W
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
-
-" -- fzf ---------------------------------------------------------------------
-function! s:find_git_root()
-  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
-endfunction
-
-command! ProjectFiles execute 'Files' s:find_git_root()
-
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>f :ProjectFiles<CR>
-nnoremap <Leader>e :History<CR>
-imap <c-x><c-l> <plug>(fzf-complete-line)
-
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-" Customize fzf statusline
-autocmd! User FzfStatusLine setlocal statusline=%#StatusLine#\ >\ fzf
-
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-      \ { 'fg':    ['fg', 'Normal'],
-      \ 'bg':      ['bg', 'Normal'],
-      \ 'hl':      ['fg', 'Comment'],
-      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-      \ 'hl+':     ['fg', 'Statement'],
-      \ 'info':    ['fg', 'PreProc'],
-      \ 'prompt':  ['fg', 'Conditional'],
-      \ 'pointer': ['fg', 'Exception'],
-      \ 'marker':  ['fg', 'Keyword'],
-      \ 'spinner': ['fg', 'Label'],
-      \ 'header':  ['fg', 'Comment'] }
-
-" if exists('$TMUX')
-"   let g:fzf_layout = { 'tmux': '-p90%,60%' }
-" else
-  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-" endif
 
 " ----------------------------------------------------------------------------
 " Statusline
@@ -261,7 +216,3 @@ augroup align_windows
 augroup END
 
 au TextYankPost * silent! lua require'highlight'.on_yank("IncSearch", 500, vim.v.event)
-
-" -- Abbreviations ----------------------------------------------------------
-iabbrev teh     the
-iabbrev recieve receive
