@@ -1,6 +1,8 @@
 local wezterm = require 'wezterm';
 return {
   enable_wayland = true,
+  front_end = "WebGpu",
+
   -- font_hinting = "None",
   --
   -- font = wezterm.font("Fira Code"),

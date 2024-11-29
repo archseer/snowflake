@@ -48,6 +48,7 @@
       shellAliases = {
         v = "$EDITOR";
         c = "cargo";
+        p = "podman";
 
         cat = "${pkgs.bat}/bin/bat";
 
