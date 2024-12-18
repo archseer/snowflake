@@ -25,10 +25,10 @@
 
     gtk = {
       enable = true;
-      theme = {
-        package = pkgs.pop-gtk-theme;
-        name = "Pop";
-      };
+      # theme = {
+      #   package = pkgs.pop-gtk-theme;
+      #   name = "Pop";
+      # };
       iconTheme = {
         package = pkgs.paper-icon-theme;
         name = "Paper";
@@ -49,18 +49,15 @@
   environment.systemPackages = with pkgs; [
     evince
     imv
-    # adapta-gtk-theme
     # cursor
     # dzen2
     # feh
     # ffmpeg-full
-    # gnome3.adwaita-icon-theme
     # imagemagick
     # imlib2
     # librsvg
     # libsForQt5.qtstyleplugins
     # manpages
-    pop-gtk-theme
     paper-icon-theme
     firefox-wayland
     chromium
