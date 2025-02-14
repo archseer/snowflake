@@ -6,7 +6,7 @@
   # Enable sound.
 
   # Disable pulseaudio and ALSA
-  hardware.pulseaudio.enable = lib.mkForce false;
+  services.pulseaudio.enable = lib.mkForce false;
 
   security.rtkit.enable = true;
   services.pipewire = {
