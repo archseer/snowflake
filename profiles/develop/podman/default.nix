@@ -9,6 +9,10 @@
   };
   virtualisation.oci-containers.backend = "podman";
 
+  virtualisation.containers.containersConf.settings.network.default_subnet_pools = [
+    { "base" = "100.96.0.0/11"; "size" = 24; }
+  ];
+
   # k3d seems broken on netavark
   # virtualisation.containers.containersConf.settings = {
   #   network.network_backend = lib.mkForce "cni";
