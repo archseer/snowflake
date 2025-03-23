@@ -4,24 +4,28 @@
     settings = {
       env.TERM = "xterm-256color";
       window.decorations = "full";
-      font.normal.family = "ProggyCleanTT";
-      font.bold.family = "ProggyCleanTT";
-      font.bold.style = "Bold";
-      font.italic.family = "ProggyCleanTT";
-      font.size = 14.0;
-      font.offset = {
-        x = 0;
-        y = 4;
-      };
+      font.normal.family = "Cozette";
+      font.normal.style = "HiDpi";
+      font.bold.family = "Cozette";
+      # font.bold.style = "Bold";
+      font.italic.family = "Cozette";
+      font.size = 13;
+      # font.offset = {
+      #   x = 0;
+      #   y = 4;
+      # };
 
       # snazzy theme
       colors = {
         # Default colors
         primary = {
-          text = "0xebeafa";
           background = "0x3b224c";
           dim_foreground = "0x9a9a9a";
           bright_foreground = "0xffffff";
+        };
+
+        cursor = {
+          text = "0xebeafa";
         };
 
         selection = {

@@ -13,8 +13,8 @@
     style = "Regular";
     size = 10.0;
   };
-  # terminal = "${pkgs.alacritty}/bin/alacritty";
-  terminal = "${pkgs.wezterm}/bin/wezterm";
+  terminal = "${pkgs.alacritty}/bin/alacritty";
+  # terminal = "${pkgs.wezterm}/bin/wezterm";
   browser = "${pkgs.firefox-wayland}/bin/firefox";
   file_browser = "${pkgs.xplr}/bin/xplr";
 
