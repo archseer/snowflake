@@ -48,6 +48,9 @@
   networking.wireless.iwd.settings = {
     General = {
       EnableNetworkConfiguration = true;
+    };
+    DriverQuirks = {
+      # TODO: ?
       UseDefaultInterface = true;
     };
     Network = {
