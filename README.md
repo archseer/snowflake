@@ -9,6 +9,10 @@ Deterministic NixOS configuration for all my devices.
 rebuild <host-filename> test
 ```
 
+```
+nix run nix-darwin/master#darwin-rebuild -- switch --flake .#m4-macbook  
+```
+
 ## Build an ISO
 
 You can make an ISO and customize it by modifying the [iso](./hosts/iso.nix)

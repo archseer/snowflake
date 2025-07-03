@@ -2,8 +2,11 @@
   description = "My personal config";
 
   inputs = {
-    nixos.url = "nixpkgs/nixos-unstable";
-    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    nixos.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+    darwin.url = "github:LnL7/nix-darwin/master";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home.url = "github:rycee/home-manager";
     home.inputs.nixpkgs.follows = "nixpkgs";
@@ -24,6 +27,7 @@
     hardware,
     disko,
     mobile-nixos,
+    darwin,
   }: let
     inherit (builtins) attrValues;
     inherit (nixos) lib;
@@ -106,6 +110,23 @@
         aldhani = mkSystem nixos system "aldhani";
         corrin = mkSystem nixos "aarch64-linux" "corrin";
         iso = mkSystem nixos system "iso";
+      };
+
+      darwinConfigurations = {
+        "m4-macbook" = darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/m4-macbook/configuration.nix
+            home.darwinModules.home-manager
+            {
+              nixpkgs = { config.allowUnfree = true; };
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.blazhrastnik = import ./hosts/m4-macbook/home.nix;
+            }
+          ];
+        };
       };
 
       nixosModules = {};

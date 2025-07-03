@@ -32,11 +32,13 @@
       less
       wget
       rsync
+
       picocom
 
       dua # disk usage
       pass
       tokei
+
       iptables
       tcpdump
 

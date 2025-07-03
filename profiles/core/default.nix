@@ -19,6 +19,7 @@
       dnsutils
       dosfstools
       fd
+      sd
       git
       htop
       powertop
@@ -26,7 +27,6 @@
       jq
       # moreutils
       nmap
-      sd
       ripgrep
       util-linux
       whois
