@@ -13,6 +13,7 @@
   };
   systemd.network.wait-online.ignoredInterfaces = [ "tailscale0" ];
 
+  # systemd.services.tailscaled.after = [ "network-online.target" "systemd-resolved.service" ];
   # Don't log to log.tailscale.io
   systemd.services.tailscaled.serviceConfig.Environment = lib.mkAfter [
     "TS_NO_LOGS_NO_SUPPORT=true"

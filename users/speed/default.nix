@@ -8,7 +8,7 @@
 in {
   environment.systemPackages = with pkgs; [cachix];
 
-  programs.gnupg.agent.pinentryPackage = pkgs.pinentry-curses;
+  programs.gnupg.agent.pinentry.package = pkgs.pinentry-curses;
 
   home-manager.users.speed = {
     imports = [

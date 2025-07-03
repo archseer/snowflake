@@ -9,7 +9,7 @@
 
   hardware.graphics.enable32Bit = true;
   hardware.graphics.enable = true;
-  hardware.pulseaudio.support32Bit = true;
+  services.pulseaudio.support32Bit = true;
 
   programs.gamemode.enable = true;
 
