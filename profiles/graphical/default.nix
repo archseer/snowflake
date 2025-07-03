@@ -65,7 +65,9 @@
     wf-recorder
     ffmpeg
 
-    # logseq # TODO: wait for electron upgrade
+    # logseq
+    # obsidian
+
     anki
     # calibre
 
