@@ -43,6 +43,9 @@
     };
 
     extraConfig = {
+      branch = {
+        sort = "-committerdate";
+      };
       core = {
         whitespace = "space-before-tab, trailing-space";
         # excludesfile = "" XDG .gitignore
@@ -50,6 +53,9 @@
       };
       credential = {
         helper = "cache --timeout=3600";
+      };
+      column = {
+        ui = "auto";
       };
       commit = {
         # Show my changes when writing the message
@@ -60,6 +66,11 @@
         renames = "copies";
         mnemonicprefix = true;
         colormoved = "default";
+      };
+      fetch = {
+        prune = true;
+        pruneTags = true;
+        all = true;
       };
       push = {
         default = "simple";

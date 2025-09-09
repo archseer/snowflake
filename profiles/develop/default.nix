@@ -18,8 +18,8 @@
       PAGER = "less";
       LESS = "-iFJMRWX -z-4 -x4";
       HELIX_RUNTIME = "$HOME/src/helix/runtime";
-      EDITOR = "$HOME/src/helix/target/release/hx";
-      VISUAL = "$HOME/src/helix/target/release/hx";
+      EDITOR = "$HOME/src/helix/target/opt/hx";
+      VISUAL = "$HOME/src/helix/target/opt/hx";
       # TERMINAL = "alacritty";
       # BROWSER = "firefox-developer-edition";
     };
