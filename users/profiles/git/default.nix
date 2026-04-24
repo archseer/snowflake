@@ -9,7 +9,7 @@
   # };
 
   # Additional git packages
-  home.packages = with pkgs.gitAndTools; [ git-absorb git-revise ];
+  home.packages = with pkgs; [ git-absorb git-revise ];
   
   programs.lazygit = {
     enable = true;
@@ -24,25 +24,68 @@
     };
   };
 
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      navigate = true;
+      syntax-theme = "OneHalfDark";
+      features = "side-by-side line-numbers decorations"; # hyperlinks
+      whitespace-error-style = "22 reverse";
+      decorations = {
+        commit-decoration-style = "bold yellow box ul";
+        file-style = "bold yellow ul";
+        file-decoration-style = "none";
+      };
+    };
+  };
+
   programs.git = {
     enable = true;
 
-    delta = {
-      enable = true;
-      options = {
-        navigate = true;
-        syntax-theme = "OneHalfDark";
-        features = "side-by-side line-numbers decorations"; # hyperlinks
-        whitespace-error-style = "22 reverse";
-        decorations = {
-          commit-decoration-style = "bold yellow box ul";
-          file-style = "bold yellow ul";
-          file-decoration-style = "none";
-        };
-      };
-    };
+    settings = {
+      alias = {
+        a = "add";
+        ap = "add --patch";
+        b = "branch -vv";
+        bd = "branch -d";
+        bdd = "branch -D";
+        c = "commit";
+        ca = "commit --amend";
+        co = "checkout";
+        cp = "cherry-pick";
+        d = "diff";
+        dc = "diff --cached";
+        ds = "diff --staged";
+        f = "fetch";
+        fx = "commit --fixup";
+        g = "grep -n";
+        hrd = "reset --hard";
+        l = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(yellow)%an%Creset' --all --abbrev-commit --date=relative";
+        ls = "log --stat --oneline"; # show log with filediffs only
+        m = "merge";
+        mm = "merge origin/master";
+        p = "push";
+        pf = "push --force-with-lease";
+        pl = "pull --rebase";
+        r = "rebase";
+        ra = "rebase --abort";
+        rc = "rebase --continue";
+        ri = "rebase --interactive --autosquash";
+        rom = "rebase origin/master";
+        rs = "rebase --skip";
+        s = "status";
+        sh = "!git-sh";
+        sq = "commit --squash";
+        st = "diff-tree --no-commit-id --name-only -r"; # show file tree of commit
+        sw = "show";
+        w = "whatchanged";
 
-    extraConfig = {
+        undo = "reset --soft HEAD^";
+        standup = "shortlog --since='1 week ago'";
+        who = "shortlog -s -n --no-merges";
+      };
+
       branch = {
         sort = "-committerdate";
       };
@@ -92,6 +135,9 @@
       transfer = {
         credentialsInUrl = "warn";
       };
+      tag = {
+        sort = "version:refname";
+      };
       absorb = {
         maxstack = 50;
       };
@@ -102,46 +148,5 @@
       # };
     };
 
-    aliases = {
-      a = "add";
-      ap = "add --patch";
-      b = "branch -vv";
-      bd = "branch -d";
-      bdd = "branch -D";
-      c = "commit";
-      ca = "commit --amend";
-      co = "checkout";
-      cp = "cherry-pick";
-      d = "diff";
-      dc = "diff --cached";
-      ds = "diff --staged";
-      f = "fetch";
-      fx = "commit --fixup";
-      g = "grep -n";
-      hrd = "reset --hard";
-      l = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(yellow)%an%Creset' --all --abbrev-commit --date=relative";
-      ls = "log --stat --oneline"; # show log with filediffs only
-      m = "merge";
-      mm = "merge origin/master";
-      p = "push";
-      pf = "push --force-with-lease";
-      pl = "pull --rebase";
-      r = "rebase";
-      ra = "rebase --abort";
-      rc = "rebase --continue";
-      ri = "rebase --interactive --autosquash";
-      rom = "rebase origin/master";
-      rs = "rebase --skip";
-      s = "status";
-      sh = "!git-sh";
-      sq = "commit --squash";
-      st = "diff-tree --no-commit-id --name-only -r"; # show file tree of commit
-      sw = "show";
-      w = "whatchanged";
-
-      undo = "reset --soft HEAD^";
-      standup = "shortlog --since='1 week ago'";
-      who = "shortlog -s -n --no-merges";
-    };
   };
 }

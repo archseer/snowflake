@@ -25,6 +25,8 @@ in
     skim
     procs
 
+    just
+
     libfido2
     openssh
   ];

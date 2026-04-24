@@ -1,7 +1,10 @@
 {
+  config,
   pkgs,
   ...
 }: {
+  xdg.enable = true;
+
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
@@ -13,7 +16,7 @@
 
     defaultKeymap = "viins";
 
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
 
     initContent = builtins.readFile ./zshrc;
 
