@@ -408,8 +408,8 @@ in {
           #bindsym XF86Sleep exec --no-startup-id systemctl suspend
 
           ## Screen brightness
-          "XF86MonBrightnessUp" = "exec ${pkgs.brightnessctl}/bin/brightnessctl 10% -e";
-          "XF86MonBrightnessDown" = "exec ${pkgs.brightnessctl}/bin/brightnessctl 10%- -e";
+          "XF86MonBrightnessUp" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 8%+ -e";
+          "XF86MonBrightnessDown" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 8%- -e";
 
           ## Toggle Redshift
           #bindsym $mod+Home exec --no-startup-id pkill -USR1 redshift
