@@ -15,12 +15,13 @@
   # networking.enableIPv6 = true; # TODO
   services.resolved = {
     enable = true;
-    # dnssec = "true"; "opportunistic"
-    dnssec = "false";
-    fallbackDns = ["1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one"];
-    # extraConfig = ''
-    #   DNSOverTLS=yes / allow-downgrade
-    # '';
+    settings.Resolve = {
+      # DNSSEC = true; "opportunistic"
+      DNSSEC = false;
+      Domains = [ "~." ];
+      FallbackDNS = ["1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one"];
+      #   DNSOverTLS=yes / allow-downgrade
+    };
   };
 
   # Wired: systemd-networkd

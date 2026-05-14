@@ -15,10 +15,10 @@
   };
   terminal = "${pkgs.alacritty}/bin/alacritty";
   # terminal = "${pkgs.wezterm}/bin/wezterm";
-  browser = "${pkgs.firefox-wayland}/bin/firefox";
+  browser = "${pkgs.firefox}/bin/firefox";
   file_browser = "${pkgs.xplr}/bin/xplr";
 
-  menu = "${pkgs.rofi-wayland}/bin/rofi -terminal ${terminal} -show drun -theme sidestyle -show-icons -icon-theme Paper";
+  menu = "${pkgs.rofi}/bin/rofi -terminal ${terminal} -show drun -theme sidestyle -show-icons -icon-theme Paper";
 
     # inherit (config.hardware) pulseaudio;
 
@@ -128,7 +128,7 @@ in {
       swayidle
       xwayland
 
-      rofi-wayland
+      rofi
       #
       libinput-gestures
       qt5.qtwayland
@@ -408,8 +408,8 @@ in {
           #bindsym XF86Sleep exec --no-startup-id systemctl suspend
 
           ## Screen brightness
-          "XF86MonBrightnessUp" = "exec ${pkgs.light}/bin/light -T 1.3";
-          "XF86MonBrightnessDown" = "exec ${pkgs.light}/bin/light -T 0.72";
+          "XF86MonBrightnessUp" = "exec ${pkgs.brightnessctl}/bin/brightnessctl 10% -e";
+          "XF86MonBrightnessDown" = "exec ${pkgs.brightnessctl}/bin/brightnessctl 10%- -e";
 
           ## Toggle Redshift
           #bindsym $mod+Home exec --no-startup-id pkill -USR1 redshift

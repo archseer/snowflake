@@ -59,7 +59,7 @@
     # libsForQt5.qtstyleplugins
     # manpages
     paper-icon-theme
-    firefox-wayland
+    firefox
     chromium
 
     wf-recorder

@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  xorg,
+  mkfontscale,
 }:
 stdenv.mkDerivation rec {
   pname = "proggyfonts";
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-yGjrM4L4LMGavqxWdaMC4HrGA9E4fVbLU+vJOxrZc9E=";
   };
 
-  nativeBuildInputs = [ xorg.mkfontscale ];
+  nativeBuildInputs = [ mkfontscale ];
 
   postInstall = ''
     install -D -m 644 */*.pcf.gz -t "$out/share/fonts/misc"

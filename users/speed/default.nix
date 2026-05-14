@@ -26,8 +26,12 @@ in {
     home.stateVersion = "23.05";
 
     programs.git = {
-      userName = name;
-      userEmail = email;
+      settings = {
+        user = {
+          name = name;
+          email = email;
+        };
+      };
       signing = {
         key = "F604E0EBDF3A34F2B9B472621238B9C4AD889640";
         #   signByDefault = true;
@@ -37,7 +41,12 @@ in {
 
     programs.ssh = {
       enable = true;
-      hashKnownHosts = true;
+      enableDefaultConfig = false;
+      matchBlocks = {
+        "*" = {
+          hashKnownHosts = true;
+        };
+      };
 
       # matchBlocks =
       #   let

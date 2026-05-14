@@ -11,6 +11,7 @@
 
   environment.systemPackages = with pkgs; [
     acpi
+    brightnessctl # to enable brightness keys
     lm_sensors
     wirelesstools # TODO: probably unnecessary with iwd
   ];
@@ -51,9 +52,6 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = false;
 
-  # to enable brightness keys
-  programs.light.enable = true;
-
   # sound.mediaKeys = lib.mkIf (!config.hardware.pulseaudio.enable) {
   #   enable = true;
   #   volumeStep = "1dB";
@@ -74,5 +72,5 @@
   #   CPU_SCALING_GOVERNOR_ON_BAT="schedutil";
   #   CPU_HWP_ON_AC="performance";
   # '';
-  services.logind.lidSwitch = "suspend";
+  services.logind.settings.Login.HandleLidSwitch = "suspend";
 }

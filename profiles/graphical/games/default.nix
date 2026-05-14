@@ -30,7 +30,7 @@
   # services.xserver.libinput.disableWhileTyping = false;
 
   # better for steam proton games
-  systemd.extraConfig = "DefaultLimitNOFILE=1048576";
+  systemd.settings.Manager = { DefaultLimitNOFILE = 1048576; };
 
   # improve wine performance
   # environment.sessionVariables = { WINEDEBUG = "-all,fixme-all"; };
