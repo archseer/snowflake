@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   imports = [./zsh ./podman];
   home-manager.users.speed = {
-    imports = [./neovim ./tmux ./wezterm ./alacritty];
+    imports = [./tmux ./wezterm ./alacritty];
   };
 
   # qmk rules
