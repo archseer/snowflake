@@ -13,13 +13,14 @@ in {
   services = {
     headscale = {
       enable = true;
-      address = "0.0.0.0";
+      # Only reached through caddy
+      address = "127.0.0.1";
       port = 8888;
       settings = {
-        dns_config = {
+        dns = {
           override_local_dns = true;
-          nameservers = [ "1.1.1.1" ]; # TODO: and 100.100.100.100?
-          base_domain = "mxxn.io";
+          nameservers.global = [ "1.1.1.1" ];
+          base_domain = "tailnet.mxxn.io";
         };
         server_url = "https://${domain}";
         logtail.enabled = false;
