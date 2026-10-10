@@ -44,6 +44,12 @@
 
   networking.firewall.allowedTCPPorts = [80 443];
 
+  # The file_server roots below; caddy can't create them itself.
+  systemd.tmpfiles.rules = [
+    "d /var/www/mxxn 0755 root root -"
+    "d /var/www/polyfox 0755 root root -"
+  ];
+
   # mxxn.io
   services.caddy = {
     enable = true;
