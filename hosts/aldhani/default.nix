@@ -15,6 +15,8 @@
     ../../users/root
   ];
 
+  services.tailscale.extraSetFlags = ["--advertise-exit-node"];
+
   # required for tailscale exit node
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;

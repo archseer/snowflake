@@ -1,11 +1,12 @@
 {
   config,
-  lib,
   ...
 }: 
 {
   services.tailscale.enable = true;
-  services.tailscale.extraUpFlags = ["--ssh" "--no-logs-no-support"]; # TODO: these actually need to be specified with `tailscale up`
+  services.tailscale.extraSetFlags = ["--ssh"];
+  # Don't log to log.tailscale.io
+  services.tailscale.disableUpstreamLogging = true;
   networking.firewall = {
     checkReversePath = "loose";
     trustedInterfaces = [ "tailscale0" ];
@@ -14,8 +15,4 @@
   systemd.network.wait-online.ignoredInterfaces = [ "tailscale0" ];
 
   # systemd.services.tailscaled.after = [ "network-online.target" "systemd-resolved.service" ];
-  # Don't log to log.tailscale.io
-  systemd.services.tailscaled.serviceConfig.Environment = lib.mkAfter [
-    "TS_NO_LOGS_NO_SUPPORT=true"
-  ];
 }
