@@ -6,12 +6,12 @@ in
   home.stateVersion = "22.05";
 
   imports = [
-    ../../profiles/develop/tmux
-    ../../profiles/develop/alacritty
+    ../../profiles/develop/tmux/home.nix
+    ../../profiles/develop/alacritty/home.nix
     ../../profiles/develop/zsh/home.nix
-    ../../users/profiles/git
-    ../../users/profiles/jj
-    ../../users/profiles/direnv
+    ../../profiles/develop/git/home.nix
+    ../../profiles/develop/jj/home.nix
+    ../../profiles/develop/direnv/home.nix
   ];
 
   home.packages = with pkgs; [

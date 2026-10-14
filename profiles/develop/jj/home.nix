@@ -1,12 +1,10 @@
-{ ... }:
-
-{
+{osConfig, ...}: {
   programs.jujutsu = {
     enable = true;
     settings = {
       user = {
-        name = "Blaž Hrastnik";
-        email = "blaz@mxxn.io";
+        name = osConfig.my.user.fullName;
+        inherit (osConfig.my.user) email;
       };
       ui = {
         color = "always";

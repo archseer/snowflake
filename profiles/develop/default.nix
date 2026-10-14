@@ -1,8 +1,13 @@
 {pkgs, ...}: {
   imports = [./zsh ./podman];
-  home-manager.users.speed = {
-    imports = [./tmux ./wezterm ./alacritty];
-  };
+  home-manager.sharedModules = [
+    ./tmux/home.nix
+    ./wezterm/home.nix
+    ./alacritty/home.nix
+    ./git/home.nix
+    ./jj/home.nix
+    ./direnv/home.nix
+  ];
 
   # qmk rules
   services.udev.extraRules = ''

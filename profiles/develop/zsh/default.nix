@@ -30,5 +30,5 @@
     xdg-utils
   ];
 
-  home-manager.users.speed.imports = [./home.nix];
+  home-manager.sharedModules = [./home.nix];
 }

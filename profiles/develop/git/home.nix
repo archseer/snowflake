@@ -1,7 +1,20 @@
 {
+  osConfig,
   pkgs,
   ...
 }: {
+  programs.git = {
+    settings.user = {
+      name = osConfig.my.user.fullName;
+      inherit (osConfig.my.user) email;
+    };
+    signing = {
+      key = osConfig.my.user.signingKey;
+      #   signByDefault = true;
+    };
+    # TODO: sendemail config
+  };
+
   # programs.gh = {
   #   enable = true;
   #   enableGitCredentialHelper = true;

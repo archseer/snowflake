@@ -12,12 +12,6 @@ in {
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-curses;
 
   home-manager.users.${cfg.name} = {
-    imports = [
-      ../profiles/git
-      ../profiles/jj
-      ../profiles/direnv
-    ];
-
     services.gpg-agent = {
       enable = true;
       enableSshSupport = true;
@@ -25,20 +19,6 @@ in {
     };
 
     home.stateVersion = "23.05";
-
-    programs.git = {
-      settings = {
-        user = {
-          name = cfg.fullName;
-          inherit (cfg) email;
-        };
-      };
-      signing = {
-        key = cfg.signingKey;
-        #   signByDefault = true;
-      };
-      # TODO: sendemail config
-    };
 
     programs.ssh = {
       enable = true;
