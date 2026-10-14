@@ -10,7 +10,14 @@
   # Apparently required for GTK3 settings on sway
   programs.dconf.enable = true;
 
-  xdg.portal.config.common.default = "*"; 
+  xdg.portal.config.common = {
+    default = ["gtk"];
+    "org.freedesktop.impl.portal.ScreenCast" = "wlr";
+    "org.freedesktop.impl.portal.Screenshot" = "wlr";
+    # wlr does not have this interface
+    "org.freedesktop.impl.portal.Inhibit" = "none";
+  };
+
   xdg.portal.enable = true;
   xdg.portal.wlr.enable = true;
   xdg.portal.extraPortals = [
