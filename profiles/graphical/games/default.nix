@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
@@ -9,7 +13,11 @@
   hardware.graphics.enable = true;
   services.pulseaudio.support32Bit = true;
 
-  programs.gamemode.enable = true;
+  programs.gamemode = {
+    enable = true;
+    settings.general.renice = 10;
+  };
+  users.users.${config.my.user.name}.extraGroups = ["gamemode"];
 
   environment.systemPackages = with pkgs; [
     protontricks
