@@ -84,7 +84,7 @@
     enable = true;
     enableZshIntegration = true;
     settings = {
-      workspace = true;
+      workspaces = true;
       # TODO: auto_sync etc
       update_check = false;
     };
