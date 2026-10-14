@@ -64,8 +64,12 @@
           format = "{}% ";
         };
         temperature = {
-          # thermal-zone = 5;
-          hwmon-path = "/sys/class/hwmon/hwmon2/temp2_input"; # Tdie
+          # k10temp Tctl for cerulean, coretemp for trantor
+          hwmon-path-abs = [
+            "/sys/devices/pci0000:00/0000:00:18.3/hwmon"
+            "/sys/devices/platform/coretemp.0/hwmon"
+          ];
+          input-filename = "temp1_input";
           critical-threshold = 80;
           # "format-critical": "{temperatureC}°C {icon}",
           format = "{temperatureC}°C {icon}";
