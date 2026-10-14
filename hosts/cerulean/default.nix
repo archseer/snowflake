@@ -77,7 +77,7 @@ in {
     modprobed-db
     zenmonitor
     lm_sensors # TODO: extract from laptop/default.nix
-    linuxPackages.perf
+    perf
     linuxPackages.turbostat
   ];
 
