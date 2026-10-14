@@ -88,12 +88,12 @@ in {
       settings = {
         font = "Inter UI, Font Awesome 10";
         padding = "15,20";
-        # backgroundColor = "#3b224cF0";
-        backgroundColor = "#281733F0";
-        textColor = "#ebeafa";
-        borderSize = 2;
-        borderColor = "#a4a0e8";
-        defaultTimeout = 5000;
+        # background-color = "#3b224cF0";
+        background-color = "#281733F0";
+        text-color = "#ebeafa";
+        border-size = 2;
+        border-color = "#a4a0e8";
+        default-timeout = 5000;
         markup = true;
         format = "<b>%s</b>\\n\\n%b";
 
