@@ -27,4 +27,6 @@
   hardware.cpu.intel.updateMicrocode = true;
 
   services.fwupd.enable = true;
+
+  hardware.framework.laptop13.audioEnhancement.enable = true;
 }
