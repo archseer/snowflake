@@ -16,7 +16,7 @@
 
   # required for tailscale exit node
   boot.kernel.sysctl = {
-    "net.ipv4.ip_forward" = 1;i
+    "net.ipv4.ip_forward" = 1;
     "net.ipv6.conf.all.forwarding" = 1;
   };
 
@@ -38,6 +38,8 @@
 
   # Auto GC older generations
   nix.gc.options = "--delete-older-than 7d";
+
+  system.stateVersion = "24.05";
 
   networking.firewall.allowedTCPPorts = [80 443];
 
