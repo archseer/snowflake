@@ -6,6 +6,8 @@
 
   environment.pathsToLink = [ "/share/zsh" ];
   programs.zsh.enable = true;
+  # completion.zsh runs compinit itself
+  programs.zsh.enableGlobalCompInit = false;
 
   environment.systemPackages = with pkgs; [
     bat

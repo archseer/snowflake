@@ -2,6 +2,8 @@
 
 {
   system.stateVersion = 5;
+  # completion.zsh runs compinit itself
+  programs.zsh.enableGlobalCompInit = false;
   users.users.blazhrastnik = {
     home = "/Users/blazhrastnik";
     shell = pkgs.zsh;

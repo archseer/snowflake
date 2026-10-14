@@ -25,6 +25,9 @@ else
 fi
 unset _comp_path
 
+# zoxide's init ran before compinit
+(( $+functions[__zoxide_z_complete] )) && compdef __zoxide_z_complete z
+
 #
 # Styles
 #
