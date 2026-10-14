@@ -60,6 +60,7 @@ in {
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/6C9C-379F";
     fsType = "vfat";
+    options = ["fmask=0077" "dmask=0077"];
   };
 
   swapDevices = []; # Use zram for swap
