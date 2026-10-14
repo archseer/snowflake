@@ -32,6 +32,9 @@ in {
   # use zstd compression instead of gzip for initramfs.
   boot.initrd.compressor = "zstd";
 
+  # we disable mdadm in the kernel
+  boot.swraid.enable = false;
+
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Setup root as encrypted LUKS volume
