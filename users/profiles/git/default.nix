@@ -10,15 +10,19 @@
 
   # Additional git packages
   home.packages = with pkgs; [ git-absorb git-revise ];
+
+  programs.gitui.enable = true;
   
   programs.lazygit = {
     enable = true;
     settings = {
       git = {
-        paging = {
-          colorArg = "always";
-          pager = "delta --dark --paging=never";
-        };
+        pagers = [
+          {
+            colorArg = "always";
+            pager = "delta --dark --paging=never";
+          }
+        ];
         overrideGpg = true;
       };
     };
