@@ -37,8 +37,12 @@
     };
   };
 
+  # Avoid running out of space on /boot
+  boot.loader.systemd-boot.configurationLimit = lib.mkDefault 10;
+
   nix = {
     gc.automatic = true;
+    gc.options = lib.mkDefault "--delete-older-than 30d";
     optimise.automatic = true;
     settings = {
       cores = 0;
