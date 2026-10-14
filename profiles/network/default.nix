@@ -50,10 +50,6 @@
     General = {
       EnableNetworkConfiguration = true;
     };
-    DriverQuirks = {
-      # TODO: ?
-      UseDefaultInterface = true;
-    };
     Network = {
       NameResolvingService = "systemd";
     };
