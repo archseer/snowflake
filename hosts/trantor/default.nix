@@ -29,6 +29,13 @@ in {
   # use the custom kernel config
   boot.kernelPackages = linuxPackages;
 
+  # sched_ext scheduler
+  services.scx = {
+    enable = true;
+    scheduler = "scx_lavd";
+    extraArgs = ["--autopower"];
+  };
+
   # use zstd compression instead of gzip for initramfs.
   boot.initrd.compressor = "zstd";
 
