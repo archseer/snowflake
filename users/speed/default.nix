@@ -16,7 +16,10 @@ in {
       enable = true;
       enableSshSupport = true;
       pinentry.package = pkgs.pinentry-curses;
+      # default hook doesn't correctly configure which shell to use for the prompt, we manually call updatestartuptty
+      enableZshIntegration = false;
     };
+    programs.zsh.initContent = "export GPG_TTY=$TTY";
 
     home.stateVersion = "23.05";
 
@@ -27,6 +30,8 @@ in {
         "*" = {
           hashKnownHosts = true;
         };
+        # show the PIN prompt in the terminal running ssh
+        gpg-agent-tty.match = ''host * exec "${pkgs.gnupg}/bin/gpg-connect-agent --quiet updatestartuptty /bye >/dev/null"'';
       };
 
       # matchBlocks =
