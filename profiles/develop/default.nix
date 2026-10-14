@@ -1,13 +1,6 @@
 {pkgs, ...}: {
   imports = [./zsh ./podman];
-  home-manager.sharedModules = [
-    ./tmux/home.nix
-    ./wezterm/home.nix
-    ./alacritty/home.nix
-    ./git/home.nix
-    ./jj/home.nix
-    ./direnv/home.nix
-  ];
+  home-manager.sharedModules = [./home.nix ./wezterm/home.nix];
 
   # qmk rules
   services.udev.extraRules = ''
