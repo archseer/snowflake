@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   ...
 }: {
@@ -16,7 +17,7 @@
     kernel.sysctl."kernel.sysrq" = 1;
   };
 
-  users.users.speed.packages = with pkgs; [
+  users.users.${config.my.user.name}.packages = with pkgs; [
     v4l-utils
   ];
 

@@ -1,16 +1,17 @@
 {
+  config,
   pkgs,
   ...
 }: let
-  name = "Blaž Hrastnik";
-  email = "blaz@mxxn.io";
-  username = "speed";
+  cfg = config.my.user;
 in {
+  my.user.name = "speed";
+
   environment.systemPackages = with pkgs; [cachix];
 
   programs.gnupg.agent.pinentryPackage = pkgs.pinentry-curses;
 
-  home-manager.users.speed = {
+  home-manager.users.${cfg.name} = {
     imports = [
       ../profiles/git
       ../profiles/jj
@@ -28,12 +29,12 @@ in {
     programs.git = {
       settings = {
         user = {
-          name = name;
-          email = email;
+          name = cfg.fullName;
+          inherit (cfg) email;
         };
       };
       signing = {
-        key = "F604E0EBDF3A34F2B9B472621238B9C4AD889640";
+        key = cfg.signingKey;
         #   signByDefault = true;
       };
       # TODO: sendemail config
@@ -71,16 +72,16 @@ in {
 
   # Avoid typing the username on TTY and only prompt for the password
   # https://wiki.archlinux.org/title/Getty#Prompt_only_the_password_for_a_default_user_in_virtual_console_login
-  services.getty.loginOptions = "-p -- ${username}";
+  services.getty.loginOptions = "-p -- ${cfg.name}";
   services.getty.extraArgs = [ "--noclear" "--skip-login" ];
 
-  users.users.speed = {
+  users.users.${cfg.name} = {
     uid = 1000;
-    description = name;
+    description = cfg.fullName;
     isNormalUser = true;
     # mkpasswd -m sha-512 <password>
     hashedPassword = "$6$KlMOHNWhChBEqYE$N8oRMBlpnCSl/r4fzqyhWaFCAWs.IhM7q9bjAw5ZT.aDDEE8X5p0vO06cYoHEp/whyneKXsan9QmD6RZSJXl0.";
-    openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINhYkvu/rVDYYlcM8Rq8HP3KPY2AX3mCvmyZ+/L1/yuh speed@hyrule.local"];
+    openssh.authorizedKeys.keys = cfg.sshKeys;
     # shell = pkgs.zsh;
     # video is needed to control the backlight
     extraGroups = ["wheel" "input" "docker" "video"];

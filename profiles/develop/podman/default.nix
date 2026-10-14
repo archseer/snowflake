@@ -1,4 +1,4 @@
-{lib, pkgs, ...}: {
+{config, lib, pkgs, ...}: {
   virtualisation.docker.enable = false;
   virtualisation.podman = {
     enable = true;
@@ -63,6 +63,6 @@
   #   slirp4netns
   # ];
   environment.systemPackages = [pkgs.docker-compose];
-  users.users.speed.extraGroups = ["podman"];
+  users.users.${config.my.user.name}.extraGroups = ["podman"];
   # TODO: or virtualisation.containers.users instead?
 }

@@ -97,6 +97,8 @@
             core
             global
             local
+            ./modules/user.nix
+            ./users/identity.nix
             home-manager
             disko.nixosModules.disko
           ];
@@ -117,13 +119,14 @@
           system = "aarch64-darwin";
           specialArgs = { inherit inputs; };
           modules = [
+            ./modules/user.nix
+            ./users/identity.nix
             ./hosts/m4-macbook/configuration.nix
             home.darwinModules.home-manager
             {
               nixpkgs = { config.allowUnfree = true; };
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.blazhrastnik = import ./hosts/m4-macbook/home.nix;
             }
           ];
         };

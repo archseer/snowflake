@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   ...
 }: {
@@ -24,9 +25,7 @@
   zramSwap.enable = true;
   networking.domain = "";
   services.openssh.enable = true;
-  users.users.root.openssh.authorizedKeys.keys = [
-    ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINhYkvu/rVDYYlcM8Rq8HP3KPY2AX3mCvmyZ+/L1/yuh speed@hyrule.local''
-  ];
+  users.users.root.openssh.authorizedKeys.keys = config.my.user.sshKeys;
 
   environment.systemPackages = [pkgs.helix];
 
