@@ -31,7 +31,7 @@
     escapeTime = 0;
     historyLimit = 10000;
     aggressiveResize = true;
-    # terminal = "tmux-256color";
+    terminal = if pkgs.stdenv.isDarwin then "screen-256color" else "tmux-256color";
     # focus-events
 
     # TODO: doesn't work because it tries binding C-`
@@ -50,6 +50,7 @@
 
     extraConfig = ''
       ${builtins.readFile ./tmux.conf}
+      set -s copy-command '${if pkgs.stdenv.isDarwin then "pbcopy" else "wl-copy"}'
     '';
     # ${pluginConf plugins}
   };

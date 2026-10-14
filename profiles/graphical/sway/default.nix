@@ -65,10 +65,6 @@ in {
   # Apparently required for GTK3 settings on sway
   programs.dconf.enable = true;
 
-  programs.tmux.extraConfig = lib.mkBefore ''
-    set -g @override_copy_command 'wl-copy'
-  '';
-
   xdg.portal.config.common.default = "*"; 
   xdg.portal.enable = true;
   xdg.portal.wlr.enable = true;
