@@ -1,15 +1,15 @@
 {pkgs ? import <nixpkgs> {}}: let
-  configs = "${toString ./.}#nixosConfigurations";
-  build = "config.system.build";
-
   rebuild = pkgs.writeShellScriptBin "rebuild" ''
-    if [[ -z $1 ]]; then
-      echo "Usage: $(basename $0) host {switch|boot|test|iso}"
-    elif [[ $1 == "iso" ]]; then
-      nix build ${configs}.iso.${build}.isoImage
-    else
-      sudo -E nix shell -vv ${configs}.$1.${build}.toplevel -c switch-to-configuration $2
+    set -euo pipefail
+    if [[ $# -lt 1 ]]; then
+      echo "Usage: $(basename "$0") host [switch|boot|test|build] | $(basename "$0") iso"
+      exit 1
     fi
+    flake=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
+    if [[ $1 == iso ]]; then
+      exec nix build "$flake#nixosConfigurations.iso.config.system.build.isoImage"
+    fi
+    exec sudo nixos-rebuild "''${2:-switch}" --flake "$flake#$1"
   '';
 in
   pkgs.mkShell {
