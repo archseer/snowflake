@@ -93,7 +93,9 @@
       '';
     };
 
-    virtualHosts."*.mxxn.io" = {
+    # Not a *.mxxn.io site: caddy then skips certificates for every
+    # subdomain it covers, headscale.mxxn.io included.
+    virtualHosts."https://" = {
       logFormat = ''
         output file ${config.services.caddy.logDir}/access-sites.log
       '';
@@ -101,11 +103,15 @@
         tls {
           on_demand
         }
-        encode zstd gzip
-        root * /var/www/sites/{host}
-        file_server {
-          hide .*
+        @site host *.mxxn.io
+        handle @site {
+          encode zstd gzip
+          root * /var/www/sites/{host}
+          file_server {
+            hide .*
+          }
         }
+        respond 404
       '';
     };
 
