@@ -3,6 +3,7 @@
   # details gathered from the active system.
   networking = {
     nameservers = [
+      "1.1.1.1"
       "8.8.8.8"
     ];
     defaultGateway = "209.97.160.1";

@@ -17,6 +17,13 @@
 
   services.tailscale.extraSetFlags = ["--advertise-exit-node"];
 
+  # Put the public addresses in the DERP map so clients don't have to
+  # resolve headscale.mxxn.io to reach the relay
+  services.headscale.settings.derp.server = {
+    ipv4 = "209.97.164.130";
+    ipv6 = "2400:6180:0:d1::6ec:3001";
+  };
+
   # required for tailscale exit node
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;
