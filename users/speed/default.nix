@@ -32,6 +32,11 @@ in {
         };
         # show the PIN prompt in the terminal running ssh
         gpg-agent-tty.match = ''host * exec "${pkgs.gnupg}/bin/gpg-connect-agent --quiet updatestartuptty /bye >/dev/null"'';
+        # reachable only over the tailnet
+        aldhani = {
+          host = "aldhani aldhani.tailnet.mxxn.io";
+          port = 777;
+        };
       };
 
       # matchBlocks =

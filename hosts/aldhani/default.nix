@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: {
@@ -17,7 +18,7 @@
   # locked, use speed + sudo
   users.users.root.hashedPassword = "!";
 
-  services.tailscale.extraSetFlags = ["--advertise-exit-node"];
+  services.tailscale.extraSetFlags = lib.mkForce ["--advertise-exit-node" "--ssh=false"];
 
   # Put the public addresses in the DERP map so clients don't have to
   # resolve headscale.mxxn.io to reach the relay
@@ -63,9 +64,6 @@
 
   networking.firewall.allowedTCPPorts = [80 443];
 
-  # The file_server roots below; caddy can't create them itself. Owned
-  # by speed so sites deploy with rsync over Tailscale SSH (scripts/deploy-site).
-  # Every file_server hides dotfiles (.git, .env, ...), including .well-known.
   systemd.tmpfiles.rules = [
     "d /var/www/mxxn 0755 speed users -"
     "d /var/www/polyfox 0755 speed users -"

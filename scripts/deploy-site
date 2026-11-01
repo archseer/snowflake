@@ -1,5 +1,5 @@
 #!/bin/sh
-# Publish a static site on aldhani over Tailscale SSH.
+# Publish a static site on aldhani over ssh on the tailnet
 #
 #   deploy-site <dir> <name>     -> https://<name>.mxxn.io
 #   deploy-site <dir> mxxn.io    -> the mxxn.io root
