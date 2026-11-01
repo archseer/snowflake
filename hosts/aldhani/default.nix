@@ -42,10 +42,20 @@
   system.autoUpgrade = {
     enable = true;
     flake = "github:archseer/snowflake";
+    allowReboot = true;
+    rebootWindow = {
+      lower = "04:00";
+      upper = "06:00";
+    };
   };
 
   # Auto GC older generations
   nix.gc.options = "--delete-older-than 7d";
+  # collect garbage during builds below 1 GiB free
+  nix.settings = {
+    min-free = 1024 * 1024 * 1024;
+    max-free = 4 * 1024 * 1024 * 1024;
+  };
 
   system.stateVersion = "24.05";
 
