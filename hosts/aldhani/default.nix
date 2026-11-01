@@ -65,6 +65,7 @@
 
   # The file_server roots below; caddy can't create them itself. Owned
   # by speed so sites deploy with rsync over Tailscale SSH (scripts/deploy-site).
+  # Every file_server hides dotfiles (.git, .env, ...), including .well-known.
   systemd.tmpfiles.rules = [
     "d /var/www/mxxn 0755 speed users -"
     "d /var/www/polyfox 0755 speed users -"
@@ -104,19 +105,25 @@
         }
         encode zstd gzip
         root * /var/www/sites/{host}
-        file_server
+        file_server {
+          hide .*
+        }
       '';
     };
 
     virtualHosts."mxxn.io".extraConfig = ''
     encode zstd gzip
-    file_server
+    file_server {
+      hide .*
+    }
     root * /var/www/mxxn
     '';
 
     virtualHosts."polyfox.io".extraConfig = ''
     encode zstd gzip
-    file_server
+    file_server {
+      hide .*
+    }
     root * /var/www/polyfox
     '';
   };

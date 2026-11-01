@@ -30,5 +30,5 @@ if [ $# -ne 2 ] || [ ! -f "$1/index.html" ]; then
 fi
 
 dest=$(target "$2")
-rsync -rlt --delete --chmod=D755,F644 --mkpath "$1/" "speed@$host:$dest/"
+rsync -rlt --delete --exclude='.*' --chmod=D755,F644 --mkpath "$1/" "speed@$host:$dest/"
 echo "deployed to $dest"
