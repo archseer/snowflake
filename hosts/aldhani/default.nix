@@ -69,7 +69,15 @@
     "d /var/www/mxxn 0755 speed users -"
     "d /var/www/polyfox 0755 speed users -"
     "d /var/www/sites 0755 speed users -"
+    "d /var/www/private 0755 speed users -"
   ];
+
+  # Tailnet-only sites (/var/www/private) resolve to aldhani's tailnet
+  # address inside the tailnet, so caddy sees a tailnet client IP.
+  services.headscale.settings.dns.extra_records = lib.concatMap (name: [
+    { name = "${name}.mxxn.io"; type = "A"; value = "100.64.0.1"; }
+    { name = "${name}.mxxn.io"; type = "AAAA"; value = "fd7a:115c:a1e0::1"; }
+  ]) ["yama"];
 
   # mxxn.io
   services.caddy = {
@@ -89,7 +97,12 @@
           root /var/www/sites
           try_files {query.domain}/index.html
         }
+        @private file {
+          root /var/www/private
+          try_files {query.domain}/index.html
+        }
         respond @site 200
+        respond @private 200
         respond 404
       '';
     };
@@ -103,6 +116,22 @@
       extraConfig = ''
         tls {
           on_demand
+        }
+        @private {
+          host *.mxxn.io
+          file {
+            root /var/www/private
+            try_files {host}/index.html
+          }
+        }
+        handle @private {
+          @public not remote_ip 100.64.0.0/10 fd7a:115c:a1e0::/48
+          respond @public 404
+          encode zstd gzip
+          root * /var/www/private/{host}
+          file_server {
+            hide .*
+          }
         }
         @site host *.mxxn.io
         handle @site {

@@ -4,28 +4,36 @@
 #   deploy-site <dir> <name>     -> https://<name>.mxxn.io
 #   deploy-site <dir> mxxn.io    -> the mxxn.io root
 #   deploy-site --remove <name>
+#
+# --private (first) serves <name>.mxxn.io on the tailnet only. Add <name> to
+# the extra_records list in hosts/aldhani so it resolves there.
 set -eu
 
 host=${DEPLOY_HOST:-aldhani}
+sites=/var/www/sites
+if [ "${1:-}" = --private ]; then
+  sites=/var/www/private
+  shift
+fi
 
 target() {
   case $1 in
     mxxn.io) echo /var/www/mxxn ;;
     polyfox.io) echo /var/www/polyfox ;;
     *.*) echo "deploy-site: give a bare name, not $1" >&2; exit 1 ;;
-    *) echo "/var/www/sites/$1.mxxn.io" ;;
+    *) echo "$sites/$1.mxxn.io" ;;
   esac
 }
 
 if [ "${1:-}" = --remove ] && [ $# -eq 2 ]; then
   dest=$(target "$2")
-  case $dest in /var/www/sites/*) ;; *) echo "deploy-site: refusing to remove $dest" >&2; exit 1 ;; esac
+  case $dest in "$sites"/*) ;; *) echo "deploy-site: refusing to remove $dest" >&2; exit 1 ;; esac
   ssh "speed@$host" rm -r -- "$dest"
   exit
 fi
 
 if [ $# -ne 2 ] || [ ! -f "$1/index.html" ]; then
-  echo "usage: deploy-site <dir with index.html> <name> | --remove <name>" >&2
+  echo "usage: deploy-site [--private] <dir with index.html> <name> | [--private] --remove <name>" >&2
   exit 1
 fi
 
