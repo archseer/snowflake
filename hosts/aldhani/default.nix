@@ -36,7 +36,8 @@
   services.openssh.enable = true;
   users.users.root.openssh.authorizedKeys.keys = config.my.user.sshKeys;
 
-  environment.systemPackages = [pkgs.helix];
+  # rsync for scripts/deploy-site.
+  environment.systemPackages = [pkgs.helix pkgs.rsync];
 
   # Auto upgrade once per day if flake has changed
   system.autoUpgrade = {
@@ -61,15 +62,50 @@
 
   networking.firewall.allowedTCPPorts = [80 443];
 
-  # The file_server roots below; caddy can't create them itself.
+  # The file_server roots below; caddy can't create them itself. Owned
+  # by speed so sites deploy with rsync over Tailscale SSH (scripts/deploy-site).
   systemd.tmpfiles.rules = [
-    "d /var/www/mxxn 0755 root root -"
-    "d /var/www/polyfox 0755 root root -"
+    "d /var/www/mxxn 0755 speed users -"
+    "d /var/www/polyfox 0755 speed users -"
+    "d /var/www/sites 0755 speed users -"
   ];
 
   # mxxn.io
   services.caddy = {
     enable = true;
+
+    # Only issue on-demand certificates for hosts that have a site
+    globalConfig = ''
+      on_demand_tls {
+        ask http://127.0.0.1:5555/
+      }
+    '';
+    virtualHosts."http://127.0.0.1:5555" = {
+      logFormat = null;
+      extraConfig = ''
+        bind 127.0.0.1
+        @site file {
+          root /var/www/sites
+          try_files {query.domain}/index.html
+        }
+        respond @site 200
+        respond 404
+      '';
+    };
+
+    virtualHosts."*.mxxn.io" = {
+      logFormat = ''
+        output file ${config.services.caddy.logDir}/access-sites.log
+      '';
+      extraConfig = ''
+        tls {
+          on_demand
+        }
+        encode zstd gzip
+        root * /var/www/sites/{host}
+        file_server
+      '';
+    };
 
     virtualHosts."mxxn.io".extraConfig = ''
     encode zstd gzip

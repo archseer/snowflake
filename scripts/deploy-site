@@ -1,0 +1,34 @@
+#!/bin/sh
+# Publish a static site on aldhani over Tailscale SSH.
+#
+#   deploy-site <dir> <name>     -> https://<name>.mxxn.io
+#   deploy-site <dir> mxxn.io    -> the mxxn.io root
+#   deploy-site --remove <name>
+set -eu
+
+host=${DEPLOY_HOST:-aldhani}
+
+target() {
+  case $1 in
+    mxxn.io) echo /var/www/mxxn ;;
+    polyfox.io) echo /var/www/polyfox ;;
+    *.*) echo "deploy-site: give a bare name, not $1" >&2; exit 1 ;;
+    *) echo "/var/www/sites/$1.mxxn.io" ;;
+  esac
+}
+
+if [ "${1:-}" = --remove ] && [ $# -eq 2 ]; then
+  dest=$(target "$2")
+  case $dest in /var/www/sites/*) ;; *) echo "deploy-site: refusing to remove $dest" >&2; exit 1 ;; esac
+  ssh "speed@$host" rm -r -- "$dest"
+  exit
+fi
+
+if [ $# -ne 2 ] || [ ! -f "$1/index.html" ]; then
+  echo "usage: deploy-site <dir with index.html> <name> | --remove <name>" >&2
+  exit 1
+fi
+
+dest=$(target "$2")
+rsync -rlt --delete --chmod=D755,F644 --mkpath "$1/" "speed@$host:$dest/"
+echo "deployed to $dest"
