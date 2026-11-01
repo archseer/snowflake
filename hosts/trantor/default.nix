@@ -19,7 +19,6 @@ in {
     ../../users/root
   ];
 
-  boot.initrd.systemd.enable = true;
   # boot.initrd.systemd.emergencyAccess = true;
   # boot.plymouth.enable = true;
 
