@@ -6,10 +6,29 @@
 let
   domain = "headscale.mxxn.io";
   derpPort = 3478;
+  user = "space@";
+  policy = {
+    acls = [
+      {
+        action = "accept";
+        src = [user];
+        dst = ["*:*"];
+      }
+    ];
+    ssh = [
+      {
+        action = "accept";
+        src = [user];
+        dst = [user];
+        users = ["speed"];
+      }
+    ];
+    autoApprovers.exitNode = [user];
+  };
 in {
-  # headscale namespaces create <namespace>
-  # tailscale up https://headscale.mxxn.io --ssh
-  # headscale nodes register ... --user <namespace>
+  # headscale users create space
+  # headscale preauthkeys create --user <id from `headscale users list`> --expiration 1h
+  # tailscale up --login-server https://headscale.mxxn.io --auth-key <key>
   services = {
     headscale = {
       enable = true;
@@ -24,6 +43,7 @@ in {
         };
         server_url = "https://${domain}";
         logtail.enabled = false;
+        policy.path = pkgs.writeText "policy.hujson" (builtins.toJSON policy);
         # log.level = "warn";
         # ip_prefixes
         derp.server = {
