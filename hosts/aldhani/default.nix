@@ -34,7 +34,6 @@
   zramSwap.enable = true;
   networking.domain = "";
   services.openssh.enable = true;
-  users.users.root.openssh.authorizedKeys.keys = config.my.user.sshKeys;
 
   # rsync for scripts/deploy-site.
   environment.systemPackages = [pkgs.helix pkgs.rsync];
