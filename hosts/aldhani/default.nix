@@ -37,6 +37,7 @@
   zramSwap.enable = true;
   networking.domain = "";
   services.openssh.enable = true;
+  services.openssh.openFirewall = false;
 
   # rsync for scripts/deploy-site.
   environment.systemPackages = [pkgs.helix pkgs.rsync];
