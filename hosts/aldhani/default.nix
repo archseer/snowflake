@@ -9,6 +9,7 @@
   imports = [
     ./hardware-configuration.nix
     ./networking.nix
+    ./pocketbase.nix
     ../../profiles/network/headscale.nix
     ../../profiles/network/tailscale.nix
     ../../profiles/ssh
@@ -72,12 +73,12 @@
     "d /var/www/private 0755 speed users -"
   ];
 
-  # Tailnet-only sites (/var/www/private) resolve to aldhani's tailnet
-  # address inside the tailnet, so caddy sees a tailnet client IP.
+  # Tailnet-only hosts resolve to aldhani's tailnet address inside the
+  # tailnet, so caddy sees a tailnet client IP.
   services.headscale.settings.dns.extra_records = lib.concatMap (name: [
     { name = "${name}.mxxn.io"; type = "A"; value = "100.64.0.1"; }
     { name = "${name}.mxxn.io"; type = "AAAA"; value = "fd7a:115c:a1e0::1"; }
-  ]) ["yama"];
+  ]) ["yama" "pb"];
 
   # mxxn.io
   services.caddy = {
