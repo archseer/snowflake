@@ -80,12 +80,16 @@
     { name = "${name}.mxxn.io"; type = "AAAA"; value = "fd7a:115c:a1e0::1"; }
   ]) ["yama" "pb"];
 
+  # use unix domain socket for admin socket so it's limited to caddy + root
+  systemd.services.caddy.serviceConfig.RuntimeDirectory = "caddy";
+
   # mxxn.io
   services.caddy = {
     enable = true;
 
     # Only issue on-demand certificates for hosts that have a site
     globalConfig = ''
+      admin unix//run/caddy/admin.sock
       on_demand_tls {
         ask http://127.0.0.1:5555/
       }
