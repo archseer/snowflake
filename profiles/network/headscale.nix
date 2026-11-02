@@ -7,12 +7,22 @@ let
   domain = "headscale.mxxn.io";
   derpPort = 3478;
   user = "space@";
+  # headscale nodes tag -i <id> -t tag:server
   policy = {
+    tagOwners = {
+      "tag:server" = [user];
+      "tag:phone" = [user];
+    };
     acls = [
       {
         action = "accept";
         src = [user];
         dst = ["*:*"];
+      }
+      {
+        action = "accept";
+        src = ["tag:phone"];
+        dst = ["tag:server:80,443" "autogroup:internet:*"];
       }
     ];
     ssh = [
@@ -23,7 +33,7 @@ let
         users = ["speed"];
       }
     ];
-    autoApprovers.exitNode = [user];
+    autoApprovers.exitNode = ["tag:server"];
   };
 in {
   # headscale users create space
