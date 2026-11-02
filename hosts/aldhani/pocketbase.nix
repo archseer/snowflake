@@ -13,7 +13,7 @@
     wantedBy = ["multi-user.target"];
     after = ["network.target"];
     serviceConfig = {
-      ExecStart = "${pkgs.pocketbase}/bin/pocketbase serve --http=127.0.0.1:8090 --dir=/var/lib/pocketbase/pb_data";
+      ExecStart = "${pkgs.pocketbase}/bin/pocketbase serve --http=127.0.0.1:8090 --dir=/var/lib/pocketbase/pb_data --origins=https://*.mxxn.io";
       WorkingDirectory = "/var/lib/pocketbase";
       User = "pocketbase";
       Group = "pocketbase";
