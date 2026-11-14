@@ -138,7 +138,11 @@ in {
   # nix.maxJobs = lib.mkDefault 8;
   # nix.systemFeatures = [ "gccarch-alderlake" ];
 
-  boot.kernelParams = ["mitigations=off"];
+  boot.kernelParams = [
+    "mitigations=off"
+    # TEO predicts idle length from the timers which works better on tickless
+    "cpuidle.governor=teo"
+  ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
