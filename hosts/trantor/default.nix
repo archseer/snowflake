@@ -29,10 +29,14 @@ in {
   boot.kernelPackages = linuxPackages;
 
   # sched_ext scheduler
-  services.scx = {
+  services.scx-loader = {
     enable = true;
-    scheduler = "scx_lavd";
-    extraArgs = ["--autopower"];
+    config = {
+      default_sched = "scx_lavd";
+      default_mode = "Auto";
+      # follow TLP's AC/battery EPP instead of load; keep scx_loader's default slice
+      scheds.scx_lavd.auto_mode = ["--autopower" "--pinned-slice-us" "500"];
+    };
   };
 
   # use zstd compression instead of gzip for initramfs.

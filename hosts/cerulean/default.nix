@@ -30,10 +30,13 @@ in {
   boot.kernelPackages = linuxPackages;
 
   # sched_ext scheduler
-  services.scx = {
+  services.scx-loader = {
     enable = true;
-    scheduler = "scx_lavd";
-    extraArgs = ["--autopower"];
+    config = {
+      default_sched = "scx_lavd";
+      # Auto runs lavd with --autopilot (power mode follows load)
+      default_mode = "Auto";
+    };
   };
 
   # use zstd compression instead of gzip for initramfs.
