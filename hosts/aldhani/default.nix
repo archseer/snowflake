@@ -14,10 +14,8 @@
     ../../profiles/network/tailscale.nix
     ../../profiles/ssh
     ../../users/speed
+    ../../users/root
   ];
-
-  # locked, use speed + sudo
-  users.users.root.hashedPassword = "!";
 
   services.tailscale.extraSetFlags = lib.mkForce ["--advertise-exit-node" "--ssh=false"];
 
