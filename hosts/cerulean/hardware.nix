@@ -16,7 +16,7 @@
 
   # upstream includes SATA drivers etc. which we don't build into the kernel.
   boot.initrd.includeDefaultModules = false;
-  boot.initrd.availableKernelModules = lib.mkForce ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
+  boot.initrd.availableKernelModules = lib.mkForce ["nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod"];
 
   boot.kernelModules = [
     "kvm-amd"
