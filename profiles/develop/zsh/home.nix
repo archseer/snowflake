@@ -76,8 +76,10 @@
     # fd > find
     defaultOptions = ["--reverse" "--ansi"]; # FZF_DEFAULT_OPTS
     defaultCommand = "fd ."; # FZF_DEFAULT_COMMAND
-    fileWidgetCommand = "fd ."; # FZF_CTRL_T_COMMAND
-    changeDirWidgetCommand = "fd --type d . $HOME"; # FZF_ALT_C_COMMAND
+    fileWidget.command = "fd ."; # FZF_CTRL_T_COMMAND
+    changeDirWidget.command = "fd --type d . $HOME"; # FZF_ALT_C_COMMAND
+    # atuin owns Ctrl-R
+    historyWidget.command = "";
   };
 
   programs.atuin = {
