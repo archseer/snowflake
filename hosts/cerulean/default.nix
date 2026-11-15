@@ -2,7 +2,11 @@
   pkgs,
   ...
 }: let
-  kernel = pkgs.callPackage ./kernel.nix {};
+  kernel = pkgs.callPackage ../kernel {} {
+    fragments =
+      map (f: ../kernel/${f}.config) ["base" "scheduler" "hardening" "networking" "desktop" "debug"]
+      ++ [./kernel.config];
+  };
   linuxPackages = pkgs.linuxPackagesFor kernel;
 in {
   require = [
