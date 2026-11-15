@@ -58,6 +58,9 @@ in {
     device = "/dev/disk/by-uuid/663d4e43-9596-49e5-b555-101fbfc6cf18";
     allowDiscards = true; # some security implications but not really too concerning to me
     bypassWorkqueues = true;
+    # enrolled FIDO2 tokens are tried automatically; don't hold up the
+    # password prompt for the default 30s when the key is absent
+    crypttabExtraOpts = ["token-timeout=3"];
   };
 
   fileSystems."/boot" = {
