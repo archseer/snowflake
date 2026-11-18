@@ -13,7 +13,6 @@
     acpi
     brightnessctl # to enable brightness keys
     lm_sensors
-    wirelesstools # TODO: probably unnecessary with iwd
   ];
 
   # remap caps to escape/ctrl on built-in keyboard.

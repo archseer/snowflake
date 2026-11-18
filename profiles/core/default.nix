@@ -63,7 +63,7 @@
   home-manager.useUserPackages = true;
   home-manager.extraSpecialArgs = { inherit inputs; };
 
-  security.protectKernelImage = true;
+  security.protectKernelImage = lib.mkDefault true;
 
   services.earlyoom.enable = true;
 

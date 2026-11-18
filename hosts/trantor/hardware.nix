@@ -7,13 +7,8 @@
     inputs.hardware.nixosModules.framework-12th-gen-intel
   ];
 
-  boot.kernelParams = ["cryptomgr.notests"];
-
-  # Only load the crypto modules required instead of a blanket import.
-  boot.initrd.luks.cryptoModules =  [ "aes" "aes_generic"
-          "cbc" "xts" "lrw" "sha1" "sha256" "sha512"
-          "algif_skcipher"
-  ];
+  # AES-NI (with its own XTS) and dm-crypt are built into the kernel.
+  boot.initrd.luks.cryptoModules = [];
   # Load surface_aggregator / surface_hid at stage 1 so we can use the keyboard
   # during LUKS.
 

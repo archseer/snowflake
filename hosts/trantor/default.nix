@@ -31,6 +31,8 @@ in {
 
   # use the custom kernel config
   boot.kernelPackages = linuxPackages;
+  # The kernel is built without kexec and hibernation, which is all this blocks.
+  security.protectKernelImage = false;
 
   # sched_ext scheduler
   services.scx-loader = {
@@ -150,8 +152,6 @@ in {
 
   boot.kernelParams = [
     "mitigations=off"
-    # TEO predicts idle length from the timers which works better on tickless
-    "cpuidle.governor=teo"
   ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

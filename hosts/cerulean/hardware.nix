@@ -9,10 +9,8 @@
     inputs.hardware.nixosModules.common-pc-ssd
   ];
 
-  boot.kernelParams = ["cryptomgr.notests"];
-
-  # Only load the crypto modules required instead of a blanket import.
-  boot.initrd.luks.cryptoModules = ["aes"];
+  # AES-NI (with its own XTS) and dm-crypt are built into the kernel.
+  boot.initrd.luks.cryptoModules = [];
 
   # upstream includes SATA drivers etc. which we don't build into the kernel.
   boot.initrd.includeDefaultModules = false;
@@ -20,7 +18,6 @@
 
   boot.kernelModules = [
     "kvm-amd"
-    "nct6683" # fan speed, temperature and voltage sensors
     # "zenpower" # use this instead of k10temp
   ];
   # boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];

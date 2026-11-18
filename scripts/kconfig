@@ -1,99 +1,270 @@
 #!/usr/bin/env bash
-# Commands for a host's Kconfig fragments (see hosts/kernel/default.nix).
+# Commands for the Kconfig fragments in hosts/kernel (see hosts/kernel/default.nix).
 #
-#   scripts/kconfig HOST lint           list fragment lines that are Kconfig defaults
-#                                       or implied by other settings. Run it after a
-#                                       kernel update.
-#   scripts/kconfig HOST menuconfig     open menuconfig on the full config and print
-#                                       the changes as fragment lines, next to the
-#                                       file that sets each symbol.
-#   scripts/kconfig HOST savedefconfig  print the minimal config for the fragments.
-#   scripts/kconfig HOST show           print the path of the generated config.
+#   scripts/kconfig lint                 list fragment lines that are Kconfig defaults or
+#                                        implied by other settings on every host that
+#                                        uses the fragment.
+#   scripts/kconfig newconfig ATTR       list the options that a newer kernel adds, with the
+#                                        default each host would get. ATTR is an attribute
+#                                        of linuxKernel.kernels, such as linux_7_4.
+#   scripts/kconfig diff ATTR            build each host's config against ATTR and show how
+#                                        it differs from the current one.
+#   scripts/kconfig info SYMBOL...       show a symbol's Kconfig entry and its value on
+#                                        each host.
+#   scripts/kconfig show HOST            print the path of the generated config.
+#   scripts/kconfig savedefconfig HOST   print the minimal config for the fragments.
+#   scripts/kconfig menuconfig HOST      open menuconfig on the full config and print the
+#                                        changes as fragment lines.
 #
 # The script doesn't edit the fragments, because they hold comments and grouping.
 set -euo pipefail
 
-host=${1:?usage: scripts/kconfig HOST lint|menuconfig|savedefconfig|show}
-cmd=${2:-lint}
 flake=$(git -C "$(dirname "$0")" rev-parse --show-toplevel)
-kernel="$flake#nixosConfigurations.$host.config.boot.kernelPackages.kernel"
-
-config=$(nix build --no-link --print-out-paths "$kernel.configfile")
-if [ "$cmd" = show ]; then
-  echo "$config"
-  exit
-fi
-
-mapfile -t fragments < <(nix eval --json "$kernel.configfile.fragments" | tr -d '[]"' | tr ',' '\n')
-src=$(nix build --no-link --print-out-paths "$kernel.src")
+cache=${XDG_CACHE_HOME:-$HOME/.cache}/snowflake-kconfig
+usage() { sed -n '2,19s/^# \{0,1\}//p' "$0" >&2; exit 1; }
+cmd=${1:-}
+[ -n "$cmd" ] || usage
+shift
 
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
-mkdir "$work/src" "$work/out"
-tar -xf "$src" -C "$work/src" --strip-components=1
-cp "$config" "$work/out/.config"
-chmod u+w "$work/out/.config"
 
-# The config derivation's build environment, plus ncurses for menuconfig.
-env_expr="let
-  f = builtins.getFlake (toString $flake);
-  c = f.nixosConfigurations.$host.config.boot.kernelPackages.kernel.configfile;
-  p = f.nixosConfigurations.$host.pkgs;
-in c.overrideAttrs (o: {
-  nativeBuildInputs = o.nativeBuildInputs ++ [p.buildPackages.pkg-config];
-  buildInputs = [p.ncurses];
-})"
+# Hosts whose kernel is built from the fragments.
+hosts() {
+  grep -l 'callPackage ../kernel' "$flake"/hosts/*/default.nix | xargs -n1 dirname | xargs -n1 basename
+}
+
+# The config derivation of a host, built against linuxKernel.kernels.ATTR if given.
+config_expr() {
+  local host=$1 attr=${2:-}
+  local c="(builtins.getFlake (toString $flake)).nixosConfigurations.$host"
+  if [ -z "$attr" ]; then
+    echo "$c.config.boot.kernelPackages.kernel.configfile"
+  else
+    echo "(let c = $c; in c.pkgs.callPackage $flake/hosts/kernel/config.nix {} {
+      fragments = c.config.boot.kernelPackages.kernel.configfile.fragments;
+      linux = c.pkgs.linuxKernel.kernels.$attr;
+    })"
+  fi
+}
+
+src_expr() {
+  local c="(builtins.getFlake (toString $flake)).nixosConfigurations.$1"
+  if [ -z "${2:-}" ]; then
+    echo "$c.config.boot.kernelPackages.kernel.src"
+  else
+    echo "$c.pkgs.linuxKernel.kernels.$2.src"
+  fi
+}
+
+nixb() { nix build --impure --no-link --print-out-paths --expr "$1" 2>/dev/null; }
+
+config() { nixb "$(config_expr "$@")"; }
+
+fragments() {
+  nix eval --impure --json --expr "$(config_expr "$1").fragments" | tr -d '[]"' | tr ',' '\n'
+}
+
+# An unpacked kernel source tree, cached because unpacking takes a while.
+srcdir() {
+  local src
+  src=$(nixb "$(src_expr "$@")")
+  if [ -d "$src" ]; then
+    echo "$src"
+    return
+  fi
+  local dir
+  dir="$cache/src/$(basename "$src")"
+  if [ ! -d "$dir" ]; then
+    mkdir -p "$cache/src"
+    local tmp
+    tmp=$(mktemp -d "$cache/src/.unpack.XXXXXX")
+    tar -xf "$src" -C "$tmp" --strip-components=1
+    mv "$tmp" "$dir"
+  fi
+  echo "$dir"
+}
+
+# make in the config derivation's build environment (same toolchain probes),
+# plus ncurses for menuconfig. Usage: kmake HOST ATTR SRCDIR OUTDIR TARGET...
 kmake() {
-  nix develop --impure --expr "$env_expr" --command \
-    make -s -C "$work/src" O="$work/out" "$@"
+  local host=$1 attr=$2 src=$3 out=$4
+  shift 4
+  local p="(builtins.getFlake (toString $flake)).nixosConfigurations.$host.pkgs"
+  nix develop --impure --expr "$(config_expr "$host" "$attr").overrideAttrs (o: {
+    nativeBuildInputs = o.nativeBuildInputs ++ [ $p.buildPackages.pkg-config ];
+    buildInputs = [ $p.ncurses ];
+  })" --command make -s -C "$src" O="$out" "$@"
+}
+
+# Copy a host's current config into a new output directory and print its path.
+prepare() {
+  local out="$work/$1${2:+-$2}"
+  mkdir -p "$out"
+  install -m644 "$(config "$1")" "$out/.config"
+  echo "$out"
 }
 
 settings() { grep -hE '^(CONFIG_[A-Za-z0-9_]+=|# CONFIG_[A-Za-z0-9_]+ is not set$)' "$@" || true; }
 symbol() { sed -E 's/^# (CONFIG_[A-Za-z0-9_]+) is not set$/\1/; s/=.*//'; }
-# A fragment's repo-relative name from its store path (/nix/store/<hash>-base.config).
-name() { local b=${1##*/}; echo "${b#*-}"; }
+
+# "SYMBOL VALUE" pairs of a full config, without the toolchain probes.
+values() {
+  sed -nE 's/^CONFIG_([A-Za-z0-9_]+)=(.*)/\1 \2/p; s/^# CONFIG_([A-Za-z0-9_]+) is not set/\1 n/p' "$1" |
+    grep -vE '^(CC|AS|LD|RUSTC|PAHOLE|GCC|CLANG|LLD|BINDGEN)_|^(TOOLS_SUPPORT|RUST_IS_AVAILABLE|OBJTOOL)' |
+    LC_ALL=C sort || true
+}
+
+# The repo path of a fragment, from its store path and a host that uses it.
+fragment_name() {
+  local base=${1##*/}
+  base=${base#*-}
+  if [ "$base" = kernel.config ]; then echo "hosts/$2/kernel.config"; else echo "hosts/kernel/$base"; fi
+}
 
 case $cmd in
-savedefconfig)
-  kmake savedefconfig >/dev/null
-  cat "$work/out/defconfig"
+show)
+  config "${1:?host}"
   ;;
+
+savedefconfig)
+  host=${1:?host}
+  out=$(prepare "$host")
+  kmake "$host" "" "$(srcdir "$host")" "$out" savedefconfig >/dev/null
+  cat "$out/defconfig"
+  ;;
+
 lint)
-  kmake savedefconfig >/dev/null
+  declare -A users
+  for host in $(hosts); do
+    out=$(prepare "$host")
+    kmake "$host" "" "$(srcdir "$host")" "$out" savedefconfig >/dev/null
+    mv "$out/defconfig" "$work/$host.min"
+    for f in $(fragments "$host"); do users[$f]+=" $host"; done
+  done
   found=
-  for f in "${fragments[@]}"; do
-    redundant=$(settings "$f" | grep -vxFf "$work/out/defconfig" || true)
+  for f in "${!users[@]}"; do
+    redundant=$(settings "$f" | while read -r line; do
+      for host in ${users[$f]}; do
+        if grep -qxF "$line" "$work/$host.min"; then continue 2; fi
+      done
+      echo "$line"
+    done)
     if [ -n "$redundant" ]; then
       found=1
-      echo "== $(name "$f"): default or implied"
+      host=${users[$f]# }
+      echo "== $(fragment_name "$f" "${host%% *}"): default or implied"
       echo "$redundant"
     fi
   done
   [ -n "$found" ] || echo "no redundant lines"
   ;;
+
+newconfig)
+  attr=${1:?attribute of linuxKernel.kernels, such as linux_7_4}
+  report="$cache/newconfig-$attr"
+  mkdir -p "$report"
+  for host in $(hosts); do
+    out=$(prepare "$host" "$attr")
+    src=$(srcdir "$host" "$attr")
+    kmake "$host" "$attr" "$src" "$out" listnewconfig | sed "s/\$/ $host/" >>"$work/new"
+    kmake "$host" "$attr" "$src" "$out" helpnewconfig >"$report/$host.help"
+  done
+  if [ ! -s "$work/new" ]; then
+    echo "no new options"
+    exit
+  fi
+  echo "Options new in $attr that the current configs don't set, with the default each host gets:"
+  LC_ALL=C sort "$work/new" |
+    awk '{ h[$1] = h[$1] (h[$1] ? "," : "") $2 } END { for (s in h) printf "  %-55s %s\n", s, h[s] }' |
+    LC_ALL=C sort
+  echo "Help text for each option: $report/<host>.help"
+  ;;
+
+diff)
+  attr=${1:?attribute of linuxKernel.kernels, such as linux_7_4}
+  for host in $(hosts); do
+    echo "== $host"
+    if ! new=$(nixb "$(config_expr "$host" "$attr")"); then
+      drv=$(nix eval --impure --raw --expr "$(config_expr "$host" "$attr").drvPath")
+      echo "The fragments don't build against $attr:"
+      nix log "$drv" 2>/dev/null |
+        sed -n '/^malformed lines:/,$p; /^set in more than one fragment:/,$p; /^requested but not in the final config:/,$p; /^required but not enabled:/,$p'
+      continue
+    fi
+    LC_ALL=C join -a1 -a2 -e - -o 0,1.2,2.2 <(values "$(config "$host")") <(values "$new") |
+      awk '
+        function off(v) { return v == "n" || v == "-" }
+        $2 == $3 || (off($2) && off($3)) { next }
+        $2 == "n" { on = on sprintf("  %s=%s\n", $1, $3); next }
+        $2 == "-" { new = new sprintf("  %s=%s\n", $1, $3); next }
+        $3 == "n" { disabled = disabled sprintf("  %s (was %s)\n", $1, $2); next }
+        $3 == "-" { gone = gone sprintf("  %s (was %s)\n", $1, $2); next }
+        { changed = changed sprintf("  %s: %s -> %s\n", $1, $2, $3) }
+        END {
+          if (on) printf "Turned on:\n%s", on
+          if (new) printf "New or newly visible, and on:\n%s", new
+          if (disabled) printf "Turned off:\n%s", disabled
+          if (gone) printf "No longer in the config (removed, or hidden by a dependency):\n%s", gone
+          if (changed) printf "Changed:\n%s", changed
+          if (!on && !new && !disabled && !gone && !changed) print "no changes"
+        }'
+  done
+  ;;
+
+info)
+  [ $# -gt 0 ] || usage
+  mapfile -t hs < <(hosts)
+  src=$(srcdir "${hs[0]}")
+  for host in "${hs[@]}"; do install -m644 "$(config "$host")" "$work/$host.config"; done
+  for sym in "$@"; do
+    sym=${sym#CONFIG_}
+    defs=$(grep -rnE --include='Kconfig*' "^(menu)?config $sym\$" "$src" || true)
+    if [ -z "$defs" ]; then
+      echo "== $sym: not defined in this kernel"
+      continue
+    fi
+    while IFS=: read -r file line _; do
+      echo "== $sym (${file#"$src"/}:$line)"
+      awk -v start="$line" '
+        NR == start { print; next }
+        NR > start && /^(#|(config|menuconfig|choice|endchoice|menu|endmenu|if|endif|source|comment)( |$))/ { exit }
+        NR > start { print }' "$file" | sed -e '/^[[:space:]]*$/d' -e 's/^/  /'
+    done <<<"$defs"
+    for host in "${hs[@]}"; do
+      value=$(grep -E "^(# )?CONFIG_${sym}[= ]" "$work/$host.config" | sed -E 's/^CONFIG_[^=]+=//; s/^# .* is not set$/n/' || true)
+      echo "  $host: ${value:-not visible}"
+    done
+  done
+  ;;
+
 menuconfig)
-  kmake savedefconfig >/dev/null
-  mv "$work/out/defconfig" "$work/before"
-  kmake menuconfig
-  kmake savedefconfig >/dev/null
-  changes=$(diff "$work/before" "$work/out/defconfig" | grep '^[<>]' || true)
+  host=${1:?host}
+  out=$(prepare "$host")
+  src=$(srcdir "$host")
+  kmake "$host" "" "$src" "$out" savedefconfig >/dev/null
+  mv "$out/defconfig" "$work/before"
+  kmake "$host" "" "$src" "$out" menuconfig
+  kmake "$host" "" "$src" "$out" savedefconfig >/dev/null
+  changes=$(diff "$work/before" "$out/defconfig" | grep '^[<>]' || true)
   if [ -z "$changes" ]; then
     echo "no changes"
     exit
   fi
+  mapfile -t frags < <(fragments "$host")
   echo "Fragment changes (- remove, + add) and the file that sets each symbol:"
   while read -r dir line; do
     sym=$(echo "$line" | symbol)
     where=""
-    for f in "${fragments[@]}"; do
-      if settings "$f" | symbol | grep -qx "$sym"; then where=$(name "$f"); fi
+    for f in "${frags[@]}"; do
+      if settings "$f" | symbol | grep -qx "$sym"; then where=$(fragment_name "$f" "$host"); fi
     done
     [ "$dir" = "<" ] && sign=- || sign=+
     printf '%s %-55s %s\n' "$sign" "$line" "${where:-(new)}"
   done <<<"$changes"
   ;;
+
 *)
-  echo "unknown command: $cmd" >&2
-  exit 1
+  usage
   ;;
 esac
