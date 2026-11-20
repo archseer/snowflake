@@ -137,6 +137,13 @@ in {
     };
   };
 
+  # Use systemd-cryptsetup's own FIDO2 code instead of the libcryptsetup token
+  # plugin. The plugin asks for the PIN before it checks whether a key is plugged in.
+  boot.initrd.systemd.services."systemd-cryptsetup@cryptroot" = {
+    overrideStrategy = "asDropin";
+    environment.SYSTEMD_CRYPTSETUP_USE_TOKEN_MODULE = "0";
+  };
+
   fileSystems."/persist".neededForBoot = true;
   fileSystems."/var/log".neededForBoot = true;
 

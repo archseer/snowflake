@@ -12,9 +12,9 @@
   # AES-NI (with its own XTS) and dm-crypt are built into the kernel.
   boot.initrd.luks.cryptoModules = [];
 
-  # upstream includes SATA drivers etc. which we don't build into the kernel.
+  # Everything the initrd needs is built into the kernel.
   boot.initrd.includeDefaultModules = false;
-  boot.initrd.availableKernelModules = lib.mkForce ["nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod"];
+  boot.initrd.availableKernelModules = lib.mkForce [];
 
   boot.kernelModules = [
     "kvm-amd"
