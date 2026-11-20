@@ -153,10 +153,40 @@ in {
   boot.kernelParams = [
     "mitigations=off"
   ];
+  boot.kernel.sysctl."kernel.split_lock_mitigate" = 0;
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
   security.pam.services.login.fprintAuth = true;
+
+  # automatic brightness
+  home-manager.sharedModules = [
+    {
+      services.wluma = {
+        enable = true;
+        settings = {
+          als.iio = {
+            path = "/sys/bus/iio/devices";
+            thresholds = {
+              "0" = "night";
+              "20" = "dark";
+              "80" = "dim";
+              "250" = "normal";
+              "500" = "bright";
+              "800" = "outdoors";
+            };
+          };
+          output.backlight = [
+            {
+              name = "eDP-1";
+              path = "/sys/class/backlight/intel_backlight";
+              capturer = "none";
+            }
+          ];
+        };
+      };
+    }
+  ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
