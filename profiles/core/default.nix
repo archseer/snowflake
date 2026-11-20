@@ -5,30 +5,24 @@
   inputs,
   ...
 }: {
-  nix.package = pkgs.nixVersions.stable;
-
   i18n.defaultLocale = "en_US.UTF-8";
   time.timeZone = lib.mkDefault "Asia/Tokyo";
 
   environment = {
     systemPackages = with pkgs; [
       binutils
-      coreutils
       curl
-      direnv
       dnsutils
       dosfstools
       fd
       sd
       git
       htop
-      powertop
       iputils
       jq
       # moreutils
       nmap
       ripgrep
-      util-linux
       whois
     ];
 
@@ -45,27 +39,27 @@
     gc.options = lib.mkDefault "--delete-older-than 30d";
     optimise.automatic = true;
     settings = {
-      cores = 0;
-      auto-optimise-store = true;
-      sandbox = true;
+      experimental-features = ["nix-command" "flakes"];
       allowed-users = ["@wheel"];
-      trusted-users = ["root" "@wheel"];
+      # Keep the build inputs of anything still in use, like direnv shells
+      keep-outputs = true;
+      keep-derivations = true;
     };
-    extraOptions = ''
-      experimental-features = nix-command flakes
-      keep-outputs = true
-      keep-derivations = true
-    '';
+    # daemonCPUSchedPolicy = "idle";
+    channel.enable = false; # flakes only
   };
 
-  # Need to configure home-manager to work with flakes
-  home-manager.useGlobalPkgs = true; # is this equivalent to stateVersion 20.09?
+  # Use the system nixpkgs
+  home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.extraSpecialArgs = { inherit inputs; };
 
   security.protectKernelImage = lib.mkDefault true;
 
-  services.earlyoom.enable = true;
+  systemd.oomd.enableUserSlices = true;
+  systemd.slices."-".sliceConfig.ManagedOOMSwap = "kill";
+
+  security.sudo.execWheelOnly = true;
 
   users.mutableUsers = false;
 }

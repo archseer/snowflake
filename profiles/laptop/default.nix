@@ -1,17 +1,15 @@
 {
-  config,
   pkgs,
   lib,
   ...
 }: {
   # Don't block boot/nixos-rebuild on all interfaces, wired usually unplugged
   systemd.network.wait-online.enable = false;
-  # systemd.network.wait-online.timeout = 10;
-  # systemd.network.wait-online.anyInterface = true;
 
   environment.systemPackages = with pkgs; [
     acpi
     brightnessctl # to enable brightness keys
+    powertop
     lm_sensors
   ];
 
@@ -53,25 +51,17 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = false;
 
-  # sound.mediaKeys = lib.mkIf (!config.hardware.pulseaudio.enable) {
-  #   enable = true;
-  #   volumeStep = "1dB";
-  # };
-
   # better timesync for unstable internet connections
-  services.chrony.enable = true;
+  services.chrony = {
+    enable = true;
+    enableNTS = true;
+    servers = ["time.cloudflare.com" "nts.netnod.se" "ptbtime1.ptb.de"];
+  };
   services.timesyncd.enable = false;
 
   # power management features
   services.tlp.enable = true;
   services.tlp.settings = {
     USB_ALLOWLIST="32ac:0002"; # Suspend Framework HDMI card
-    # USB_EXCLUDE_PHONE = 1;
   };
-  # services.tlp.extraConfig = ''
-  #   CPU_SCALING_GOVERNOR_ON_AC="performance";
-  #   CPU_SCALING_GOVERNOR_ON_BAT="schedutil";
-  #   CPU_HWP_ON_AC="performance";
-  # '';
-  services.logind.settings.Login.HandleLidSwitch = "suspend";
 }

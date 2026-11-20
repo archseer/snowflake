@@ -5,10 +5,6 @@
 }: {
   imports = [./pipewire.nix ./sway ../develop ../network ./im];
 
-  nixpkgs.overlays = [
-    #nixpkgs-wayland.overlay
-  ];
-
   hardware.graphics.enable = true;
 
   boot = {
@@ -22,22 +18,13 @@
   ];
 
   home-manager.sharedModules = [./home.nix];
- 
+
   # Wayland support
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   environment.systemPackages = with pkgs; [
     evince
     imv
-    # cursor
-    # dzen2
-    # feh
-    # ffmpeg-full
-    # imagemagick
-    # imlib2
-    # librsvg
-    # libsForQt5.qtstyleplugins
-    # manpages
     paper-icon-theme
     firefox
     chromium
@@ -45,15 +32,7 @@
     wf-recorder
     ffmpeg
 
-    # logseq
-    # obsidian
-
     anki
-    # calibre
-
-    # qt5.qtgraphicaleffects
-    # stdmanpages
-    # zathura
   ];
 
   fonts = {
@@ -61,22 +40,21 @@
       font-awesome # waybar icons: TODO: move to there
       noto-fonts
       noto-fonts-cjk-sans
-      twemoji-color-font
+      twitter-color-emoji
       inter
       fira-code
-      fira-code-symbols
       fira-mono
       fira
       libertine
       roboto
-      # proggyfonts
       proggy
       cozette
     ];
     fontconfig.defaultFonts = {
-      serif = ["Linux Libertine"];
+      serif = ["Linux Libertine O"];
       sansSerif = ["Inter"];
       monospace = ["Fira Code"];
+      emoji = ["Twitter Color Emoji"];
     };
     # Bind Inter to Helvetica
     fontconfig.localConf = ''
