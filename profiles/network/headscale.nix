@@ -47,8 +47,12 @@ in {
       port = 8888;
       settings = {
         dns = {
-          override_local_dns = true;
+          # route only tailnet.mxxn.io and mxxn.io through MagicDNS
+          # otherwise Tailscale also claims `~.` and races with our local config
+          override_local_dns = false;
           nameservers.global = [ "1.1.1.1" ];
+          # Tailnet-only hosts (extra_records) are answered by MagicDNS
+          nameservers.split."mxxn.io" = [ "1.1.1.1" ];
           base_domain = "tailnet.mxxn.io";
         };
         server_url = "https://${domain}";
