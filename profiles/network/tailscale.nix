@@ -1,18 +1,12 @@
-{
-  config,
-  ...
-}: 
-{
-  services.tailscale.enable = true;
-  services.tailscale.extraSetFlags = ["--ssh"];
-  # Don't log to log.tailscale.io
-  services.tailscale.disableUpstreamLogging = true;
-  networking.firewall = {
-    checkReversePath = "loose";
-    trustedInterfaces = [ "tailscale0" ];
-    allowedUDPPorts = [ config.services.tailscale.port ];
+{lib, ...}: {
+  services.tailscale = {
+    enable = true;
+    extraSetFlags = ["--ssh"];
+    # Using an exit node needs a loose reverse path filter
+    useRoutingFeatures = lib.mkDefault "client";
+    # Open the UDP port so peers can connect directly instead of through DERP
+    openFirewall = true;
+    disableUpstreamLogging = true;
   };
-  systemd.network.wait-online.ignoredInterfaces = [ "tailscale0" ];
-
-  # systemd.services.tailscaled.after = [ "network-online.target" "systemd-resolved.service" ];
+  networking.firewall.trustedInterfaces = ["tailscale0"];
 }

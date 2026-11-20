@@ -18,18 +18,14 @@
   ];
 
   services.tailscale.extraSetFlags = lib.mkForce ["--advertise-exit-node" "--ssh=false"];
+  # Forwarding for the exit node. "both" also keeps the reverse path filter loose.
+  services.tailscale.useRoutingFeatures = "both";
 
   # Put the public addresses in the DERP map so clients don't have to
   # resolve headscale.mxxn.io to reach the relay
   services.headscale.settings.derp.server = {
     ipv4 = "209.97.164.130";
     ipv6 = "2400:6180:0:d1::6ec:3001";
-  };
-
-  # required for tailscale exit node
-  boot.kernel.sysctl = {
-    "net.ipv4.ip_forward" = 1;
-    "net.ipv6.conf.all.forwarding" = 1;
   };
 
   boot.tmp.cleanOnBoot = true;

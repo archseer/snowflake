@@ -74,6 +74,6 @@ in {
     openssh.authorizedKeys.keys = cfg.sshKeys;
     # shell = pkgs.zsh;
     # video is needed to control the backlight
-    extraGroups = ["wheel" "input" "docker" "video"];
+    extraGroups = ["wheel" "input" "video"];
   };
 }

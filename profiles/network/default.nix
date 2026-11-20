@@ -12,15 +12,14 @@
   # systemd-resolved instead of dhcpcd
   networking.useDHCP = false;
   networking.dhcpcd.enable = false;
-  # networking.enableIPv6 = true; # TODO
   services.resolved = {
     enable = true;
     settings.Resolve = {
-      # DNSSEC = true; "opportunistic"
       DNSSEC = false;
       Domains = [ "~." ];
-      FallbackDNS = ["1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one"];
-      #   DNSOverTLS=yes / allow-downgrade
+      # Use TLS where port 853 is reachable
+      DNSOverTLS = "opportunistic";
+      LLMNR = false;
     };
   };
 
@@ -33,16 +32,6 @@
       IPv6PrivacyExtensions = "yes";
     };
   };
-
-  # TODO: Anonymize=yes ? Makes requests grow in size though
-
-  # TODO: Not necessary since iwd handles it?
-  # systemd.network.networks."40-wireless" = {
-  #   matchConfig = { Name = lib.mkForce "wlp* wlan*"; };
-  #   networkConfig = {
-  #     IgnoreCarrierLoss="3s";
-  #   };
-  # };
 
   # Wireless: iwd / iwctl
   networking.wireless.iwd.enable = true;
