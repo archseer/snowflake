@@ -1,5 +1,6 @@
 # The core profile is automatically applied to all hosts.
 {
+  config,
   lib,
   pkgs,
   inputs,
@@ -24,11 +25,22 @@
       nmap
       ripgrep
       whois
+      nvd
     ];
 
     shellAliases = {
       n = "nix";
     };
+  };
+
+  # Show what changed on every switch/test
+  system.activationScripts.diff = {
+    supportsDryActivation = true;
+    text = ''
+      if [[ -e /run/current-system ]]; then
+        ${pkgs.nvd}/bin/nvd --nix-bin-dir=${config.nix.package}/bin diff /run/current-system "$systemConfig"
+      fi
+    '';
   };
 
   # Avoid running out of space on /boot
